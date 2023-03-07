@@ -24,8 +24,7 @@ import AssessmentEdit from '../Assessment/AssessmentEdit/AssessmentEdit';
 import AssessmentAnswers from '../Assessment/AssessmentAnswers/AssessmentAnswers';
 import AssessmentReview from '../Assessment/AssessmentReview/AssessmentReview';
 
-import bootstrap from 'bootstrap';
-
+import 'bootstrap';
 import './App.css';
 
 function App() {
