@@ -14,11 +14,19 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
 import ClientOverview from '../ClientOverview/ClientOverview';
+import ClientPresentation from '../ClientDeliverables/ClientPresentation/ClientPresentation';
+import ClientReport from '../ClientDeliverables/ClientReport/ClientReport';
 import Dashboard from '../Dashboard/Dashboard';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import AllClients from '../AllClients/AllClients';
+import AssessmentForm from '../Assessment/AssessmentForm/AssessmentForm';
+import AssessmentEdit from '../Assessment/AssessmentEdit/AssessmentEdit';
+import AssessmentAnswers from '../Assessment/AssessmentAnswers/AssessmentAnswers';
+import AssessmentReview from '../Assessment/AssessmentReview/AssessmentReview';
+
+
 
 import './App.css';
 
@@ -52,13 +60,6 @@ function App() {
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
-          <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
-            exact
-            path="/user"
-          >
-            <UserPage />
-          </ProtectedRoute>
 
           <ProtectedRoute
             // logged in shows ClientOverview else shows LoginPage
@@ -66,6 +67,22 @@ function App() {
             path="/client-overview"
           >
             <ClientOverview />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows ClientPresentation else shows LoginPage
+            exact
+            path="/client-presentation"
+          >
+            <ClientPresentation />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows ClientReport else shows LoginPage
+            exact
+            path="/client-report"
+          >
+            <ClientReport />
           </ProtectedRoute>
 
           <Route
@@ -109,6 +126,47 @@ function App() {
               <Dashboard />
             }
           </Route>
+
+          <ProtectedRoute
+            // logged in shows AllClients else shows LoginPage
+            exact
+            path="/all-clients"
+          >
+            <AllClients />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows the Assessment Form page else shows LoginPage
+            exact
+            path="/assessment-form"
+          >
+            <AssessmentForm />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows the Assessment Edit page else shows LoginPage
+            exact
+            path="/assessment-edit"
+          >
+            <AssessmentEdit />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows the Assessment Answers page else shows LoginPage
+            exact
+            path="/assessment-answers"
+          >
+            <AssessmentAnswers />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows the Assessment Review page else shows LoginPage
+            exact
+            path="/assessment-review"
+          >
+            <AssessmentReview />
+          </ProtectedRoute>
+
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
