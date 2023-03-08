@@ -6,6 +6,7 @@ const router = express.Router();
 router.get('/', rejectUnauthenticated, (req, res) => {
     pool.query(`
     SELECT 
+        "assessment_id",
         "buckets"."name" AS "bucket_name",
         "assessment_items"."level_rating", 
         "assessment_items"."phase",

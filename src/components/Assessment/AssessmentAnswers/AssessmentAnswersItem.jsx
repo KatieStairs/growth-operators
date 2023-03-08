@@ -1,8 +1,11 @@
-function AssessmentAnswersItem ({ answers }) {
+import React, { useState, useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+function AssessmentAnswersItem({ answers }) {
 
 
-
-    return (
+return (
 <div className="accordion" id="accordionExample">
 <div className="accordion-item">
     <h2 className="accordion-header" id="headingOne">
@@ -44,7 +47,7 @@ function AssessmentAnswersItem ({ answers }) {
     </div> 
 </div> */}
 </div>
-    )
+)
 }
 
 export default AssessmentAnswersItem;

@@ -10,7 +10,8 @@ function* getAssessmentAnswers() {
         yield put({
             type: 'SET_ASSESSMENT_ANSWERS',
             payload: response.data
-        })
+        }) 
+        console.log('sdkfjhsd', response.data)
     } catch (error) {
         console.log('SAGA/ GET assessment answers fail', error);
     }
