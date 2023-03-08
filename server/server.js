@@ -9,7 +9,8 @@ const passport = require('./strategies/user.strategy');
 
 // Route includes
 const userRouter = require('./routes/user.router');
-const assessmentItemRouter = require('./routes/assessment.item.router')
+const assessmentStructureRouter = require('./routes/assessment.structure.router');
+const assessmentItemRouter = require('./routes/assessment.item.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -24,7 +25,9 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
-app.use('/api/assessment-items', assessmentItemRouter);
+app.use('/buckets', assessmentStructureRouter);
+app.use('/assessment', assessmentItemRouter);
+
 
 // Serve static files
 app.use(express.static('build'));
