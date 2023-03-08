@@ -122,7 +122,6 @@ function App() {
               // Otherwise, show the Landing page
               <Dashboard />
             }
-          </Route> */}
 
           <ProtectedRoute
             // logged in shows AllClients else shows LoginPage
