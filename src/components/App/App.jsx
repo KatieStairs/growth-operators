@@ -129,7 +129,7 @@ function App() {
             path="/all-clients"
           >
             {/* <AllClients /> */}
-          </ProtectedRoute>
+          {/* </ProtectedRoute> */}
 
           <ProtectedRoute
             // logged in shows the Assessment Form page else shows LoginPage
