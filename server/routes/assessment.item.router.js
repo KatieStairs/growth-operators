@@ -24,7 +24,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
         JOIN "subfunctions" ON "subfunction_id" = "subfunctions"."id"
         JOIN "tags_assessment_items" ON "assessment_items"."id" = "tags_assessment_items"."assessment_item_id"
         JOIN "tags" ON "tags_assessment_items"."assessment_item_id" = "tags"."id"
-        WHERE "client_id" = $1;
+        WHERE "assessment_id" = $1;
     `
     const sqlValues = [idOfAssessment];
     pool.query(sqlText, sqlValues)
