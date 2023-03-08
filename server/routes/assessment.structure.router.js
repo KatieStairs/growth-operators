@@ -8,13 +8,13 @@ const {
 
 
 /** ---------- GET USER ID/AUTHENTICATE ---------- **/
-// router.get('/profile/:id', rejectUnauthenticated, (req, res) => {
-//   res.send(req.user);
-// });
+router.get('/profile/:id', rejectUnauthenticated, (req, res) => {
+  res.send(req.user);
+});
 
 /** ---------- GET ALL BUCKETS ---------- **/
 router.get('/', rejectUnauthenticated, (req, res) => {
-  console.log('Req.body: ', req.body);
+  // console.log('Req.body: ', req.body);
   const sqlQuery =`
   SELECT 
     "name", 
@@ -24,7 +24,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   ORDER BY "bucket_index" ASC;`;
   pool.query(sqlQuery)
   .then((results) => {
-    console.log('Success in GET /buckets! Results.rows: ', results.rows);
+    // console.log('Success in GET /buckets! Results.rows: ', results.rows);
     res.send(results.rows);
   })
   .catch((error) => {
@@ -35,7 +35,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 /** ---------- GET FUNCTIONS BY BUCKET ID ---------- **/
 router.get('/:id/functions', rejectUnauthenticated, (req, res) => {
-  console.log('Req.params: ', req.params);
+  // console.log('Req.params: ', req.params);
   const sqlQuery =`
   SELECT 
     "functions"."name", 
@@ -49,7 +49,7 @@ router.get('/:id/functions', rejectUnauthenticated, (req, res) => {
   const sqlValues = [req.params.id];
   pool.query(sqlQuery, sqlValues)
   .then((results) => {
-    console.log('Success in GET /buckets/:id/functions! Results.rows: ', results.rows);
+    // console.log('Success in GET /buckets/:id/functions! Results.rows: ', results.rows);
     res.send(results.rows);
   })
   .catch((error) => {
@@ -60,7 +60,7 @@ router.get('/:id/functions', rejectUnauthenticated, (req, res) => {
 
 /** ---------- GET SUBFUNCTIONS BY FUNCTION ID ---------- **/
 router.get('/functions/:id/subfunctions', rejectUnauthenticated, (req, res) => {
-  console.log('Req.params: ', req.params);
+  // console.log('Req.params: ', req.params);
   const sqlQuery =`
   SELECT 
     "subfunctions"."name", 
@@ -80,7 +80,7 @@ router.get('/functions/:id/subfunctions', rejectUnauthenticated, (req, res) => {
   const sqlValues = [req.params.id];
   pool.query(sqlQuery, sqlValues)
   .then((results) => {
-    console.log('Success in GET /functions/:id/subfunctions! Results.rows: ', results.rows);
+    // console.log('Success in GET /functions/:id/subfunctions! Results.rows: ', results.rows);
     res.send(results.rows);
   })
   .catch((error) => {
