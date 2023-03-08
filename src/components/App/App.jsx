@@ -50,7 +50,7 @@ function App() {
             exact
             path="/about"
           >
-            <AboutPage />
+            {/* <AboutPage /> */}
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.
@@ -63,7 +63,7 @@ function App() {
             exact
             path="/client-overview"
           >
-            <ClientOverview />
+            {/* <ClientOverview /> */}
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -71,7 +71,7 @@ function App() {
             exact
             path="/client-presentation"
           >
-            <ClientPresentation />
+            {/* <ClientPresentation /> */}
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -79,7 +79,7 @@ function App() {
             exact
             path="/client-report"
           >
-            <ClientReport />
+            {/* <ClientReport /> */}
           </ProtectedRoute>
 
           <Route
@@ -109,7 +109,7 @@ function App() {
               <RegisterPage />
             }
           </Route>
-
+{/* 
           <Route
             exact
             path="/dashboard"
@@ -122,15 +122,13 @@ function App() {
               // Otherwise, show the Landing page
               <Dashboard />
             }
-            <Dashboard />
-          </Route>
 
           <ProtectedRoute
             // logged in shows AllClients else shows LoginPage
             exact
             path="/all-clients"
           >
-            <AllClients />
+            {/* <AllClients /> */}
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -138,7 +136,7 @@ function App() {
             exact
             path="/assessment-form"
           >
-            <AssessmentForm />
+            {/* <AssessmentForm /> */}
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -146,7 +144,7 @@ function App() {
             exact
             path="/assessment-edit"
           >
-            <AssessmentEdit />
+            {/* <AssessmentEdit /> */}
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -162,7 +160,7 @@ function App() {
             exact
             path="/assessment-review"
           >
-            <AssessmentReview />
+            {/* <AssessmentReview /> */}
           </ProtectedRoute>
 
 

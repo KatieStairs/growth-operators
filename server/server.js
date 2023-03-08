@@ -28,6 +28,7 @@ app.use('/api/user', userRouter);
 app.use('/buckets', assessmentStructureRouter);
 app.use('/assessment', assessmentItemRouter);
 
+
 // Serve static files
 app.use(express.static('build'));
 
