@@ -122,6 +122,7 @@ function App() {
               // Otherwise, show the Landing page
               <Dashboard />
             }
+            <Dashboard />
           </Route>
 
           <ProtectedRoute
