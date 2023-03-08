@@ -51,6 +51,23 @@ router.get('/:id/functions', rejectUnauthenticated, (req, res) => {
 });
 
 /** ---------- GET SUBFUNCTIONS BY FUNCTION ID ---------- **/
-
+router.get('/functions/:id/subfunctions', rejectUnauthenticated, (req, res) => {
+  console.log('Req.params: ', req.params);
+  const sqlQuery =`
+  SELECT "name", "subfunction_index", "level_rating_criteria"
+  FROM "subfunctions"
+  WHERE "function_id"=$1
+  ORDER BY "subfunction_index" ASC;`;
+  const sqlValues = [req.params.id];
+  pool.query(sqlQuery, sqlValues)
+  .then((results) => {
+    console.log('Success in GET /functions/:id/subfunctions! Results.rows: ', results.rows);
+    res.send(results.rows);
+  })
+  .catch((error) => {
+    console.log('Error in GET /functions/:id/subfunctions: ', error);
+    res.sendStatus(500);
+  })
+});
 
 module.exports = router;
