@@ -15,9 +15,9 @@ function AssessmentAnswers() {
     }, []);
 
     const goToEditPage = () => {
-        history.push(`/assessment-edit/${assessmentAnswersById.assessment_id}`)
+        history.push(`/assessment-edit/1`)
     }
-
+    // ${assessmentAnswersById.assessment_id}
     const goToOverviewPage = () => {
         history.push(`/client-overview/${assessmentAnswersById.assessment_id}`)
     }
@@ -25,6 +25,7 @@ function AssessmentAnswers() {
     return (
         <>
         <h1>{assessmentAnswersById.company_name} Assessment Answers</h1>
+        <h2>{assessmentAnswersById.bucket_name || ''} - Review & Submit</h2>
         <h4>Bucket Function Subfunction Level Phase Tags</h4>
         <div>
             {/* {assessmentAnswersById.map((answers) => {
