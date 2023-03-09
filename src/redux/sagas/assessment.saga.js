@@ -1,6 +1,7 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
+// function to get all assessment answers
 function* getAssessmentAnswers() {
     try{
         const response = yield axios({
@@ -11,12 +12,12 @@ function* getAssessmentAnswers() {
             type: 'SET_ASSESSMENT_ANSWERS',
             payload: response.data
         }) 
-        console.log('sdkfjhsd', response.data)
-    } catch (error) {
-        console.log('SAGA/ GET assessment answers fail', error);
+        } catch (error) {
+            console.log('SAGA/ GET assessment answers fail', error);
     }
 };
 
+// function to get all assessment answers by id
 function* getAssessmentAnswersById(action) {
     const idOfAssessment = action.payload;
     console.log('SAGA/ assessment by id', idOfAssessment)
@@ -29,8 +30,8 @@ function* getAssessmentAnswersById(action) {
             type: 'SET_ASSESSMENT_ANSWERS_BY_ID',
             payload: response.data
         })
-    } catch (error) {
-        console.log('SAGA/ GET AA by id failed', error)
+        } catch (error) {
+            console.log('SAGA/ GET AA by id failed', error)
     }
 }
 

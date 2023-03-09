@@ -1,8 +1,9 @@
 
-const assessmentAnswersById = (state = {}, action) => {
+// assessment answers by id reducer
+const assessmentAnswersById = (state = [], action) => {
     if (action.type === 'SET_ASSESSMENT_ANSWERS_BY_ID') {
         return action.payload;
-    }
+    }     
     return state;
 }
 
