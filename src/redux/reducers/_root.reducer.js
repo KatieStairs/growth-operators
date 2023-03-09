@@ -16,9 +16,8 @@ import structure from './assessment.structure.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
-  client, // will have all of the client information from the db
-  assessmentAnswersList,
-  assessmentAnswersById,
+  assessmentAnswersList, // contains all assessment answer data needed for All Assessment Asnwers page
+  assessmentAnswersById, // contains assessment answer data by the id of the assessment
   structure, // contains buckets, functions by bucket, subfunctions by function (as objects)
 });
 

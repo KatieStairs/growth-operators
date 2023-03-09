@@ -145,7 +145,7 @@ function App() {
             exact
             path="/assessment-edit"
           >
-            {/* <AssessmentEdit /> */}
+            <AssessmentEdit />
           </ProtectedRoute>
 
           <ProtectedRoute
