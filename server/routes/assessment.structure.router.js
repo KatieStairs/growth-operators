@@ -78,6 +78,7 @@ router.get('/functions/:id/subfunctions', rejectUnauthenticated, (req, res) => {
   // console.log('Req.params: ', req.params);
   const sqlQuery =`
   SELECT 
+    "subfunctions"."id", 
     "subfunctions"."name", 
     "subfunctions"."subfunction_index", 
     "subfunctions"."level_criteria_strong",

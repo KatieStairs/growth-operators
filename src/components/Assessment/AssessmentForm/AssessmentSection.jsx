@@ -12,7 +12,7 @@ function AssessmentSection ({subfunctionsArray}) {
     <div>
       {subfunctionsArray.map((subfunction) => {
         return (
-          <>
+          <div key={subfunction.id}>
           <h5>{subfunction.name}</h5>
           <div>
             <h6>Level Rating</h6>
@@ -52,7 +52,7 @@ function AssessmentSection ({subfunctionsArray}) {
             {/* CHECKBOX INPUT HERE */}
           </div>
           
-          </>
+          </div>
         )
       })}
     </div>

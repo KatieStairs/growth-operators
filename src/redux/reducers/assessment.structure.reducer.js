@@ -35,7 +35,7 @@ const subfunctionsReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_SUBFUNCTIONS_BY_FUNCTION':
       return action.payload; 
-      // returns name, subfunction_index, level_criteria_strong,
+      // returns id, name, subfunction_index, level_criteria_strong,
       // level_criteria_adequate, level_criteria_weak from 
       // "subfuctions"; function_name, function_index from 
       // "functions"; bucket_name, bucket_index from "buckets"
