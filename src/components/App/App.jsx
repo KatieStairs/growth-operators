@@ -34,6 +34,7 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
+    dispatch({ type: 'SAGA/GET_ALL_CLIENTS' });
   }, [dispatch]);
 
   return (
