@@ -6,6 +6,4 @@ const assessmentAnswersById = (state = {}, action) => {
     return state;
 }
 
-
-
 export default assessmentAnswersById;

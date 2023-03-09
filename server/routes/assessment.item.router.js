@@ -23,16 +23,28 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     JOIN "functions" ON "function_id" = "functions"."id"
     JOIN "subfunctions" ON "subfunction_id" = "subfunctions"."id"
     JOIN "tags_assessment_items" ON "assessment_items"."id" = "tags_assessment_items"."assessment_item_id"
-    JOIN "tags" ON "tags_assessment_items"."assessment_item_id" = "tags"."id";
-      `).then((result) => {
-      res.send(result.rows);
+    JOIN "tags" ON "tags_assessment_items"."assessment_item_id" = "tags"."id"
+    GROUP BY 
+    "assessment_id",
+    "buckets"."name",
+    "assessment_items"."level_rating",
+    "assessment_items"."phase",
+    "functions"."name",
+    "subfunctions"."name",
+    "tags"."name",
+    "assessment_items"."findings",
+    "assessment_items"."impact",
+    "assessment_items"."recommendations";
+    `).then((result) => {
+    res.send(result.rows);
+    console.log(result.rows);
     }).catch((error) => {
-      console.log('Error in GET * assessment answers', error)
-      res.sendStatus(500);
+    console.log('Error in GET * assessment answers', error)
+    res.sendStatus(500);
     });
-  });
+});
 
-// Should this be by assessment ID?
+
 /** ---------- GET ASSESSMENT BY CLIENT ID ---------- **/
 
 router.get('/:id', rejectUnauthenticated, (req, res) => {

@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function AssessmentAnswersItem({ answers }) {
 
-
 return (
 <div className="accordion" id="accordionExample">
 <div className="accordion-item">
