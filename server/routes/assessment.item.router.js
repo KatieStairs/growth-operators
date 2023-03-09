@@ -3,8 +3,50 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const pool = require('../modules/pool');
 const router = express.Router();
 
-// Should this be by assessment ID?
+
+router.get('/', rejectUnauthenticated, (req, res) => {
+    pool.query(`
+    SELECT 
+        "assessment_id",
+        "buckets"."name" AS "bucket_name",
+        "assessment_items"."level_rating", 
+        "assessment_items"."phase",
+        "functions"."name" AS "function_name",
+        "subfunctions"."name" AS "subfunction_name",
+        "tags"."name" AS "tag_name",
+        "findings",
+        "impact",
+        "recommendations"
+    FROM "assessment_items" 
+    JOIN "client_assessments" ON "client_id" = "client_assessments"."client_id"
+    JOIN "buckets" ON "bucket_id" = "buckets"."id"
+    JOIN "functions" ON "function_id" = "functions"."id"
+    JOIN "subfunctions" ON "subfunction_id" = "subfunctions"."id"
+    JOIN "tags_assessment_items" ON "assessment_items"."id" = "tags_assessment_items"."assessment_item_id"
+    JOIN "tags" ON "tags_assessment_items"."assessment_item_id" = "tags"."id"
+    GROUP BY 
+    "assessment_id",
+    "buckets"."name",
+    "assessment_items"."level_rating",
+    "assessment_items"."phase",
+    "functions"."name",
+    "subfunctions"."name",
+    "tags"."name",
+    "assessment_items"."findings",
+    "assessment_items"."impact",
+    "assessment_items"."recommendations";
+    `).then((result) => {
+    res.send(result.rows);
+    console.log(result.rows);
+    }).catch((error) => {
+    console.log('Error in GET * assessment answers', error)
+    res.sendStatus(500);
+    });
+});
+
+
 /** ---------- GET ASSESSMENT BY CLIENT ID ---------- **/
+
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     const idOfAssessment = req.params.id;
     console.log('in GET by client_id', idOfAssessment)
@@ -26,7 +68,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
         JOIN "subfunctions" ON "subfunction_id" = "subfunctions"."id"
         JOIN "tags_assessment_items" ON "assessment_items"."id" = "tags_assessment_items"."assessment_item_id"
         JOIN "tags" ON "tags_assessment_items"."assessment_item_id" = "tags"."id"
-        WHERE "client_id" = $1;
+        WHERE "assessment_id" = $1;
     `
     const sqlValues = [idOfAssessment];
     pool.query(sqlText, sqlValues)
