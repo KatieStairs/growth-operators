@@ -8,55 +8,77 @@ function Nav() {
   const user = useSelector((store) => store.user);
 
   return (
-    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark">
-      <Link className="navLink" to="/user">Dashboard</Link>
-          <div class="dropdown">
-            <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown-menu" aria-expanded="false">
-              Assessment
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </div>
-      <h1>Assessment</h1>
-      <h1>All Clients</h1>
+    <div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-secondary" id="sidebar">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                    <span class="fs-5 d-none d-sm-inline">nextLevel</span>
+                </a>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a href="/dashboard" class="nav-link align-middle px-0 text-dark">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-dark">
+                            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Assessments</span> </a>
+                        <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                            <li class="w-100">
+                                <a href="assessment-form/1" class="nav-link px-0 text-dark"> <span class="d-none d-sm-inline">- Organizational Effectiveness</span></a>
+                            </li>
+                            <li>
+                                <a href="assessment-form/2" class="nav-link px-0 text-dark"> <span class="d-none d-sm-inline">- Employee Engagement</span></a>
+                            </li>
+                            <li>
+                                <a href="assessment-form/3" class="nav-link px-0 text-dark"> <span class="d-none d-sm-inline">- Training & Development</span></a>
+                            </li>
+                            <li>
+                                <a href="assessment-form/4" class="nav-link px-0 text-dark"> <span class="d-none d-sm-inline">- Benefits & Compensation</span></a>
+                            </li>
+                            <li>
+                                <a href="assessment-form/5" class="nav-link px-0 text-dark"> <span class="d-none d-sm-inline">- Recruiting & Staffing</span></a>
+                            </li>
+                            <li>
+                                <a href="assessment-form/6" class="nav-link px-0 text-dark"> <span class="d-none d-sm-inline">- HRIS, Payroll & Compliance</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/all-clients" class="nav-link px-0 align-middle text-dark">
+                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">All Clients</span></a>
+                    </li>
+                </ul>
+                <hr></hr>
+                {
+                // This is code for a user avatar and dropdown for user settings if we want to use it
+
+                /* <div class="dropdown pb-4">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="d-none d-sm-inline mx-1">Malik Ibrahim</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                        <li><a class="dropdown-item" href="#">New project...</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider"></hr>
+                        </li>
+                        <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    </ul>
+                </div> */}
+            </div>
+        </div>
+        {
+        //This part may have to be in other other pages and content should go where it says "Content Area"
+
+        /* <div class="col py-3">
+          <button data-bs-toggle="collapse" data-bs-target="#sidebar">Toggle Menu</button>
+            Content area...
+        </div> */}
     </div>
-
-    // <div className="nav">
-    //   <Link to="/home">
-    //     <h2 className="nav-title">nextLevel</h2>
-    //   </Link>
-    //   <div>
-    //     {/* If no user is logged in, show these links */}
-    //     {!user.id && (
-    //       // If there's no user, show login/registration links
-    //       <Link className="navLink" to="/login">
-    //         Login / Register
-    //       </Link>
-    //     )}
-
-    //     {/* If a user is logged in, show these links */}
-    //     {user.id && (
-    //       <>
-    //         <Link className="navLink" to="/user">
-    //           Home
-    //         </Link>
-
-    //         <Link className="navLink" to="/info">
-    //           Info Page
-    //         </Link>
-
-    //         <LogOutButton className="navLink" />
-    //       </>
-    //     )}
-
-    //     <Link className="navLink" to="/about">
-    //       About
-    //     </Link>
-    //   </div>
-    // </div>
+</div>
   );
 }
 
