@@ -5,22 +5,25 @@ import AssessmentAnswersItem from './AssessmentAnswersItem'
 
 function AssessmentAnswers() {
     const dispatch = useDispatch();
-    const assessmentAnswers = useSelector((store) => store.assessmentAnswers);
+    const assessmentAnswersList = useSelector(store => store.assessmentAnswersList);
 
     useEffect(() => {
-        console.log('assessmentAnswers=', assessmentAnswers)
         dispatch({
             type: 'SAGA/GET_ASSESSMENT_ANSWERS'
         })
     }, []);
 
+    console.log('***********', assessmentAnswersList)
+
   return (
     <>
     <h1>Test Corp Assessment Answers</h1>
-    <h3>Bucket Function Subfunction Level Phase Tags</h3>
-    {assessmentAnswers.map((answers) => {
-        return <AssessmentAnswersItem key={answers.client_id} answers={answers} />
-    })}
+    <h4>Bucket Function Subfunction Level Phase Tags</h4>
+    <div>
+        {assessmentAnswersList.map((answers) => {
+                return <AssessmentAnswersItem key={answers.assessment_id} answers={answers}/>
+            })}
+    </div>
     </>
 )
 };

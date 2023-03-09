@@ -34,6 +34,7 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
+    dispatch({ type: 'SAGA/GET_ALL_CLIENTS' });
   }, [dispatch]);
 
   return (
@@ -163,6 +164,9 @@ function App() {
             {/* <AssessmentReview /> */}
           </ProtectedRoute>
 
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
