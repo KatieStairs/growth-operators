@@ -7,8 +7,8 @@ function AllClients() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: 'SAGA/GET_ALL_CLIENTS' })
-  }, []);
+    
+  }, [dispatch]);
 
   return (
     <>
@@ -19,8 +19,9 @@ function AllClients() {
         <thead>
           <tr>
             <th scope="col">Client Name</th>
-            <th scope="col">Contact Name</th>
-            <th scope="col">Contact Email</th>
+            <th scope="col">Engagement Start</th>
+            <th scope="col">Status</th>
+            <th scope="col">Operators</th>
             <th scope="col">Archive</th>
             <th scope="col">See Details</th>
             <th scope="col">Edit</th> {/*Modal?*/}
@@ -28,12 +29,12 @@ function AllClients() {
           </tr>
         </thead>
         <tbody>
-        {clients.map(client => {
+        {clients.map((client, i) => {
           return (
             <tr key={client.id}>
               <th scope="row">{client.company_name}</th>
-              <td>{client.contact_name}</td>
-              <td>{client.contact_email}</td>
+              <td>Engagement start date</td>
+              <td>Assessment status</td>
               <td><button>Archive</button></td>
               <td><button>See Details</button></td>
               <td><button>Edit</button></td>
