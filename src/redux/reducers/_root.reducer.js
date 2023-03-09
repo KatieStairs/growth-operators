@@ -4,6 +4,7 @@ import user from './user.reducer';
 import assessmentAnswersList from './assessment.list.reducer';
 import assessmentAnswersById from './assessment.item.reducer';
 import structure from './assessment.structure.reducer';
+import clientDashboard from './client.reducer';
 
 
 // rootReducer is the primary reducer for our entire project
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   assessmentAnswersList,
   assessmentAnswersById,
   structure, // contains buckets, functions by bucket, subfunctions by function (as objects)
+  clientDashboard // contains all info needed for the dashboard
 });
 
 export default rootReducer;
