@@ -193,6 +193,24 @@ ALTER COLUMN "subfunction_index" TYPE INTEGER USING subfunction_index::integer;
 ALTER TABLE "subfunctions"
 DROP COLUMN "substring_name";
 
+ALTER TABLE "subfunctions"
+ADD "level_criteria_strong" VARCHAR;
+
+ALTER TABLE "subfunctions"
+ADD "level_criteria_adequate" VARCHAR;
+
+ALTER TABLE "subfunctions"
+ADD "level_criteria_weak" VARCHAR;
+
+UPDATE "subfunctions"
+SET "level_criteria_strong" = SPLIT_PART("level_rating_criteria", 'Adequate', 1);
+
+UPDATE "subfunctions"
+SET "level_criteria_adequate" = CONCAT('Adequate', SPLIT_PART("level_rating_criteria", 'Adequate', 2));
+
+UPDATE "subfunctions"
+SET "level_criteria_weak" = CONCAT('Weak', SPLIT_PART("level_rating_criteria", 'Weak', 2));
+
 CREATE TABLE "buckets_headlines" (
 	"id" SERIAL PRIMARY KEY,
 	"assessment_id" INTEGER REFERENCES "client_assessments",

@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
+import client from './client.reducer'
 import assessmentAnswersList from './assessment.list.reducer';
 import assessmentAnswersById from './assessment.item.reducer';
 import structure from './assessment.structure.reducer';

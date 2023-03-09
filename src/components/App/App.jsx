@@ -34,6 +34,7 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
+    dispatch({ type: 'SAGA/GET_ALL_CLIENTS' });
   }, [dispatch]);
 
   return (
@@ -134,9 +135,9 @@ function App() {
           <ProtectedRoute
             // logged in shows the Assessment Form page else shows LoginPage
             exact
-            path="/assessment-form"
+            path="/assessment-form/:bucket_id/:function_id"
           >
-            {/* <AssessmentForm /> */}
+            <AssessmentForm />
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -168,9 +169,9 @@ function App() {
           </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}
-          <Route>
+          {/* <Route>
             <h1>404</h1>
-          </Route>
+          </Route> */}
         </Switch>
         <Footer />
       </div>
