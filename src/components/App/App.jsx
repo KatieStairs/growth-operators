@@ -129,7 +129,7 @@ function App() {
             path="/all-clients"
           >
             {/* <AllClients /> */}
-          </ProtectedRoute>
+          {/* </ProtectedRoute> */}
 
           <ProtectedRoute
             // logged in shows the Assessment Form page else shows LoginPage
@@ -163,6 +163,9 @@ function App() {
             {/* <AssessmentReview /> */}
           </ProtectedRoute>
 
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>

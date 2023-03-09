@@ -5,12 +5,13 @@ function* getAssessmentAnswers() {
     try{
         const response = yield axios({
             method: 'GET',
-            url: '/api/assessment-items'
+            url: '/assessment'
         })
         yield put({
             type: 'SET_ASSESSMENT_ANSWERS',
             payload: response.data
-        })
+        }) 
+        console.log('sdkfjhsd', response.data)
     } catch (error) {
         console.log('SAGA/ GET assessment answers fail', error);
     }
@@ -19,10 +20,10 @@ function* getAssessmentAnswers() {
 function* getAssessmentAnswersById(action) {
     const idOfAssessment = action.payload;
     console.log('SAGA/ assessment by id', idOfAssessment)
-   try{
+    try{
         const response = yield axios({
             method: 'GET',
-            url: `/api/assessment-items/${idOfAssessment}`
+            url: `/assessment/${idOfAssessment}`
         })
         yield put({
             type: 'SET_ASSESSMENT_ANSWERS_BY_ID',
