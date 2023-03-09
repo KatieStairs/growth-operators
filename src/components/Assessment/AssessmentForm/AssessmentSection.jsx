@@ -16,7 +16,9 @@ function AssessmentSection ({subfunctionsArray}) {
           <h5>{subfunction.name}</h5>
           <div>
             <h6>Level Rating</h6>
-            <p>{(subfunction.level_rating_criteria.split(""))}</p>
+            <p>{(subfunction.level_criteria_strong)}</p>
+            <p>{(subfunction.level_criteria_adequate)}</p>
+            <p>{(subfunction.level_criteria_weak)}</p>
             {/* LEVEL SCALE GOES HERE */}
           </div>
 

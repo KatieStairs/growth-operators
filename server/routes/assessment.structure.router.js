@@ -80,7 +80,9 @@ router.get('/functions/:id/subfunctions', rejectUnauthenticated, (req, res) => {
   SELECT 
     "subfunctions"."name", 
     "subfunctions"."subfunction_index", 
-    "subfunctions"."level_rating_criteria",
+    "subfunctions"."level_criteria_strong",
+    "subfunctions"."level_criteria_adequate",
+    "subfunctions"."level_criteria_weak",
     "functions"."name" AS "function_name",
     "functions"."function_index",
     "buckets"."name" AS "bucket_name",
