@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
+import client from './client.reducer'
 import structure from './assessment.structure.reducer';
 
 // rootReducer is the primary reducer for our entire project
@@ -12,6 +13,7 @@ import structure from './assessment.structure.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
+  client, // will have all of the client information from the db
   structure, // contains buckets, functions by bucket, subfunctions by function (as objects)
 });
 

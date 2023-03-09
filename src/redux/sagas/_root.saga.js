@@ -2,6 +2,7 @@ import { all } from 'redux-saga/effects';
 import loginSaga from './login.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
+import clientSaga from './client.saga';
 import structureSaga from './assessment.structure.saga';
 
 // rootSaga is the primary saga.
@@ -16,6 +17,7 @@ export default function* rootSaga() {
     loginSaga(), // login saga is now registered
     registrationSaga(),
     userSaga(),
+    clientSaga(),
     structureSaga(), // FETCH for buckets, functions by bucket, subfunctions by function
   ]);
 }

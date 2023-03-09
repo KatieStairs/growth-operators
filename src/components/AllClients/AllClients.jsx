@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
 
 function AllClients() {
-  const store = useSelector((store) => store);
-  const [heading, setHeading] = useState('Functional Component');
+  const clients = useSelector((store) => store.client.allClients);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({ type: 'SAGA/GET_ALL_CLIENTS' })
+  }, []);
 
   return (
     <>
@@ -15,9 +19,8 @@ function AllClients() {
         <thead>
           <tr>
             <th scope="col">Client Name</th>
-            <th scope="col">Engagement Start</th>
-            <th scope="col">Status</th>
-            <th scope="col">Operators</th>
+            <th scope="col">Contact Name</th>
+            <th scope="col">Contact Email</th>
             <th scope="col">Archive</th>
             <th scope="col">See Details</th>
             <th scope="col">Edit</th> {/*Modal?*/}
