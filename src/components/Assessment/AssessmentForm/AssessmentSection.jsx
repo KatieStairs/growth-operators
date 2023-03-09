@@ -2,60 +2,57 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from "react-router-dom";
 
-function AssessmentSection () {
-  // const dispatch = useDispatch();
-  // const params = useParams();
-  const structures = useSelector((store => store.structure))
-
-  console.log('Structures: ', structures);
-  console.log('Structures.subfunctionsReducer: ', structures.subfunctionsReducer);
+function AssessmentSection ({subfunctionsArray}) {
+  const structure = useSelector((store => store.structure))
+  const tags = structure.tagsReducer;
+  console.log('{subfunctionsArray}: ', subfunctionsArray);
 
   return (
     <>
     <div>
-      <h1> Test Company Assessment Form </h1>
-      <h2> {structures?.subfunctionsReducer[0].bucket_name} </h2>
-    </div>
-    <div>
-      <h3>{structures?.subfunctionsReducer[0].function_name}</h3>
-    </div>
-    <div>
-      {structures?.subfunctionsReducer.map((subfunction) => {
+      {subfunctionsArray.map((subfunction) => {
         return (
           <>
-          <h4>{subfunction.name}</h4>
-          <h5>Level Rating:</h5>
-          {/* RATING SCALE GOES HERE */}
-          <p>{subfunction.level_rating_criteria}</p>
+          <h5>{subfunction.name}</h5>
+          <div>
+            <h6>Level Rating</h6>
+            <p>{(subfunction.level_rating_criteria.split(""))}</p>
+            {/* LEVEL SCALE GOES HERE */}
+          </div>
 
-          <h5>Assessment Findings:</h5>
-          {/* TEXT INPUT HERE */}
+          <div>
+            <h6>Assessment Findings</h6>
+            {/* TEXT INPUT HERE */}
+          </div>
 
-          <h5>Impact:</h5>
-          {/* TEXT INPUT HERE */}
+          <div>
+            <h6>Impacts</h6>
+            {/* TEXT INPUT HERE */}
+          </div>
 
-          <h5>Recommendations:</h5>
-          {/* TEXT INPUT HERE */}
+          <div>
+            <h6>Recommendations</h6>
+            {/* TEXT INPUT HERE */}
+          </div>
 
-          <h5>Phase:</h5>
-          {/* DROPDOWN INPUT HERE */}
+          <div>
+            <h6>Phase</h6>
+            {/* DROPDOWN INPUT HERE */}
+          </div>
 
-          <h5>Tags:</h5>
-          <ul>
-          {structures?.tagReducer.map((tag) => {
-            return (
-
-                <li>{tag.name}</li>
-
-            )
-          })}
-          </ul>
-          {/* CHECKLIST INPUT HERE */}
+          <div>
+            <h6>Tags</h6>
+            <ul>
+            {tags.map((tag) => {
+              return <li key={tag.id}>{tag.name}</li>
+            })}
+            </ul>
+            {/* CHECKBOX INPUT HERE */}
+          </div>
+          
           </>
-
         )
       })}
-      <h4></h4>
     </div>
     </>
   )

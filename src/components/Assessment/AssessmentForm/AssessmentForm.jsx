@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useRouteMatch, Route, Switch, Link, BrowserRouter, useLocation } from "react-router-dom";
 
 import AssessmentPage from "./AssessmentPage";
-import AssessmentSection from "./AssessmentSection";
 
 function AssessmentForm () {
   const dispatch = useDispatch();
@@ -13,15 +12,15 @@ function AssessmentForm () {
   const functionsArray = structure.functionsReducer;
 
   useEffect(() => {   
-    // identifyBucket(); 
     dispatch({type: 'SAGA/FETCH_ALL_TAGS'});
     dispatch({type: 'SAGA/FETCH_ALL_BUCKETS'});
     dispatch({type: 'SAGA/FETCH_FUNCTIONS_BY_BUCKET', payload: params.bucket_id});
-    // dispatch({type: 'SAGA/FETCH_SUBFUNCTIONS_BY_FUNCTION', payload: params.function_id});
+    dispatch({type: 'SAGA/FETCH_SUBFUNCTIONS_BY_FUNCTION', payload: params.function_id});
   }, [])
 
   return (
     <>
+    <h1> Test Company Assessment Form </h1>
     {bucketsArray.map((bucket) => {
       if (Number(params.bucket_id) === bucket.id) {
         return (
