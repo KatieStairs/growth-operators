@@ -28,7 +28,7 @@ app.use(passport.session());
 
 app.use('/api/user', userRouter);
 app.use('/api/client', clientRouter);
-app.use('/buckets', assessmentStructureRouter);
+app.use('/structure', assessmentStructureRouter);
 app.use('/assessment', assessmentItemRouter);
 app.use('/assessment-item', assessmentItemRouter)
 
