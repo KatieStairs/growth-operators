@@ -25,7 +25,7 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
-app.use('/buckets', assessmentStructureRouter);
+app.use('/structure', assessmentStructureRouter);
 app.use('/assessment', assessmentItemRouter);
 
 

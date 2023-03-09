@@ -33,6 +33,7 @@ function* getAssessmentAnswersById(action) {
     }
 }
 
+// LAUREN NOTE TO SELF - figure out tags addition
 // function* saveAssessmentAnswers (action) {
 //     console.log('Action.payload in saveAssessmentAnswers: ', action.payload)
 //     try {

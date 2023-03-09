@@ -1,5 +1,15 @@
 import { combineReducers } from 'redux';
 
+const tagsReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_ALL_TAGS':
+      return action.payload; 
+      // returns name, id from "tags"
+    default:
+      return state;
+  }
+};
+
 const bucketsReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_ALL_BUCKETS':
@@ -34,6 +44,7 @@ const subfunctionsReducer = (state = [], action) => {
 };
 
 export default combineReducers({
+  tagsReducer,
   bucketsReducer,
   functionsReducer,
   subfunctionsReducer,

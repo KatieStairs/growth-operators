@@ -3,32 +3,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from "react-router-dom";
 
 function AssessmentSection () {
-  const dispatch = useDispatch();
-  const params = useParams();
+  // const dispatch = useDispatch();
+  // const params = useParams();
   const structures = useSelector((store => store.structure))
-  
-  useEffect(() => {
-    console.log('Params: ', params);
-    console.log('Params.id: ', params.id);
-    console.log('Structures: ', structures);
-    console.log('Structures.subfunctionsReducer: ', structures.subfunctionsReducer);
-    dispatch({
-      type: 'SAGA/FETCH_SUBFUNCTIONS_BY_FUNCTION',
-      payload: params.id
-    })
-  }, [])
+
+  console.log('Structures: ', structures);
+  console.log('Structures.subfunctionsReducer: ', structures.subfunctionsReducer);
 
   return (
     <>
     <div>
       <h1> Test Company Assessment Form </h1>
-      <h2> {structures.subfunctionsReducer[0].bucket_name} </h2>
+      <h2> {structures?.subfunctionsReducer[0].bucket_name} </h2>
     </div>
     <div>
-      <h3>{structures.subfunctionsReducer[0].function_name}</h3>
+      <h3>{structures?.subfunctionsReducer[0].function_name}</h3>
     </div>
     <div>
-      {structures.subfunctionsReducer.map((subfunction) => {
+      {structures?.subfunctionsReducer.map((subfunction) => {
         return (
           <>
           <h4>{subfunction.name}</h4>
@@ -49,6 +41,15 @@ function AssessmentSection () {
           {/* DROPDOWN INPUT HERE */}
 
           <h5>Tags:</h5>
+          <ul>
+          {structures?.tagReducer.map((tag) => {
+            return (
+
+                <li>{tag.name}</li>
+
+            )
+          })}
+          </ul>
           {/* CHECKLIST INPUT HERE */}
           </>
 

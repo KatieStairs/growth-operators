@@ -134,7 +134,7 @@ function App() {
           <ProtectedRoute
             // logged in shows the Assessment Form page else shows LoginPage
             exact
-            path="/assessment-form/:id"
+            path="/assessment-form/:bucket_id/:function_id"
           >
             <AssessmentForm />
           </ProtectedRoute>
