@@ -13,7 +13,7 @@ function* fetchBuckets () {
   }
 }
 
-function* fetchFunctionsByBucket () {
+function* fetchFunctionsByBucket (action) {
   try {
     const response = yield axios.get(`/buckets/${action.payload}/functions`)
     yield put({
@@ -25,7 +25,7 @@ function* fetchFunctionsByBucket () {
   }
 }
 
-function* fetchSubfunctionsByFunction () {
+function* fetchSubfunctionsByFunction (action) {
   try {
     const response = yield axios.get(`/buckets/functions/${action.payload}/subfunctions`)
     yield put({

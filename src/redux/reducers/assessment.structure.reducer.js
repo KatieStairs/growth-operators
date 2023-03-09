@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-const bucketsReducer = (state = {}, action) => {
+const bucketsReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_ALL_BUCKETS':
       return action.payload; 
@@ -10,7 +10,7 @@ const bucketsReducer = (state = {}, action) => {
   }
 };
 
-const functionsReducer = (state = {}, action) => {
+const functionsReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_FUNCTIONS_BY_BUCKET':
       return action.payload;
@@ -21,7 +21,7 @@ const functionsReducer = (state = {}, action) => {
   }
 };
 
-const subfunctionsReducer = (state = {}, action) => {
+const subfunctionsReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_SUBFUNCTIONS_BY_FUNCTION':
       return action.payload; 
