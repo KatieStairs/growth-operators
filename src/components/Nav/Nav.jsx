@@ -26,22 +26,22 @@ function Nav() {
                             <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Assessments</span> </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="#" class="nav-link px-0 text-dark"> <span class="d-none d-sm-inline">- Organizational Design</span></a>
+                                <a href="assessment-form/1" class="nav-link px-0 text-dark"> <span class="d-none d-sm-inline">- Organizational Effectiveness</span></a>
                             </li>
                             <li>
-                                <a href="#" class="nav-link px-0 text-dark"> <span class="d-none d-sm-inline">- Employee Engagement</span></a>
+                                <a href="assessment-form/2" class="nav-link px-0 text-dark"> <span class="d-none d-sm-inline">- Employee Engagement</span></a>
                             </li>
                             <li>
-                                <a href="#" class="nav-link px-0 text-dark"> <span class="d-none d-sm-inline">- Training & Development</span></a>
+                                <a href="assessment-form/3" class="nav-link px-0 text-dark"> <span class="d-none d-sm-inline">- Training & Development</span></a>
                             </li>
                             <li>
-                                <a href="#" class="nav-link px-0 text-dark"> <span class="d-none d-sm-inline">- Benefits & Compensation</span></a>
+                                <a href="assessment-form/4" class="nav-link px-0 text-dark"> <span class="d-none d-sm-inline">- Benefits & Compensation</span></a>
                             </li>
                             <li>
-                                <a href="#" class="nav-link px-0 text-dark"> <span class="d-none d-sm-inline">- Recruiting & Staffing</span></a>
+                                <a href="assessment-form/5" class="nav-link px-0 text-dark"> <span class="d-none d-sm-inline">- Recruiting & Staffing</span></a>
                             </li>
                             <li>
-                                <a href="#" class="nav-link px-0 text-dark"> <span class="d-none d-sm-inline">- HRIS, Payroll & Compliance</span></a>
+                                <a href="assessment-form/6" class="nav-link px-0 text-dark"> <span class="d-none d-sm-inline">- HRIS, Payroll & Compliance</span></a>
                             </li>
                         </ul>
                     </li>
@@ -67,10 +67,13 @@ function Nav() {
                 </div> */}
             </div>
         </div>
-        <div class="col py-3">
+        {
+        //This part may have to be in other other pages and content should go where it says "Content Area"
+
+        /* <div class="col py-3">
           <button data-bs-toggle="collapse" data-bs-target="#sidebar">Toggle Menu</button>
             Content area...
-        </div>
+        </div> */}
     </div>
 </div>
   );
