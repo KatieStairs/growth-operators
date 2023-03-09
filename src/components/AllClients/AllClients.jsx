@@ -28,24 +28,19 @@ function AllClients() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
+        {clients.map(client => {
+          return (
+            <tr key={client.id}>
+              <th scope="row">{client.company_name}</th>
+              <td>{client.contact_name}</td>
+              <td>{client.contact_email}</td>
+              <td><button>Archive</button></td>
+              <td><button>See Details</button></td>
+              <td><button>Edit</button></td>
+              <td><button>Delete</button></td>
+            </tr>
+          )
+        })}
         </tbody>
       </table>
     </>
