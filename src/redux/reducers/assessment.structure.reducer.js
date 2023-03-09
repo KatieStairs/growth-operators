@@ -1,6 +1,16 @@
 import { combineReducers } from 'redux';
 
-const bucketsReducer = (state = {}, action) => {
+const tagsReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_ALL_TAGS':
+      return action.payload; 
+      // returns name, id from "tags"
+    default:
+      return state;
+  }
+};
+
+const bucketsReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_ALL_BUCKETS':
       return action.payload; 
@@ -10,7 +20,7 @@ const bucketsReducer = (state = {}, action) => {
   }
 };
 
-const functionsReducer = (state = {}, action) => {
+const functionsReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_FUNCTIONS_BY_BUCKET':
       return action.payload;
@@ -21,12 +31,13 @@ const functionsReducer = (state = {}, action) => {
   }
 };
 
-const subfunctionsReducer = (state = {}, action) => {
+const subfunctionsReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_SUBFUNCTIONS_BY_FUNCTION':
       return action.payload; 
-      // returns name, subfunction_index, level_rating_criteria 
-      // from "subfuctions"; function_name, function_index from 
+      // returns id, name, subfunction_index, level_criteria_strong,
+      // level_criteria_adequate, level_criteria_weak from 
+      // "subfuctions"; function_name, function_index from 
       // "functions"; bucket_name, bucket_index from "buckets"
     default:
       return state;
@@ -34,6 +45,7 @@ const subfunctionsReducer = (state = {}, action) => {
 };
 
 export default combineReducers({
+  tagsReducer,
   bucketsReducer,
   functionsReducer,
   subfunctionsReducer,

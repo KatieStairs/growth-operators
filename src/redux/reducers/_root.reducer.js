@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
+import client from './client.reducer'
 import assessmentAnswersList from './assessment.list.reducer';
 import assessmentAnswersById from './assessment.item.reducer';
 import structure from './assessment.structure.reducer';
@@ -16,8 +17,8 @@ import clientDashboard from './client.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
-  assessmentAnswersList,
-  assessmentAnswersById,
+  assessmentAnswersList, // contains all assessment answer data needed for All Assessment Asnwers page
+  assessmentAnswersById, // contains assessment answer data by the id of the assessment
   structure, // contains buckets, functions by bucket, subfunctions by function (as objects)
   clientDashboard // contains all info needed for the dashboard
 });
