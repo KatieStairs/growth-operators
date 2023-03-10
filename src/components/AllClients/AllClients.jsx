@@ -18,23 +18,22 @@ function AllClients() {
       <table className="table table-striped table-hover">
         <thead>
           <tr>
-            <th scope="col">Client Name</th>
+            <th scope="col">Client</th>
             <th scope="col">Engagement Start</th>
-            <th scope="col">Status</th>
             <th scope="col">Operators</th>
             <th scope="col">Archive</th>
             <th scope="col">See Details</th>
-            <th scope="col">Edit</th> {/*Modal?*/}
-            <th scope="col">Delete</th> {/*Popup confirmation*/}
+            <th scope="col">Edit</th>{/*Modal?*/}
+            <th scope="col">Delete</th>{/*Popup confirmation*/}
           </tr>
         </thead>
         <tbody>
-        {clients.map((client, i) => {
+        {clients.map((client) => {
           return (
             <tr key={client.id}>
               <th scope="row">{client.company_name}</th>
-              <td>Engagement start date</td>
-              <td>Assessment status</td>
+              <td>{client.engagement_date}</td>
+              <td>{client.operators}</td>
               <td><button>Archive</button></td>
               <td><button>See Details</button></td>
               <td><button>Edit</button></td>
