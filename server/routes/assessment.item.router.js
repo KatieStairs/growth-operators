@@ -36,8 +36,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     "assessment_items"."findings",
     "assessment_items"."impact",
     "assessment_items"."recommendations";
-    `).then((result) => {
-    res.send(result.rows);
+    `).then((dbRes) => {
+    res.send(dbRes.rows);
     }).catch((error) => {
     console.log('Error in GET * assessment answers', error)
     res.sendStatus(500);
@@ -48,7 +48,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 /** ---------- GET ASSESSMENT BY CLIENT ID ---------- **/
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     const idOfAssessment = req.params.id;
-    console.log('in GET by client_id', idOfAssessment)
+    // console.log('in GET by client_id', idOfAssessment)
     const sqlText = `
         SELECT
             "client"."company_name" AS "company_name",
@@ -113,6 +113,28 @@ router.post('/:id', rejectUnauthenticated, (req, res) => {
     })
     .catch((error) => {
         console.log('Error in POST /assessment/:id: ', error);
+        res.sendStatus(500);
+    })
+})
+
+
+/** ---------- POST HEADLINE BY ASSESSMENT ID---------- **/
+router.post('/:id', rejectUnauthenticated, (req, res) => {
+    console.log('***** req.params.id', req.params);
+    console.log('***** req.body.headline', req.body);
+    const sqlQuery = `
+        INSERT INTO "buckets_headlines"
+            ("assessment_id", "headline_text")
+        VALUES
+            ($1, $2);
+    `;
+    const sqlValues = [req.params.id, req.body.headline]
+    pool.query(sqlQuery, sqlValues)
+    .then((response) => {
+        res.sendStatus(201);
+    })
+    .catch((error) => {
+        console.log('Error in post headline by id', error);
         res.sendStatus(500);
     })
 })

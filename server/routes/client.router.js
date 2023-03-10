@@ -9,7 +9,7 @@ router.get('/all', (req, res) => {
   `;
   pool.query(sqlQuery)
   .then((response) => {
-    console.log(response.rows);
+    // console.log(response.rows);
     res.send(response.rows);
   })
   .catch((error) => {
