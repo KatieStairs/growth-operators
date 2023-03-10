@@ -28,60 +28,15 @@ function AssessmentEdit() {
 
     return (
         <>
-            <h1>{assessmentAnswersById.company_name} Assessment Answers</h1>
-            <h2>{assessmentAnswersById.bucket_name || ''} - Review & Submit</h2>
-                <table class="table">
-                    <thead>
-                        <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        </tr>
-                    </tbody>
-                    </table>
-                Variants
-                Use contextual classes to color tables, table rows or individual cells.
+        
+        <h1>{assessmentAnswersById.company_name} Assessment Answers</h1>
+        <h2>{assessmentAnswersById.bucket_name || ''} - Review & Submit</h2>
         <div className="mb-3">
-            <label for="exampleFormControlInput1" className="form-label">Headline</label>
+            <label for="exampleFormControlInput1" className="form-label">Headline:</label>
             <input className="form-control form-control-lg" type="text"  aria-label=".form-control-lg example"></input>
         </div>
-        {/* <div className="modal-body">
-        <div className="container-fluid">
-        <div className="row">
-            <div className="col-lg-2"><strong>Bucket</strong></div>
-            <div className="col-lg-2"><strong>Function</strong></div>
-            <div className="col-lg-2"><strong>Subfunction</strong></div>
-            <div className="col-lg-2"><strong>Level</strong></div>
-            <div className="col-lg-2"><strong>Phase</strong></div>
-            <div className="col-lg-2"><strong>Tags</strong></div>
-            </div>
-        </div>
-        </div> */}
-        
-        {/* <h4>Bucket Function Subfunction Level Phase Tags</h4> */}
         <div classNameName="accordion" id="accordionExample">
-    {/* <h4>Bucket Function Subfunction Level Phase Tags</h4> */}
-    <div classNameName="accordion-item">
+        <div classNameName="accordion-item">
             <h3 classNameName="accordion-header" id="headingOne">
             {/* <button classNameName="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"> */}
             <div className="modal-body">
@@ -96,7 +51,6 @@ function AssessmentEdit() {
                     </div>
                 </div>
             </div>
-            {/* </button> */}
             </h3>
             <div id="collapseOne" classNameName="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div classNameName="accordion-body">
@@ -133,10 +87,10 @@ function AssessmentEdit() {
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Launch demo modal
             </button>
-            {/* <button onClick={goToEditPage}>Edit</button> */}
-
         </div>
         </div>
+        <button>Cancel</button>
+        <button>Submit</button>
         </>
     )
 }
