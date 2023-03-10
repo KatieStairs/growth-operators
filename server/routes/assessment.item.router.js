@@ -75,7 +75,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     pool.query(sqlText, sqlValues)
         .then((dbRes) => {
             res.send(dbRes.rows[0])
-            console.log('32432423', dbRes.rows[0])
+            // console.log('32432423', dbRes.rows[0])
         })
         .catch((dbErr) => {
             console.log('Error in Edit Assessment GET', dbErr);

@@ -15,9 +15,9 @@ function AssessmentAnswers() {
     }, []);
 
     const goToEditPage = () => {
-        history.push(`/assessment-edit/${assessmentAnswersById.assessment_id}`)
+        history.push(`/assessment-edit/1`)
     }
-
+    // ${assessmentAnswersById.assessment_id}
     const goToOverviewPage = () => {
         history.push(`/client-overview/${assessmentAnswersById.assessment_id}`)
     }
@@ -26,11 +26,6 @@ function AssessmentAnswers() {
         <>
         <h1>{assessmentAnswersById.company_name} Assessment Answers</h1>
         <h4>Bucket Function Subfunction Level Phase Tags</h4>
-        <div>
-            {/* {assessmentAnswersById.map((answers) => {
-                return <AssessmentAnswersItem key={answers.assessment_id} answers={answers}/>
-            })} */}
-        </div>
         <div className="accordion" id="accordionExample">
     {/* <h4>Bucket Function Subfunction Level Phase Tags</h4> */}
     {/* <div className="accordion-item">
