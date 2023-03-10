@@ -79,7 +79,7 @@ function AllClients() {
                   <h5
                   className="modal-title"
                   id={`editModal${client.id}Label`}
-                  >Modal title</h5>
+                  >Edit Client Info</h5>
                   <button
                   type="button"
                   className="btn close"
@@ -92,7 +92,18 @@ function AllClients() {
                 </div>
                 <div
                 className="modal-body">
-                  ...
+                  <div class="mb-3">
+                    <label for="editFormControlInput1" class="form-label">Company Name</label>
+                    <input type="email" class="form-control" id="editFormControlInput1" placeholder={client.company_name}/>
+                  </div>
+                  <div class="mb-3">
+                    <label for="editFormControlInput2" class="form-label">Contact Name</label>
+                    <input type="email" class="form-control" id="editFormControlInput2" placeholder={client.contact_name}/>
+                  </div>
+                  <div class="mb-3">
+                    <label for="editFormControlInput3" class="form-label">Contact Email</label>
+                    <input type="email" class="form-control" id="editFormControlInput3" placeholder={client.contact_email}/>
+                  </div>
                 </div>
                 <div
                 className="modal-footer">
@@ -104,6 +115,8 @@ function AllClients() {
                   <button
                   type="button"
                   className="btn btn-secondary"
+                  onClick=""
+                  data-bs-dismiss="modal"
                   >Save changes</button>
                 </div>
               </div>
