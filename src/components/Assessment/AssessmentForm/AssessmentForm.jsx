@@ -20,12 +20,13 @@ function AssessmentForm () {
 
   return (
     <>
-    <h1> Test Company Assessment Form </h1>
+
     {bucketsArray.map((bucket) => {
       if (Number(params.bucket_id) === bucket.id) {
         return (
-          <div key={bucket.id}>
-            <h1>{bucket.name}</h1>
+          <div key={bucket.id} className="container g-3 mt-3">
+            <h1> Test Company Assessment Form </h1>
+            <h2>{bucket.name}</h2>
             <AssessmentPage functionsArray={functionsArray}/>
           </div>
 
