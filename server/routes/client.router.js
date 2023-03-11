@@ -56,4 +56,11 @@ router.put('/:id', (req, res) => {
   });
 });
 
+router.delete('/:id', (req, res) => {
+  const sqlQuery = `
+  DELETE FROM '"client"
+    WHERE "id" = $1
+  `;
+});
+
 module.exports = router;

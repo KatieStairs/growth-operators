@@ -31,6 +31,8 @@ function AllClientsRow({ client }) {
         <button
         type="button"
         className="btn btn-secondary"
+        data-bs-toggle="modal"
+        data-bs-target={`#delete${client.id}ConfirmModal`}
         >Delete</button>
       </td>
     </tr>

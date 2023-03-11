@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import AllClientsRow from './AllClientsRow';
 import AllClientsEditModal from './AllClientsEditModal';
+import AllClientsDeleteModal from './AllClientsDeleteModal';
 
 function AllClients() {
   const clients = useSelector((store) => store.client.allClients);
@@ -26,13 +27,16 @@ function AllClients() {
         </thead>
         <tbody>
         {clients.map((client) => {
-        return <AllClientsRow key={client.id} client={client}/>
+          return <AllClientsRow key={client.id} client={client}/>
         })}
         </tbody>
       </table>
       {clients.map((client) => {
         return <AllClientsEditModal key={client.id} client={client}/>
-        })}
+      })}
+      {clients.map((client) => {
+        return <AllClientsDeleteModal key={client.id} client={client}/>
+      })}
     </div>
   );
 }

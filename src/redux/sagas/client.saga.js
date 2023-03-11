@@ -25,7 +25,19 @@ function* updateClientInfo(action) {
   }
 };
 
+function* deleteClient(action) {
+  try {
+    yield axios.delete(`/api/client/${action.payload}`)
+    yield put({
+      type: 'GET_ALL_CLIENTS'
+    })
+  } catch (error) {
+    console.error('deleteClient DELETE request failed', error);
+  }
+};
+
 export default function* clientSaga() {
   yield takeLatest('SAGA/GET_ALL_CLIENTS', getAllClients);
   yield takeLatest('SAGA/PUT_CLIENT_INFO_BY_ID', updateClientInfo);
+  yield takeLatest('SAGA/DELETE_CLIENT_BY_ID', deleteClient);
 };
