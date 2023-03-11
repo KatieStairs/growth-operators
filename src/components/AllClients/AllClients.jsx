@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import {useSelector} from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import AllClientsRow from './AllClientsRow';
+import AllClientsEditModal from './AllClientsEditModal';
 
 function AllClients() {
   const clients = useSelector((store) => store.client.allClients);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    
-  }, [dispatch]);
 
   return (
     <div className="container-fluid">
@@ -24,106 +20,19 @@ function AllClients() {
             <th scope="col">Operators</th>
             <th scope="col">Archive</th>
             <th scope="col">See Details</th>
-            <th scope="col">Edit</th>{/*Modal?*/}
+            <th scope="col">Edit</th>
             <th scope="col">Delete</th>{/*Popup confirmation*/}
           </tr>
         </thead>
         <tbody>
         {clients.map((client) => {
-          return (
-            <tr key={client.id}>
-              <th scope="row">{client.company_name}</th>
-              <td>{client.engagement_date.substring(0, 10)}</td>
-              <td>Status</td>
-              <td>{client.operators}</td>
-              <td><button
-              type="button"
-              className="btn btn-secondary"
-              >Archive</button></td>
-              <td><button
-              type="button"
-              className="btn btn-secondary"
-              >See Details</button></td>
-              <td><button
-              type="button"
-              className="btn btn-secondary"
-              data-bs-toggle="modal"
-              data-bs-target={`#editModal${client.id}`}
-              >Edit</button></td>
-              <td><button
-              type="button"
-              className="btn btn-secondary"
-              >Delete</button></td>
-            </tr>
-          )
+        return <AllClientsRow key={client.id} client={client}/>
         })}
         </tbody>
       </table>
-      {clients.map((client) =>{
-        return (
-          <div
-          className="modal fade"
-          key={`${client.id}`}
-          id={`editModal${client.id}`}
-          tabIndex="-1"
-          role="dialog"
-          aria-labelledby={`editModal${client.id}Label`}
-          aria-hidden="true">
-            <div
-            className="modal-dialog"
-            role="document">
-              <div
-              className="modal-content">
-                <div
-                className="modal-header">
-                  <h5
-                  className="modal-title"
-                  id={`editModal${client.id}Label`}
-                  >Edit Client Info</h5>
-                  <button
-                  type="button"
-                  className="btn close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close">
-                    <span
-                    aria-hidden="true"
-                    >&times;</span>
-                  </button>
-                </div>
-                <div
-                className="modal-body">
-                  <div class="mb-3">
-                    <label for="editFormControlInput1" class="form-label">Company Name</label>
-                    <input type="email" class="form-control" id="editFormControlInput1" placeholder={client.company_name}/>
-                  </div>
-                  <div class="mb-3">
-                    <label for="editFormControlInput2" class="form-label">Contact Name</label>
-                    <input type="email" class="form-control" id="editFormControlInput2" placeholder={client.contact_name}/>
-                  </div>
-                  <div class="mb-3">
-                    <label for="editFormControlInput3" class="form-label">Contact Email</label>
-                    <input type="email" class="form-control" id="editFormControlInput3" placeholder={client.contact_email}/>
-                  </div>
-                </div>
-                <div
-                className="modal-footer">
-                  <button
-                  type="button"
-                  className="btn btn-outline-secondary"
-                  data-bs-dismiss="modal"
-                  >Close</button>
-                  <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick=""
-                  data-bs-dismiss="modal"
-                  >Save changes</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )
-      })}
+      {clients.map((client) => {
+        return <AllClientsEditModal key={client.id} client={client}/>
+        })}
     </div>
   );
 }

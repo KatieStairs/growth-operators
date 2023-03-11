@@ -36,4 +36,24 @@ router.post('/', (req, res) => {
   // POST route code here
 });
 
+router.put('/:id', (req, res) => {
+  const client = req.body;
+  const sqlQuery = `
+  UPDATE "client"
+    SET
+    "company_name" = $1,
+    "contact_name" = $2,
+    "contact_email"= $3
+    WHERE "id" = $4;
+  `;
+  const sqlValues = [client.company_name, client.contact_name, client.contact_email, client.id];
+  pool.query(sqlQuery, sqlValues)
+  .then((response) => {
+    res.sendStatus(201);
+  })
+  .catch((error) => {
+    console.error('Error in PUT /client/:id:', error);
+  });
+});
+
 module.exports = router;
