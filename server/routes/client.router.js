@@ -58,9 +58,16 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   const sqlQuery = `
-  DELETE FROM '"client"
+  DELETE FROM "client"
     WHERE "id" = $1
   `;
+  pool.query(sqlQuery, [req.params.id])
+  .then((response) => {
+    res.sendStatus(205);
+  })
+  .catch((error) => {
+    console.error('Error in DELETE /client/:id:', error);
+  });
 });
 
 module.exports = router;

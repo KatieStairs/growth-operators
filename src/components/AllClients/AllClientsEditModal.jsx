@@ -19,7 +19,7 @@ function AllClientsEditModal({ client }) {
         contact_email: contactEmail
       }
     });
-    setTimeout(function(){window.location.reload();},10);
+    setTimeout(function(){window.location.reload();},100);
   };
 
   return (
