@@ -64,7 +64,7 @@ function App() {
             exact
             path="/client-overview"
           >
-            {/* <ClientOverview /> */}
+            <ClientOverview />
           </ProtectedRoute>
 
           <ProtectedRoute

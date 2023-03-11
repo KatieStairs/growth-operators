@@ -15,9 +15,9 @@ function* getAllClients() {
 
 function* getClientOverview() {
   try {
-    const response = yield axios.get('/api/client/all')
+    const response = yield axios.get('/api/client/overview')
     yield put({
-      type: 'SET_ALL_CLIENTS',
+      type: 'SET_CLIENT_OVERVIEW',
       payload: response.data
     })
   } catch (error) {
