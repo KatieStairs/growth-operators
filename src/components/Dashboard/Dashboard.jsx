@@ -23,6 +23,7 @@ function Dashboard() {
     <>
     <div className="container">
       <h1>nextLEVEL - Operator Dashboard</h1>
+
         <h2>Welcome, {user.username}!</h2>
           <div className="grid">
             <div className="grid-col grid-col_8">
@@ -62,6 +63,7 @@ function Dashboard() {
               </table>
             </div>
           </div>
+
     </div>
     </>
   );
