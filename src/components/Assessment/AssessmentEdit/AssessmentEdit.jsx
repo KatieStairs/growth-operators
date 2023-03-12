@@ -48,7 +48,7 @@ function AssessmentEdit() {
         <form>
             <div className="input-group">
                 <span className="input-group-text" style={{ fontSize: 22 }}>Headline: </span>
-                <input type="text" class="form-control" id={assessmentAnswersById.assessment_id}/>
+                <input type="text" className="form-control" id={assessmentAnswersById.assessment_id}/>
             </div>
         <div className="container shadow min-vh-100 py-2">
             <div className="table-responsive">
@@ -81,56 +81,38 @@ function AssessmentEdit() {
                             <td><button>Edit</button></td>
                         </tr>
                         <tr className="collapse accordion-collapse" id="r1" data-bs-parent=".table">
-                        <table className="table accordion">
+                        <table className="table">
                             <thead>
-                                <tr>
-                                    {/* <th scope="col"></th> */}
+                                <tr scope="col">
                                     <th scope="col">Findings:</th>
-                                    {/* <th scope="col">Impact</th>
-                                    <th scope="col">Recommendation</th> */}
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr data-bs-toggle="collapse" data-bs-target="#r1">
-                                    {/* <th scope="row"> <i className="bi bi-chevron-down"></i></th> */}
                                     <td>{assessmentAnswersById.findings || ''}</td>
-                                    {/* <td>{assessmentAnswersById.impact || ''}</td>
-                                    <td>{assessmentAnswersById.recommendations || ''}</td> */}
                                 </tr>
                                 </tbody>
                         </table>
                         <table className="table accordion">
                             <thead>
                                 <tr>
-                                    {/* <th scope="col"></th> */}
-                                    {/* <th scope="col">Findings</th> */}
                                     <th scope="col">Impact:</th>
-                                    {/* <th scope="col">Recommendation</th> */}
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr data-bs-toggle="collapse" data-bs-target="#r1">
-                                    {/* <th scope="row"> <i className="bi bi-chevron-down"></i></th> */}
-                                    {/* <td>{assessmentAnswersById.findings || ''}</td> */}
                                     <td>{assessmentAnswersById.impact || ''}</td>
-                                    {/* <td>{assessmentAnswersById.recommendations || ''}</td> */}
                                 </tr>
                                 </tbody>
                         </table>
                         <table className="table accordion">
                             <thead>
                                 <tr>
-                                    {/* <th scope="col"></th>
-                                    <th scope="col">Findings</th>
-                                    <th scope="col">Impact</th> */}
                                     <th scope="col">Recommendation:</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr data-bs-toggle="collapse" data-bs-target="#r1">
-                                    {/* <th scope="row"> <i className="bi bi-chevron-down"></i></th>
-                                    <td>{assessmentAnswersById.findings || ''}</td>
-                                    <td>{assessmentAnswersById.impact || ''}</td> */}
                                     <td>{assessmentAnswersById.recommendations || ''}</td>
                                 </tr>
                                 </tbody>
