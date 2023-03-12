@@ -40,10 +40,10 @@ function App() {
   return (
     <Router>
       <div>
-        <Nav />
+        {/* <Nav /> */}
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-          <Redirect exact from="/" to="/dashboard" />
+          <Redirect exact from="/" to="/login" />
 
           {/* Visiting localhost:3000/about will show the about page. */}
           <Route
@@ -58,6 +58,21 @@ function App() {
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
+
+            <ProtectedRoute
+          exact
+          path="/dashboard"
+          >
+            <Dashboard />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows ClientReport else shows LoginPage
+            exact
+            path="/all-clients"
+          >
+            <AllClients />
+          </ProtectedRoute>
 
           <ProtectedRoute
             // logged in shows ClientOverview else shows LoginPage
@@ -164,9 +179,7 @@ function App() {
             {/* <AssessmentReview /> */}
           </ProtectedRoute>
 
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
+          
 
           {/* If none of the other routes matched, we will show a 404. */}
           {/* <Route>
