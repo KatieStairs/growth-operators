@@ -1,8 +1,21 @@
 import React, { useState } from 'react';
-import {useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 function CreateNewClientModal() {
+    const dispatch = useDispatch();
+    const user = useSelector((store) => store.user);
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const id = user.id
+        console.log('submit clicked user id:', id)
+
+        // dispatch({ 
+        //     type: 'ADD_LIKE',
+        //     payload: trollId
+        // });
+    }
 
     return(
     <div>
@@ -53,7 +66,7 @@ function CreateNewClientModal() {
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-primary" onClick={handleSubmit}>Submit</button>
             </div>
         </div>
         </div>

@@ -10,12 +10,12 @@ import DashboardTable2 from './DashboardTable2';
 
 function Dashboard() {
   const dispatch = useDispatch();
-  const clientDashboard = useSelector(store => store.clientDashboard);
+  const operatorDashboard = useSelector(store => store.operatorDashboard);
   const user = useSelector((store) => store.user);
-
+  console.log('in dashboard', operatorDashboard);
   useEffect(() => {
     dispatch({
-        type: 'SAGA/GET_CLIENT_DASHBOARD'
+        type: 'SAGA/GET_OPERATOR_DASHBOARD'
     })
 }, []);
  
@@ -34,11 +34,11 @@ function Dashboard() {
                     <th>Edit</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {clientDashboard.map((client) => {
+                {/* <tbody>
+                  {operatorDashboard.map((client) => {
                       return <DashboardTable1 key={client.assessment_id} client={client}/>
                   })}
-                </tbody>
+                </tbody> */}
               </table>
             </div>
             <CreateNewClientModal />
@@ -54,11 +54,11 @@ function Dashboard() {
                     <th>See Assessment</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {clientDashboard.map((client) => {
+                {/* <tbody>
+                  {operatorDashboard.map((client) => {
                       return <DashboardTable2 key={client.assessment_id} client={client}/>
                   })}
-                </tbody>
+                </tbody> */}
               </table>
             </div>
           </div>

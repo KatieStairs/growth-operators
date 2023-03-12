@@ -5,7 +5,8 @@ import client from './client.reducer'
 import assessmentAnswersList from './assessment.list.reducer';
 import assessmentAnswersById from './assessment.item.reducer';
 import structure from './assessment.structure.reducer';
-import clientDashboard from './client.reducer';
+import operatorDashboard from './operator.reducer';
+
 
 
 // rootReducer is the primary reducer for our entire project
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   assessmentAnswersList, // contains all assessment answer data needed for All Assessment Asnwers page
   assessmentAnswersById, // contains assessment answer data by the id of the assessment
   structure, // contains buckets, functions by bucket, subfunctions by function (as objects)
-  clientDashboard // contains all info needed for the dashboard
+  client, //
+  operatorDashboard // contains operator dashboard 
 });
 
 export default rootReducer;

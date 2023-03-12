@@ -40,7 +40,7 @@ function App() {
   return (
     <Router>
       <div>
-        <Nav />
+        {/* <Nav /> */}
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/dashboard" />
@@ -83,7 +83,7 @@ function App() {
             {/* <ClientReport /> */}
           </ProtectedRoute>
 
-          <Route
+          {/* <Route
             exact
             path="/login"
           >
@@ -95,9 +95,9 @@ function App() {
               // Otherwise, show the login page
               <LoginPage />
             }
-          </Route>
+          </Route> */}
 
-          <Route
+          {/* <Route
             exact
             path="/registration"
           >
@@ -109,9 +109,9 @@ function App() {
               // Otherwise, show the registration page
               <RegisterPage />
             }
-          </Route>
-{/* 
-          <Route
+          </Route> */}
+
+          {/* <Route
             exact
             path="/dashboard"
           >
@@ -123,14 +123,22 @@ function App() {
               // Otherwise, show the Landing page
               <Dashboard />
             }
+          </Route> */}
+
+          {/* <ProtectedRoute
+            exact
+            path="/dashboard"
+          >
+            <Dashboard />
+          </ProtectedRoute> */}
 
           <ProtectedRoute
             // logged in shows AllClients else shows LoginPage
             exact
             path="/all-clients"
           >
-            {/* <AllClients /> */}
-          {/* </ProtectedRoute> */}
+             <AllClients /> 
+           </ProtectedRoute> 
 
           <ProtectedRoute
             // logged in shows the Assessment Form page else shows LoginPage
@@ -164,7 +172,10 @@ function App() {
             {/* <AssessmentReview /> */}
           </ProtectedRoute>
 
-          <ProtectedRoute>
+          <ProtectedRoute
+          exact
+          path="/dashboard"
+          >
             <Dashboard />
           </ProtectedRoute>
 

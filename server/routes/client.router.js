@@ -6,7 +6,7 @@ const router = express.Router();
 
 /** ---------- GET DASHBOARD INFO BY USER ID ---------- **/
 
-router.get('/', rejectUnauthenticated, (req, res) => {
+router.get('/dashboard', rejectUnauthenticated, (req, res) => {
     const userId = req.user.id;
     // console.log('in GET by client_id', userId)
     const sqlText = `
@@ -27,6 +27,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     const sqlValues = [userId];
     pool.query(sqlText, sqlValues)
         .then((dbRes) => {
+            console.log('operator dashboard', dbRes.rows);
             res.send(dbRes.rows)
         })
         .catch((dbErr) => {
