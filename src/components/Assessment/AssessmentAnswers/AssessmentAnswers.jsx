@@ -24,7 +24,7 @@ function AssessmentAnswers() {
 
     return (
         <div className="assessmentAnswers">
-        <h2>{assessmentAnswersById.company_name} Assessment Answers</h2>
+        <h1>{assessmentAnswersById.company_name} Assessment Answers</h1>
         <div className="container shadow min-vh-100 py-2">
             <div className="table-responsive">
                 <table className="table accordion">
