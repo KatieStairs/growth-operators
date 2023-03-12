@@ -277,6 +277,8 @@ VALUES
 (4,4),
 (4,1);
 
+-------------- ** REGISTER A USER, THEN: **
+
 INSERT INTO "user_client"
 ("user_id","client_id")
 VALUES

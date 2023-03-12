@@ -17,6 +17,8 @@ function AllClientsRow({ client }) {
         <button
         type="button"
         className="btn btn-secondary"
+        data-bs-toggle="modal"
+        data-bs-target={`#detailsModal${client.id}`}
         >See Details</button>
       </td>
       <td>
@@ -24,9 +26,9 @@ function AllClientsRow({ client }) {
         type="button"
         className="btn btn-secondary"
         data-bs-toggle="modal"
-      data-bs-target={`#editModal${client.id}`}
-      >Edit</button>
-    </td>
+        data-bs-target={`#editModal${client.id}`}
+        >Edit</button>
+      </td>
       <td>
         <button
         type="button"

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import AllClientsRow from './AllClientsRow';
 import AllClientsEditModal from './AllClientsEditModal';
 import AllClientsDeleteModal from './AllClientsDeleteModal';
+import AllClientsDetailsModal from './AllClientsDetailsModal';
 
 function AllClients() {
   const clients = useSelector((store) => store.client.allClients);
@@ -22,7 +23,7 @@ function AllClients() {
             <th scope="col">Archive</th>
             <th scope="col">See Details</th>
             <th scope="col">Edit</th>
-            <th scope="col">Delete</th>{/*Popup confirmation*/}
+            <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -36,6 +37,9 @@ function AllClients() {
       })}
       {clients.map((client) => {
         return <AllClientsDeleteModal key={client.id} client={client}/>
+      })}
+      {clients.map((client) => {
+        return <AllClientsDetailsModal key={client.id} client={client}/>
       })}
     </div>
   );
