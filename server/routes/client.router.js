@@ -84,6 +84,7 @@ router.get('/overview', (req, res) => {
   //   res.sendStatus(500);
   // })
 });
+
 // added rejectUnauthenticated, -adam
 router.post('/', rejectUnauthenticated, (req, res) => {
   console.log(req);
