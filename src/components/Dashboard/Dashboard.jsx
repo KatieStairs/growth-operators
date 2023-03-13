@@ -12,7 +12,7 @@ function Dashboard() {
   const dispatch = useDispatch();
   const operatorDashboard = useSelector(store => store.operatorDashboard);
   const user = useSelector((store) => store.user);
-  console.log('in dashboard', operatorDashboard);
+  console.log('in dashboard', operatorDashboard.operatorDashboard);
   useEffect(() => {
     dispatch({
         type: 'SAGA/GET_OPERATOR_DASHBOARD'
@@ -35,11 +35,11 @@ function Dashboard() {
                     <th>Edit</th>
                   </tr>
                 </thead>
-                {/* <tbody>
-                  {operatorDashboard.map((client) => {
+                <tbody>
+                  {operatorDashboard.operatorDashboard.map((client) => {
                       return <DashboardTable1 key={client.assessment_id} client={client}/>
                   })}
-                </tbody> */}
+                </tbody>
               </table>
             </div>
             <CreateNewClientModal />
@@ -55,11 +55,11 @@ function Dashboard() {
                     <th>See Assessment</th>
                   </tr>
                 </thead>
-                {/* <tbody>
-                  {operatorDashboard.map((client) => {
+                <tbody>
+                  {operatorDashboard.operatorDashboard.map((client) => {
                       return <DashboardTable2 key={client.assessment_id} client={client}/>
                   })}
-                </tbody> */}
+                </tbody>
               </table>
             </div>
           </div>

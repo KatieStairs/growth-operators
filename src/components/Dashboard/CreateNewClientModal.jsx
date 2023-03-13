@@ -6,15 +6,26 @@ function CreateNewClientModal() {
     const dispatch = useDispatch();
     const user = useSelector((store) => store.user);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const id = user.id
-        console.log('submit clicked user id:', id)
+    const [companyNameInput, setCompanyNameInput] = useState('');
+    const [contactPersonInput, setContactPersonInput] = useState('');
+    const [emailInput, setEmailInput] = useState('');
+    const [dateInput, setDateInput] = useState('');
 
-        // dispatch({ 
-        //     type: 'ADD_LIKE',
-        //     payload: trollId
-        // });
+    const handleSubmit = (event) => {
+        // event.preventDefault();
+        const id = user.id
+        let newCompany = {
+            companyName: companyNameInput,
+            contactPerson: contactPersonInput,
+            emailInput: emailInput,
+            date: dateInput,
+            userId: id
+        }
+        // console.log('new company', newCompany)
+        dispatch({ 
+            type: 'SAGA/POST_CLIENT',
+            payload: newCompany
+        });
     }
 
     return(
@@ -35,32 +46,32 @@ function CreateNewClientModal() {
                 <h5>Company Name</h5>
                 <input
                 type='text'
-                // value={nameInput}
-                // onChange={(evt) => setNameInput(evt.target.value)} 
+                value={companyNameInput}
+                onChange={(evt) => setCompanyNameInput(evt.target.value)} 
                 />
             </div>
             <div>
                 <h5>Contact Person</h5>
                 <input
                 type='text'
-                // value={nameInput}
-                // onChange={(evt) => setNameInput(evt.target.value)} 
+                value={contactPersonInput}
+                onChange={(evt) => setContactPersonInput(evt.target.value)} 
                 />
             </div>
             <div>
             <h5>E-mail Address</h5>
                 <input
                 type='text'
-                // value={nameInput}
-                // onChange={(evt) => setNameInput(evt.target.value)} 
+                value={emailInput}
+                onChange={(evt) => setEmailInput(evt.target.value)} 
                 />
             </div>
             <div>
             <h5>Engagement Date</h5>
                 <input
                 type='date'
-                // value={nameInput}
-                // onChange={(evt) => setNameInput(evt.target.value)} 
+                value={dateInput}
+                onChange={(evt) => setDateInput(evt.target.value)} 
                 />
             </div>
             </div>

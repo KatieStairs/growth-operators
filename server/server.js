@@ -12,7 +12,7 @@ const userRouter = require('./routes/user.router');
 const clientRouter = require('./routes/client.router');
 const assessmentStructureRouter = require('./routes/assessment.structure.router');
 const assessmentItemRouter = require('./routes/assessment.item.router');
-// const clientRouter = require('./routes/client.router');
+const clientAssessmentRouter = require('./routes/client.assessment.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -32,6 +32,8 @@ app.use('/api/client', clientRouter);
 app.use('/structure', assessmentStructureRouter);
 app.use('/assessment', assessmentItemRouter);
 app.use('/assessment-item', assessmentItemRouter);
+app.use('/client-assessment', clientAssessmentRouter);
+
 
 
 // Serve static files

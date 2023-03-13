@@ -67,8 +67,31 @@ router.get('/all', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  // POST route code here
-
+  console.log(req);
+  const newCompany = req.body;
+  console.log('in client router, newCompany:', newCompany);
+  const queryText = `
+  INSERT INTO "client" 
+  ("company_name", "contact_name", "contact_email")
+  VALUES 
+  ($1, $2, $3)
+  RETURNING id;
+    `;
+  const queryValues = [
+    newCompany.companyName,
+    newCompany.contactPerson,
+    newCompany.emailInput
+  ];
+  pool.query(queryText, queryValues)
+    .then((result) => { 
+      console.log('client post id:', result.rows[0].id);
+      res.sendStatus(201);
+      res.send(result.rows[0]);
+     })
+    .catch((err) => {
+      console.log('Error completing POST newCompany query', err);
+      res.sendStatus(500);
+    });
 });
 
 router.put('/:id', (req, res) => {

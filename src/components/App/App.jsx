@@ -24,6 +24,7 @@ import AssessmentEdit from '../Assessment/AssessmentEdit/AssessmentEdit';
 import AssessmentAnswers from '../Assessment/AssessmentAnswers/AssessmentAnswers';
 import AssessmentReview from '../Assessment/AssessmentReview/AssessmentReview';
 
+
 import 'bootstrap';
 import './App.css';
 
@@ -98,7 +99,7 @@ function App() {
             {/* <ClientReport /> */}
           </ProtectedRoute>
 
-          {/* <Route
+          <Route
             exact
             path="/login"
           >
@@ -110,7 +111,7 @@ function App() {
               // Otherwise, show the login page
               <LoginPage />
             }
-          </Route> */}
+          </Route>
 
           {/* <Route
             exact
@@ -140,12 +141,12 @@ function App() {
             }
           </Route> */}
 
-          {/* <ProtectedRoute
+          <ProtectedRoute
             exact
             path="/dashboard"
           >
             <Dashboard />
-          </ProtectedRoute> */}
+          </ProtectedRoute>
 
           <ProtectedRoute
             // logged in shows AllClients else shows LoginPage

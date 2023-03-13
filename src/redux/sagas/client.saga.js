@@ -14,15 +14,6 @@ function* getAllClients() {
   }
 };
 
-
-function* clientSaga() {
-    yield takeLatest('SAGA/GET_ALL_CLIENTS', getAllClients)
-
-  }
-
-// export default clientSaga;
-
-
 function* updateClientInfo(action) {
   const client = action.payload;
   try {
@@ -46,9 +37,33 @@ function* deleteClient(action) {
   }
 };
 
+function* postClient(action) {
+  try {
+    const newCompany = action.payload
+    console.log(action.payload);
+    const clientresoponce = yield axios({
+      method: 'POST',
+      url: '/api/client',
+      data: newCompany
+    })
+      console.log('new clientyeid', clientresoponce);
+      yield axios({
+        method: 'POST',
+        url: '/client-assessment',
+        data: {...newCompany, client_id: clientresoponce.id}
+    })
+    yield put({
+      type: 'SAGA/GET_OPERATOR_DASHBOARD'
+    })
+    } catch (error) {
+      console.error('postClient POST request failed', error);
+    }
+};
+
 export default function* clientSaga() {
   yield takeLatest('SAGA/GET_ALL_CLIENTS', getAllClients);
   yield takeLatest('SAGA/PUT_CLIENT_INFO_BY_ID', updateClientInfo);
   yield takeLatest('SAGA/DELETE_CLIENT_BY_ID', deleteClient);
+  yield takeLatest('SAGA/POST_CLIENT', postClient);
 };
 
