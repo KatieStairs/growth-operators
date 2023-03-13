@@ -17,24 +17,29 @@ function AssessmentPage ({functionsArray}) {
     recommendationsInput: '', phaseInput: null, tagsInput: []}
   ); // Object for inputs on form subfunction sections
 
+  
+
   const handleInputChange = (subfunction, index, event) => {
 
     if (allInputFields.subfunctionID === null) { 
     // if there is no info at all in allInputFields,
-      setAllInputFields({[event.target.name]: event.target.value, 'subfunctionID': subfunction.id})
+        setAllInputFields({[event.target.name]: event.target.value, 'subfunctionID': subfunction.id})
       // sets allInputFields where a value exists. Also gives allInputFields that subfunction section ID.
     } 
  
     else if (allInputFields.subfunctionID === subfunction.id) { 
     // if there's already info in allInputFields, and the input change comes from the same subfunction section,
+      if (event.target.name == 'tagsInput' && allInputFields.tagsInput) {
+        const newTagsInputArray = new Array(allInputFields.tagsInput, event.target.value)
+        setAllInputFields({[event.target.name]: newTagsInputArray})
+      } else {
       setAllInputFields(prevState => ({...prevState, [event.target.name]: event.target.value}))
       // this updates relevant allInputFields only.
+      }
     } 
 
     else {    
     // if there's already info in allInputFields *BUT* it's from a different subfunction section
-
-
       if (formArray.length >= 1) { 
       let test;
       // only runs the following logic if formArray has enough objects in it
@@ -42,7 +47,6 @@ function AssessmentPage ({functionsArray}) {
           console.log('forEach // subfunction ID:', subfunction.id);
           console.log('forEach // formObject ID:', formObject.subfunctionID);
           console.log('forEach // Inputs ID:', allInputFields.subfunctionID);
-
 
           if (formObject.subfunctionID === allInputFields.subfunctionID){
             console.log('MATCH // formObject ID: ', formObject.subfunctionID);
@@ -153,13 +157,11 @@ function AssessmentPage ({functionsArray}) {
         //     // that subfunctionID), pushes allInputFields into formArray.
         //   }
         // }
-       
-      
     
-    clearInputFields();
-    // clears allInputFields
-    setAllInputFields({[event.target.name]: event.target.value, 'subfunctionID': subfunction.id})
-    // sets allInputFields where a value exists, gives subfunction section ID.
+    // clearInputFields();
+    // // clears allInputFields
+    // setAllInputFields({[event.target.name]: event.target.value, 'subfunctionID': subfunction.id})
+    // // sets allInputFields where a value exists, gives subfunction section ID.
     }
     console.log('allInputFields: ', allInputFields);
     console.log('formArray: ', formArray);
