@@ -18,7 +18,7 @@ function DashboardTableOperatorAssessments({ client }) {
         let assessmentId = client.assessment_id;
         console.log('see id clicked', assessmentId);
         // this one will have to be changed
-        history.push(`/assessment-answers}`)
+        history.push(`/assessment-answers/${assessmentId}`)
     }
 
 return (
