@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect } from "react";
 import {useSelector, useDispatch} from 'react-redux';
 import { useHistory } from "react-router-dom";
+import Nav from '../Nav/Nav';
 import {
   Chart as ChartJS,
   RadialLinearScale,
@@ -37,8 +38,14 @@ function ClientOverview() {
   }, [])
 
   return (
-    <div className="container">
-      <p>Client overview goes here</p>
+    <div className="container-fluid">
+	    <div className="row flex-nowrap">
+          <Nav />
+          <div className="col py-3">
+          <button data-bs-toggle="collapse" data-bs-target="#sidebar">Toggle Menu</button>
+          <p>Client overview goes here</p>
+          </div>	
+      </div>
     </div>
   );
 }
