@@ -24,6 +24,7 @@ import AssessmentEdit from '../Assessment/AssessmentEdit/AssessmentEdit';
 import AssessmentAnswers from '../Assessment/AssessmentAnswers/AssessmentAnswers';
 import AssessmentReview from '../Assessment/AssessmentReview/AssessmentReview';
 
+
 import 'bootstrap';
 import './App.css';
 
@@ -40,10 +41,10 @@ function App() {
   return (
     <Router>
       <div>
-        <Nav />
+        {/* <Nav /> */}
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-          <Redirect exact from="/" to="/dashboard" />
+          <Redirect exact from="/" to="/login" />
 
           {/* Visiting localhost:3000/about will show the about page. */}
           <Route
@@ -59,12 +60,27 @@ function App() {
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
 
+            <ProtectedRoute
+          exact
+          path="/dashboard"
+          >
+            <Dashboard />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows ClientReport else shows LoginPage
+            exact
+            path="/all-clients"
+          >
+            <AllClients />
+          </ProtectedRoute>
+
           <ProtectedRoute
             // logged in shows ClientOverview else shows LoginPage
             exact
             path="/client-overview"
           >
-            {/* <ClientOverview /> */}
+            <ClientOverview />
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -97,7 +113,7 @@ function App() {
             }
           </Route>
 
-          <Route
+          {/* <Route
             exact
             path="/registration"
           >
@@ -109,9 +125,9 @@ function App() {
               // Otherwise, show the registration page
               <RegisterPage />
             }
-          </Route>
-{/* 
-          <Route
+          </Route> */}
+
+          {/* <Route
             exact
             path="/dashboard"
           >
@@ -123,14 +139,22 @@ function App() {
               // Otherwise, show the Landing page
               <Dashboard />
             }
+          </Route> */}
+
+          <ProtectedRoute
+            exact
+            path="/dashboard"
+          >
+            <Dashboard />
+          </ProtectedRoute>
 
           <ProtectedRoute
             // logged in shows AllClients else shows LoginPage
             exact
             path="/all-clients"
           >
-            {/* <AllClients /> */}
-          {/* </ProtectedRoute> */}
+             <AllClients /> 
+           </ProtectedRoute> 
 
           <ProtectedRoute
             // logged in shows the Assessment Form page else shows LoginPage
@@ -164,7 +188,10 @@ function App() {
             {/* <AssessmentReview /> */}
           </ProtectedRoute>
 
-          <ProtectedRoute>
+          <ProtectedRoute
+          exact
+          path="/dashboard"
+          >
             <Dashboard />
           </ProtectedRoute>
 

@@ -41,12 +41,12 @@ VALUES
 CREATE TABLE "user_client" (
     "id" SERIAL PRIMARY KEY,
     "user_id" INTEGER REFERENCES "user",
-    "client_id" INTEGER REFERENCES "client"
+    "client_id" INTEGER REFERENCES "client" ON DELETE CASCADE
 );
 
 CREATE TABLE "client_assessments" (
     "id" SERIAL PRIMARY KEY,
-    "client_id" INTEGER REFERENCES "client",
+    "client_id" INTEGER REFERENCES "client" ON DELETE CASCADE,
     "engagement_date" DATE,
     "status" VARCHAR
 );
@@ -213,7 +213,7 @@ SET "level_criteria_weak" = CONCAT('Weak', SPLIT_PART("level_rating_criteria", '
 
 CREATE TABLE "buckets_headlines" (
 	"id" SERIAL PRIMARY KEY,
-	"assessment_id" INTEGER REFERENCES "client_assessments",
+	"assessment_id" INTEGER REFERENCES "client_assessments" ON DELETE CASCADE,
 	"bucket_id" INTEGER REFERENCES "buckets",
 	"headline_text" VARCHAR(255)
 );
@@ -229,7 +229,7 @@ VALUES
 	
 CREATE TABLE "assessment_items" (
 	"id" SERIAL PRIMARY KEY,
-	"assessment_id" INTEGER REFERENCES "client_assessments",
+	"assessment_id" INTEGER REFERENCES "client_assessments" ON DELETE CASCADE,
     "bucket_id" INTEGER REFERENCES "buckets",
 	"function_id" INTEGER REFERENCES "functions",
 	"subfunction_id" INTEGER REFERENCES "subfunctions",
@@ -264,7 +264,7 @@ VALUES
 
 CREATE TABLE "tags_assessment_items" (
 	"id" SERIAL PRIMARY KEY,
-	"assessment_item_id" INTEGER REFERENCES "assessment_items",
+	"assessment_item_id" INTEGER REFERENCES "assessment_items" ON DELETE CASCADE,
 	"tag_id" INTEGER REFERENCES "tags"
 );
 
@@ -276,3 +276,14 @@ VALUES
 (3,3),
 (4,4),
 (4,1);
+
+-------------- ** REGISTER A USER, THEN: **
+
+INSERT INTO "user_client"
+("user_id","client_id")
+VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5);
