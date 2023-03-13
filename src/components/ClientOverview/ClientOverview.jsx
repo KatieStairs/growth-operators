@@ -20,13 +20,19 @@ Questions for group:
 */
 
 function ClientOverview() {
-
   const dispatch = useDispatch();
   const history = useHistory();
+  const user = useSelector((store) => store.user);
+
+
+  const clientObj = {
+    clientId: 1
+  }
 
   useEffect(() => {
     dispatch({
       type: 'SAGA/GET_CLIENT_OVERVIEW',
+      payload: clientObj
     })
   }, [])
 

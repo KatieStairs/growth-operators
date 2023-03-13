@@ -13,13 +13,21 @@ function* getAllClients() {
   }
 };
 
-function* getClientOverview() {
+function* getClientOverview(action) {
   try {
-    const response = yield axios.get('/api/client/overview')
-    yield put({
-      type: 'SET_CLIENT_OVERVIEW',
-      payload: response.data
+    const clientId = action.payload;
+    console.log("this is the action payload:", clientId)
+
+    const response = yield  axios({
+      method:  'GET',
+      url: '/api/client/overview',
+      params: clientId
     })
+    
+    // yield put({
+    //   type: 'SET_CLIENT_OVERVIEW',
+    //   payload: response.data
+    // })
   } catch (error) {
     console.error('getAllClients GET request failed', error);
   }
