@@ -65,11 +65,13 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
     res.sendStatus(500);
   })
 });
-// added rejectUnauthenticated, -adam
+// POST to create new client AND new client assessment AND user_client!  Yeah boi!
 router.post('/', rejectUnauthenticated, (req, res) => {
   console.log(req);
+  const userId = req.user.id;
   const newCompany = req.body;
-  console.log('in client router, newCompany:', newCompany);
+  // console.log('in client router, newCompany:', newCompany);
+  // console.log('in client router, userID:', userId);
   const queryText = `
   INSERT INTO "client" 
   ("company_name", "contact_name", "contact_email")
@@ -84,15 +86,57 @@ router.post('/', rejectUnauthenticated, (req, res) => {
   ];
   pool.query(queryText, queryValues)
     .then((result) => { 
-      console.log('client post id:', result.rows[0].id);
-      res.sendStatus(201);
-      res.send(result.rows[0]);
-     })
-    .catch((err) => {
+      // We need the id of the newly created company/client
+      // console.log('client post id:', result.rows[0].id);
+      const newCompanyId = result.rows[0].id;
+
+      const insertClientAssessment = `
+        INSERT INTO "client_assessments"
+        ("client_id", "engagement_date", "status")
+        VALUES
+        ( $1, $2, $3)
+        RETURNING id;
+        `;
+      pool.query(insertClientAssessment,[newCompanyId, newCompany.date, 'Edit in Progress'])
+      .then((result) => {
+        const newClientAssessments = result.rows[0].id;
+        // console.log('client_assessments id:', newClientAssessments);
+        const insertUserClient = `
+          INSERT INTO "user_client" 
+          ("user_id", "client_id")
+          VALUES 
+          ($1, $2);
+          `
+      pool.query(insertUserClient, [userId, newCompanyId])
+      }).then((result, newClientAssessments) =>{
+        const insertClientAssessment = `
+      INSERT INTO "assessment_items"
+      ("assessment_id", "bucket_id", "function_id", "subfunction_id", "level_rating", "findings", "impact", "recommendations", "phase")
+      VALUES
+      ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        `
+        console.log('newClientAssessments:', newClientAssessments);
+        const assessmentValues = [
+          newClientAssessments,
+          '',
+          '',
+          '',
+          '',
+          '',
+          '',
+          '',
+          ''
+        ];
+        pool.query(insertClientAssessment, assessmentValues)
+      }).then((response) => {
+        res.sendStatus(201);
+      })
+     }).catch((err) => {
       console.log('Error completing POST newCompany query', err);
       res.sendStatus(500);
     });
 });
+// res.sendStatus(201);
 // added rejectUnauthenticated, -adam
 router.put('/:id', rejectUnauthenticated, (req, res) => {
   const client = req.body;
