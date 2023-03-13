@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import Nav from '../../Nav/Nav'
 
 function AssessmentAnswers() {
     const dispatch = useDispatch();
@@ -8,12 +9,15 @@ function AssessmentAnswers() {
     // const assessmentAnswersList = useSelector(store => store.assessmentAnswersList);
     const assessmentAnswersById = useSelector(store => store.assessmentAnswersById);
 
+    
     useEffect(() => {
         dispatch({
             type: 'SAGA/GET_ASSESSMENT_ANSWERS_BY_ID',
-            payload: 1
+            payload: assessmentAnswersById.assessment_id || 1
         })
     }, []);
+
+    // console.log('############', assessmentAnswersById.assessment_id)
 
     const goToEditPage = () => {
         history.push(`/assessment-edit/${assessmentAnswersById.assessment_id}`)
@@ -24,9 +28,13 @@ function AssessmentAnswers() {
     }
 
     return (
-        <div className="assessmentAnswers">
+        <>
+        <div className="col py-3">
+            {/* <Nav /> */}
+        <button data-bs-toggle="collapse" data-bs-target="#sidebar">Toggle Menu</button>
+        <div className="col px-4 py-3">
         <h1>{assessmentAnswersById.company_name} Assessment Answers</h1>
-        <div className="container shadow min-vh-100 py-2">
+        <div className="container shadow min-vh-100 py-3">
             <div className="table-responsive">
                 <table className="table">
                     <thead>
@@ -71,7 +79,6 @@ function AssessmentAnswers() {
                                 <textarea
                                     type='text'
                                     value={assessmentAnswersById.findings}
-                                    // onChange={(evt) => setNameInput(evt.target.value)}
                                     readOnly 
                                 />
                                 </div>
@@ -81,7 +88,6 @@ function AssessmentAnswers() {
                                     type='text'
                                     value={assessmentAnswersById.impact}
                                     rows={12}
-                                    // onChange={(evt) => setNameInput(evt.target.value)}
                                     readOnly
                                 />
                                 </div>
@@ -90,14 +96,12 @@ function AssessmentAnswers() {
                                 <textarea
                                     type='text'
                                     value={assessmentAnswersById.recommendations}
-                                    // onChange={(evt) => setNameInput(evt.target.value)}
                                     readOnly 
                                 />
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Submit</button>
                             </div>
                             </div>
                         </div>
@@ -107,6 +111,8 @@ function AssessmentAnswers() {
             </div>
         </div>
         </div>
+        </div>
+        </>
     )
 };
 

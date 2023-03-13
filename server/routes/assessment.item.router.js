@@ -45,12 +45,13 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 
-/** ---------- GET ASSESSMENT BY CLIENT ID ---------- **/
+/** ---------- GET ASSESSMENT BY ASSESSMENT ID ---------- **/
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     const idOfAssessment = req.params.id;
-    // console.log('in GET by client_id', idOfAssessment)
+    // console.log('in GET by assessment_id', idOfAssessment)
     const sqlText = `
         SELECT
+            "assessment_id",
             "client"."company_name" AS "company_name",
 	        "buckets"."name" AS "bucket_name",
 	        "assessment_items"."level_rating", 
@@ -120,8 +121,8 @@ router.post('/:id', rejectUnauthenticated, (req, res) => {
 
 /** ---------- POST HEADLINE BY ASSESSMENT ID---------- **/
 router.post('/:id', rejectUnauthenticated, (req, res) => {
-    console.log('***** req.params.id', req.params);
-    console.log('***** req.body.headline', req.body);
+    // console.log('***** req.params.id', req.params);
+    // console.log('***** req.body.headline', req.body);
     const sqlQuery = `
         INSERT INTO "buckets_headlines"
             ("assessment_id", "headline_text")

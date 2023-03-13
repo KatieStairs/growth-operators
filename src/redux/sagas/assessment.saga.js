@@ -20,7 +20,7 @@ function* getAssessmentAnswers() {
 // function to get all assessment answers by id
 function* getAssessmentAnswersById(action) {
     const idOfAssessment = action.payload;
-    console.log('SAGA/ assessment by id', idOfAssessment)
+    // console.log('SAGA/ assessment by id', idOfAssessment)
     try{
         const response = yield axios({
             method: 'GET',

@@ -11,9 +11,14 @@ function AssessmentEdit() {
     const user = useSelector(store => store.user)
 
     const [levelRatingInput, setLevelRatingInput] = useState(assessmentAnswersById.level_rating)
+    const [phaseInput, setPhaseInput] = useState(assessmentAnswersById.phase)
+    const [tagsInput, setTagsInput] = useState(assessmentAnswersById.tags)
+    const [findingsInput, setFindingsInput] = useState(assessmentAnswersById.findings)
+    const [impactInput, setImpactInput] = useState(assessmentAnswersById.impact)
+    const [recommendationsInput, setRecommendationsInput] = useState(assessmentAnswersById.recommendations)
 
     useEffect(() => {
-        console.log('params.id', params.id)
+        // console.log('params.id', params.id)
         dispatch({
             type: 'SAGA/GET_ASSESSMENT_ANSWERS_BY_ID',
             payload: 1
@@ -22,7 +27,7 @@ function AssessmentEdit() {
 
     const addNewHeadline = event => {
         event.preventDefault();
-        console.log('assessment_id', assessmentAnswersById.assessment_id, 'headline', event.target.value);
+        // console.log('assessment_id', assessmentAnswersById.assessment_id, 'headline', event.target.value);
         dispatch({
             type: 'SAGA/POST_HEADLINE_BY_ID',
             payload: {
@@ -33,18 +38,22 @@ function AssessmentEdit() {
     }
 
     const updateAssessmentAnswers = (event) => {
-        console.log('Updated answers:', levelRatingInput)
+        // console.log('Updated answers:', levelRatingInput)
         event.preventDefault();
         const updatedAssessmentAnswers = {
           id: assessmentAnswersById.assessment_id,
           level_rating: levelRatingInput,
-          image_url: itemImageUrl,
+          phase: phaseInput,
+          tags: tagsInput,
+          findings: findingsInput,
+          impact: impactInput,
+          recommendations: recommendationsInput
         }
         dispatch({
           type: 'UPDATE_ASSESSMENT_ANSWERS',
-          payload: updatedItem
+          payload: updatedAssessmentAnswers
         })
-        history.push('/shelf');
+        // history.push('/dashboard');
       };
 
     const handleSubmit = () => {
@@ -60,6 +69,7 @@ function AssessmentEdit() {
 
     return (
         <div className="assessmentAnswers">
+        <button data-bs-toggle="collapse" data-bs-target="#sidebar">Toggle Menu</button>
         <h1>{assessmentAnswersById.company_name} Assessment Answers</h1>
         <div className="container shadow min-vh-100 py-2">
             <div className="table-responsive">
@@ -100,43 +110,15 @@ function AssessmentEdit() {
                         <div class="modal-dialog">
                             <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">More Assessment Answers Data</h1>
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Expanded Assessment Answers</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body text-center">
-                                <div>
-                                <h5>Level</h5>
-                                <input
-                                    type='text'
-                                    value={assessmentAnswersById.level_rating || ''}
-                                    // onChange={(evt) => setNameInput(evt.target.value)}
-                                    readOnly
-                                />
-                                </div>
-                                <div>
-                                <h5>Phase</h5>
-                                <input
-                                    type='text'
-                                    value={assessmentAnswersById.phase || ''}
-                                    // onChange={(evt) => setNameInput(evt.target.value)} 
-                                    readOnly
-                                />
-                                </div>
-                                <div>
-                                <h5>Tags</h5>
-                                <input
-                                    type='text'
-                                    value={assessmentAnswersById.tag_name || ''}
-                                    // onChange={(evt) => setNameInput(evt.target.value)}
-                                    readOnly
-                                />
-                                </div>
                                 <div>
                                 <h5>Findings</h5>
                                 <textarea
                                     type='text'
                                     value={assessmentAnswersById.findings}
-                                    // onChange={(evt) => setNameInput(evt.target.value)}
                                     readOnly 
                                 />
                                 </div>
@@ -146,7 +128,6 @@ function AssessmentEdit() {
                                     type='text'
                                     value={assessmentAnswersById.impact}
                                     rows={12}
-                                    // onChange={(evt) => setNameInput(evt.target.value)}
                                     readOnly
                                 />
                                 </div>
@@ -155,14 +136,12 @@ function AssessmentEdit() {
                                 <textarea
                                     type='text'
                                     value={assessmentAnswersById.recommendations}
-                                    // onChange={(evt) => setNameInput(evt.target.value)}
                                     readOnly 
                                 />
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Submit</button>
                             </div>
                             </div>
                         </div>
@@ -179,49 +158,55 @@ function AssessmentEdit() {
                                 <h5>Level</h5>
                                 <input
                                     type='text'
-                                    value={assessmentAnswersById.level_rating || ''}
-                                    onChange={(evt) => setLevelRatingInput(evt.target.value)} 
+                                    value={levelRatingInput || ''}
+                                    placeholder={assessmentAnswersById.level_rating || ''}
+                                    onChange={(evt) => setLevelRatingInput(evt.target.value)}
                                 />
                                 </div>
                                 <div>
                                 <h5>Phase</h5>
                                 <input
                                     type='text'
-                                    value={assessmentAnswersById.phase || ''}
-                                    // onChange={(evt) => setNameInput(evt.target.value)} 
+                                    value={phaseInput || ''}
+                                    placeholder={assessmentAnswersById.phase || ''}
+                                    onChange={(evt) => setPhaseInput(evt.target.value)} 
                                 />
                                 </div>
                                 <div>
                                 <h5>Tags</h5>
                                 <input
                                     type='text'
-                                    value={assessmentAnswersById.tag_name || ''}
-                                    // onChange={(evt) => setNameInput(evt.target.value)}
+                                    value={tagsInput || ''}
+                                    placeholder={assessmentAnswersById.tag_name || ''}
+                                    onChange={(evt) => setTagsInput(evt.target.value)}
                                 />
                                 </div>
                                 <div>
                                 <h5>Findings</h5>
                                 <textarea
                                     type='text'
-                                    value={assessmentAnswersById.findings}
-                                    // onChange={(evt) => setNameInput(evt.target.value)} 
+                                    value={findingsInput || ''}
+                                    placeholder={assessmentAnswersById.findings || ''}
+                                    onChange={(evt) => setFindingsInput(evt.target.value)} 
                                 />
                                 </div>
                                 <div>
                                 <h5>Impact</h5>
                                 <textarea
                                     type='text'
-                                    value={assessmentAnswersById.impact}
+                                    value={impactInput || ''}
+                                    placeholder={assessmentAnswersById.impact || ''}
                                     rows={12}
-                                    // onChange={(evt) => setNameInput(evt.target.value)} 
+                                    onChange={(evt) => setImpactInput(evt.target.value)} 
                                 />
                                 </div>
                                 <div>
                                 <h5>Recommendations</h5>
                                 <textarea
                                     type='text'
-                                    value={assessmentAnswersById.recommendations}
-                                    // onChange={(evt) => setNameInput(evt.target.value)} 
+                                    value={recommendationsInput || ''}
+                                    placeholder={assessmentAnswersById.recommendations || ''}
+                                    onChange={(evt) => setRecommendationsInput(evt.target.value)} 
                                 />
                                 </div>
                             </div>
