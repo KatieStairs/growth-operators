@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 
+
 const allClients = (state = {}, action) => {
   switch (action.type) {
     case 'SET_ALL_CLIENTS':
@@ -10,5 +11,6 @@ const allClients = (state = {}, action) => {
 };
 
 export default combineReducers({
-  allClients,
+  allClients
 });
+

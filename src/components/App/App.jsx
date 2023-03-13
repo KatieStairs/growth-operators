@@ -24,6 +24,7 @@ import AssessmentEdit from '../Assessment/AssessmentEdit/AssessmentEdit';
 import AssessmentAnswers from '../Assessment/AssessmentAnswers/AssessmentAnswers';
 import AssessmentReview from '../Assessment/AssessmentReview/AssessmentReview';
 
+
 import 'bootstrap';
 import './App.css';
 
@@ -112,7 +113,7 @@ function App() {
             }
           </Route>
 
-          <Route
+          {/* <Route
             exact
             path="/registration"
           >
@@ -124,9 +125,9 @@ function App() {
               // Otherwise, show the registration page
               <RegisterPage />
             }
-          </Route>
-{/* 
-          <Route
+          </Route> */}
+
+          {/* <Route
             exact
             path="/dashboard"
           >
@@ -138,14 +139,22 @@ function App() {
               // Otherwise, show the Landing page
               <Dashboard />
             }
+          </Route> */}
+
+          <ProtectedRoute
+            exact
+            path="/dashboard"
+          >
+            <Dashboard />
+          </ProtectedRoute>
 
           <ProtectedRoute
             // logged in shows AllClients else shows LoginPage
             exact
             path="/all-clients"
           >
-            {/* <AllClients /> */}
-          {/* </ProtectedRoute> */}
+             <AllClients /> 
+           </ProtectedRoute> 
 
           <ProtectedRoute
             // logged in shows the Assessment Form page else shows LoginPage
@@ -179,7 +188,12 @@ function App() {
             {/* <AssessmentReview /> */}
           </ProtectedRoute>
 
-          
+          <ProtectedRoute
+          exact
+          path="/dashboard"
+          >
+            <Dashboard />
+          </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}
           {/* <Route>

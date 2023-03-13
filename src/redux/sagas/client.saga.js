@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+
 function* getAllClients() {
   try {
     const response = yield axios.get('/api/client/all')
@@ -36,8 +37,33 @@ function* deleteClient(action) {
   }
 };
 
+function* postClient(action) {
+  try {
+    const newCompany = action.payload
+    console.log(action.payload);
+    const clientResponse = yield axios({
+      method: 'POST',
+      url: '/api/client',
+      data: newCompany
+    })
+      console.log('new client yeild', clientResponse);
+      yield axios({
+        method: 'POST',
+        url: '/client-assessment',
+        data: {...newCompany, client_id: clientResponse.id}
+    })
+    yield put({
+      type: 'SAGA/GET_OPERATOR_DASHBOARD'
+    })
+    } catch (error) {
+      console.error('postClient POST request failed', error);
+    }
+};
+
 export default function* clientSaga() {
   yield takeLatest('SAGA/GET_ALL_CLIENTS', getAllClients);
   yield takeLatest('SAGA/PUT_CLIENT_INFO_BY_ID', updateClientInfo);
   yield takeLatest('SAGA/DELETE_CLIENT_BY_ID', deleteClient);
+  yield takeLatest('SAGA/POST_CLIENT', postClient);
 };
+
