@@ -4,6 +4,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 
+/** ---------- GET ALL ASSESSMENTS ---------- **/
 router.get('/', rejectUnauthenticated, (req, res) => {
     pool.query(`
     SELECT 
@@ -37,7 +38,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     "assessment_items"."recommendations";
     `).then((result) => {
     res.send(result.rows);
-    console.log(result.rows);
     }).catch((error) => {
     console.log('Error in GET * assessment answers', error)
     res.sendStatus(500);
@@ -46,19 +46,19 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 
 /** ---------- GET ASSESSMENT BY CLIENT ID ---------- **/
-
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     const idOfAssessment = req.params.id;
     console.log('in GET by client_id', idOfAssessment)
     const sqlText = `
-        SELECT 
+        SELECT
+            "client"."company_name" AS "company_name",
 	        "buckets"."name" AS "bucket_name",
 	        "assessment_items"."level_rating", 
 	        "assessment_items"."phase",
 	        "functions"."name" AS "function_name",
 	        "subfunctions"."name" AS "subfunction_name",
 	        "tags"."name" AS "tag_name",
-            "findings",
+	        "findings",
             "impact",
             "recommendations"
         FROM "assessment_items" 
@@ -68,12 +68,14 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
         JOIN "subfunctions" ON "subfunction_id" = "subfunctions"."id"
         JOIN "tags_assessment_items" ON "assessment_items"."id" = "tags_assessment_items"."assessment_item_id"
         JOIN "tags" ON "tags_assessment_items"."assessment_item_id" = "tags"."id"
+        JOIN "client" ON "client_assessments"."client_id" = "client"."id"
         WHERE "assessment_id" = $1;
     `
     const sqlValues = [idOfAssessment];
     pool.query(sqlText, sqlValues)
         .then((dbRes) => {
             res.send(dbRes.rows[0])
+            // console.log('32432423', dbRes.rows[0])
         })
         .catch((dbErr) => {
             console.log('Error in Edit Assessment GET', dbErr);
