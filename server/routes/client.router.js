@@ -35,8 +35,8 @@ router.get('/dashboard', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500);
         })
 });
-
-router.get('/all', (req, res) => {
+// added rejectUnauthenticated, -adam
+router.get('/all', rejectUnauthenticated, (req, res) => {
   const sqlQuery = `
   SELECT
     "client"."id",
@@ -65,8 +65,8 @@ router.get('/all', (req, res) => {
     res.sendStatus(500);
   })
 });
-
-router.post('/', (req, res) => {
+// added rejectUnauthenticated, -adam
+router.post('/', rejectUnauthenticated, (req, res) => {
   console.log(req);
   const newCompany = req.body;
   console.log('in client router, newCompany:', newCompany);
@@ -93,8 +93,8 @@ router.post('/', (req, res) => {
       res.sendStatus(500);
     });
 });
-
-router.put('/:id', (req, res) => {
+// added rejectUnauthenticated, -adam
+router.put('/:id', rejectUnauthenticated, (req, res) => {
   const client = req.body;
   const sqlQuery = `
   UPDATE "client"
@@ -113,8 +113,8 @@ router.put('/:id', (req, res) => {
     console.error('Error in PUT /client/:id:', error);
   });
 });
-
-router.delete('/:id', (req, res) => {
+// added rejectUnauthenticated, -adam
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
   const sqlQuery = `
   DELETE FROM "client"
     WHERE "id" = $1

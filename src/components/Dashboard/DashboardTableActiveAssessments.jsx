@@ -2,13 +2,13 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 
-function DashboardTable1({ client }) {
+function DashboardTableActiveAssessments({ client }) {
     const history = useHistory();
 
     const handleClick = (client) => {
         let assessmentId = client.assessment_id;
         console.log('edit id clicked', assessmentId);
-        // history.push(`/details/${trollId}`)
+        history.push(`/assessment-edit/${assessmentId}`)
     }
 
 return (
@@ -20,4 +20,4 @@ return (
 )
 }
 
-export default DashboardTable1;
+export default DashboardTableActiveAssessments;

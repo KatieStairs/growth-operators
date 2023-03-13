@@ -5,8 +5,8 @@ import './Dashboard.css';
 
 // CUSTOM COMPONENTS
 import CreateNewClientModal from './CreateNewClientModal';
-import DashboardTable1 from './DashboardTable1';
-import DashboardTable2 from './DashboardTable2';
+import DashboardTableActiveAssessments from './DashboardTableActiveAssessments';
+import DashboardTableOperatorAssessments from './DashboardTableOperatorAssessments';
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -37,7 +37,7 @@ function Dashboard() {
                 </thead>
                 <tbody>
                   {operatorDashboard.operatorDashboard.map((client) => {
-                      return <DashboardTable1 key={client.assessment_id} client={client}/>
+                      return <DashboardTableActiveAssessments key={client.assessment_id} client={client}/>
                   })}
                 </tbody>
               </table>
@@ -49,7 +49,6 @@ function Dashboard() {
                   <tr>
                     <th>Client Name</th>
                     <th>Engagement Start</th>
-                    <th>Current Phase</th>
                     <th>Edit</th>
                     <th>See Detail</th>
                     <th>See Assessment</th>
@@ -57,7 +56,7 @@ function Dashboard() {
                 </thead>
                 <tbody>
                   {operatorDashboard.operatorDashboard.map((client) => {
-                      return <DashboardTable2 key={client.assessment_id} client={client}/>
+                      return <DashboardTableOperatorAssessments key={client.assessment_id} client={client}/>
                   })}
                 </tbody>
               </table>

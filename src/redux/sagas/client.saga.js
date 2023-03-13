@@ -41,16 +41,16 @@ function* postClient(action) {
   try {
     const newCompany = action.payload
     console.log(action.payload);
-    const clientresoponce = yield axios({
+    const clientResponse = yield axios({
       method: 'POST',
       url: '/api/client',
       data: newCompany
     })
-      console.log('new clientyeid', clientresoponce);
+      console.log('new client yeild', clientResponse);
       yield axios({
         method: 'POST',
         url: '/client-assessment',
-        data: {...newCompany, client_id: clientresoponce.id}
+        data: {...newCompany, client_id: clientResponse.id}
     })
     yield put({
       type: 'SAGA/GET_OPERATOR_DASHBOARD'
