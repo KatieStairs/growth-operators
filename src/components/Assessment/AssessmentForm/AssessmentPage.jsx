@@ -18,6 +18,7 @@ function AssessmentPage ({functionsArray}) {
   ); // Object for inputs on form subfunction sections
 
   const handleInputChange = (subfunction, index, event) => {
+
     if (allInputFields.subfunctionID === null) { 
     // if there is no info at all in allInputFields,
       setAllInputFields({[event.target.name]: event.target.value, 'subfunctionID': subfunction.id})
@@ -32,15 +33,24 @@ function AssessmentPage ({functionsArray}) {
 
     else {    
     // if there's already info in allInputFields *BUT* it's from a different subfunction section
+
+
       if (formArray.length >= 1) { 
+      let test;
       // only runs the following logic if formArray has enough objects in it
-        for (const formObject of formArray) { 
-        // evaluates each object in formArray
-          if (formObject.subfunctionID === allInputFields.subfunctionID){ 
-          // SubfunctionIDs in formArray and allInputsFields match (i.e. if there's already an object in formArray with
-          // that subfunctionID, to prevent duplicates)
-            let newInput = {
-              subfunctionID: formObject.subfunctionID,
+        for (const formObject of formArray) {
+          console.log('forEach // subfunction ID:', subfunction.id);
+          console.log('forEach // formObject ID:', formObject.subfunctionID);
+          console.log('forEach // Inputs ID:', allInputFields.subfunctionID);
+
+
+          if (formObject.subfunctionID === allInputFields.subfunctionID){
+            console.log('MATCH // formObject ID: ', formObject.subfunctionID);
+            console.log('MATCH // Inputs ID:', allInputFields.subfunctionID);
+            let spliceInputIndex = formArray.indexOf(formObject)  
+            console.log('spliceInputIndex: ', spliceInputIndex);
+            let newFormObject = {
+              ...formObject,
               levelRatingInput: allInputFields.levelRatingInput || formObject.levelRatingInput,
               findingsInput: allInputFields.findingsInput || formObject.findingsInput,
               impactsInput: allInputFields.impactsInput || formObject.impactsInput,
@@ -48,32 +58,103 @@ function AssessmentPage ({functionsArray}) {
               phaseInput: allInputFields.phaseInput || formObject.phaseInput,
               tagsInput: allInputFields.tagsInput || formObject.tagsInput,
             }; 
-            console.log('newInput: ', newInput);
-            console.log('formObject: ', formObject);
-            // new variable for whatever is currently in allInputsFields + formObject
-            let spliceInputIndex = formArray.indexOf(formObject)  
-            // new variable for index/location of matching formArray object
-            formArray.splice(spliceInputIndex, 1, newInput);
-            // removes 1 object at spliceInputIndex location, adds in newInput in its place
-            // This is where I think the error is coming in -- currently growing exponentially rather than removing.
+            formArray.splice(spliceInputIndex, 1, newFormObject);
+            test = true;
+
+            console.log('allInputFields: ', allInputFields);
+            console.log('formArray: ', formArray);
 
             clearInputFields();
-            // clears allInputFields
             setAllInputFields({[event.target.name]: event.target.value, 'subfunctionID': subfunction.id})
-            // sets allInputFields where a value exists, gives subfunction section ID.
-            
-          } 
-          else {
-            formArray.push(allInputFields);
-            // if subfunctionIDs in formArray and allInputsFields do NOT match, (i.e. there is no object in formArray with
-            // that subfunctionID), pushes allInputFields into formArray.
+            return formArray;
+          } else {
+            test = false;
           }
         }
-      } 
-      else {
-        formArray.push(allInputFields);
-        // if formArray is empty, just pushes allInputFields in.
+
+        console.log('Test: ', test)
+        if (test === false) {
+            let newFormObject = {
+              subfunctionID: allInputFields.subfunctionID,
+              levelRatingInput: allInputFields.levelRatingInput,
+              findingsInput: allInputFields.findingsInput,
+              impactsInput: allInputFields.impactsInput,
+              recommendationsInput: allInputFields.recommendationsInput,
+              phaseInput: allInputFields.phaseInput,
+              tagsInput: allInputFields.tagsInput,
+            }; 
+
+            formArray.push(newFormObject);
+            clearInputFields();
+            setAllInputFields({[event.target.name]: event.target.value, 'subfunctionID': subfunction.id})
+            console.log('allInputFields: ', allInputFields);
+            console.log('formArray: ', formArray);
+        }
+      } else {
+        let newFormObject = {
+          subfunctionID: allInputFields.subfunctionID,
+          levelRatingInput: allInputFields.levelRatingInput,
+          findingsInput: allInputFields.findingsInput,
+          impactsInput: allInputFields.impactsInput,
+          recommendationsInput: allInputFields.recommendationsInput,
+          phaseInput: allInputFields.phaseInput,
+          tagsInput: allInputFields.tagsInput,
+        }; 
+
+        formArray.push(newFormObject);
+        clearInputFields();
+        setAllInputFields({[event.target.name]: event.target.value, 'subfunctionID': subfunction.id})
+        console.log('allInputFields: ', allInputFields);
+        console.log('formArray: ', formArray);
       }
+        // for (const formObject of formArray) { 
+        // // evaluates each object in formArray
+        //   // if (formObject.subfunctionID === allInputFields.subfunctionID){ 
+        //   if (formObject.subfunctionID === subfunction.id){ 
+        //   // SubfunctionIDs in formArray and allInputsFields match (i.e. if there's already an object in formArray with
+        //   // that subfunctionID, to prevent duplicates)
+        //     let newInput = {
+        //       subfunctionID: formObject.subfunctionID,
+        //       levelRatingInput: allInputFields.levelRatingInput || formObject.levelRatingInput,
+        //       findingsInput: allInputFields.findingsInput || formObject.findingsInput,
+        //       impactsInput: allInputFields.impactsInput || formObject.impactsInput,
+        //       recommendationsInput: allInputFields.recommendationsInput || formObject.recommendationsInput,
+        //       phaseInput: allInputFields.phaseInput || formObject.phaseInput,
+        //       tagsInput: allInputFields.tagsInput || formObject.tagsInput,
+        //     }; 
+        //     console.log('Splicing in // newInput: ', newInput);
+        //     console.log('Splicing out // formObject: ', formObject);
+        //     // new variable for whatever is currently in allInputsFields + formObject
+        //     let spliceInputIndex = formArray.indexOf(formObject)  
+        //     console.log('spliceInputIndex: ', spliceInputIndex);
+        //     // new variable for index/location of matching formArray object
+        //     formArray.splice(spliceInputIndex, 1, newInput);
+        //     // removes 1 object at spliceInputIndex location, adds in newInput in its place
+        //     // This is where I think the error is coming in -- currently growing exponentially rather than removing.
+
+        //     clearInputFields();
+        //     // clears allInputFields
+        //     setAllInputFields({[event.target.name]: event.target.value, 'subfunctionID': subfunction.id})
+        //     // sets allInputFields where a value exists, gives subfunction section ID.
+        //     break;
+        //   } 
+        //   else {
+        //     let newInput = {
+        //       subfunctionID: allInputFields.subfunctionID,
+        //       levelRatingInput: allInputFields.levelRatingInput,
+        //       findingsInput: allInputFields.findingsInput,
+        //       impactsInput: allInputFields.impactsInput,
+        //       recommendationsInput: allInputFields.recommendationsInput,
+        //       phaseInput: allInputFields.phaseInput,
+        //       tagsInput: allInputFields.tagsInput,
+        //     }; 
+        //     formArray.push(newInput);
+        //     // if subfunctionIDs in formArray and allInputsFields do NOT match, (i.e. there is no object in formArray with
+        //     // that subfunctionID), pushes allInputFields into formArray.
+        //   }
+        // }
+       
+      
     
     clearInputFields();
     // clears allInputFields
