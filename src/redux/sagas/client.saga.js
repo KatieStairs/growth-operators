@@ -67,11 +67,11 @@ function* postClient(action) {
       data: newCompany
     })
       console.log('new client yeild', clientResponse);
-      yield axios({
-        method: 'POST',
-        url: '/client-assessment',
-        data: {...newCompany, client_id: clientResponse.id}
-    })
+    //   yield axios({
+    //     method: 'POST',
+    //     url: '/client-assessment',
+    //     data: {...newCompany, client_id: clientResponse.id}
+    // })
     yield put({
       type: 'SAGA/GET_OPERATOR_DASHBOARD'
     })

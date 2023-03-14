@@ -12,15 +12,13 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     INSERT INTO "client_assessments"
     ("client_id", "engagement_date", "status")
     VALUES
-    ('7', '03-10-2023' 'Edit in Progress');
+    ( $2, 'Edit in Progress');
     
       `;
     const queryValues = [
-      newCompany.companyName,
-      newCompany.contactPerson,
-      newCompany.emailInput,
+
       newCompany.date,
-      newCompany.userId
+      newCompany.userId,
     ];
     pool.query(queryText, queryValues)
       .then(() => { res.sendStatus(201); })
