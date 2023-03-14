@@ -8,9 +8,11 @@ function AssessmentEdit() {
     const params = useParams();
     const dispatch = useDispatch();
     const assessmentAnswersById = useSelector((store) => store.assessmentAnswersById);
+    const structure = useSelector((store => store.structure));
+    const tags = structure.tagsReducer;
     const history = useHistory();
-    const user = useSelector(store => store.user)
 
+    const [headlineInput, setHeadlineInput] = useState(assessmentAnswersById.headline_text)
     const [levelRatingInput, setLevelRatingInput] = useState(assessmentAnswersById.level_rating)
     const [phaseInput, setPhaseInput] = useState(assessmentAnswersById.phase)
     const [tagsInput, setTagsInput] = useState(assessmentAnswersById.tags)
@@ -22,46 +24,53 @@ function AssessmentEdit() {
         // console.log('params.id', params.id)
         dispatch({
             type: 'SAGA/GET_ASSESSMENT_ANSWERS_BY_ID',
-            payload: 1
+            payload: params.id
         })
     }, []);
 
-    const addNewHeadline = event => {
-        event.preventDefault();
-        // console.log('assessment_id', assessmentAnswersById.assessment_id, 'headline', event.target.value);
+    //Used Lauren's Tags reducer to generate the edit tag portion of the modal.
+    useEffect(() => {
+        // console.log('params.id', params.id)
+        dispatch({
+            type: 'SAGA/FETCH_ALL_TAGS',
+            payload: params.id
+        })
+    }, []);
+
+    const addNewHeadline = (event) => {
+        console.log('assessment_id', assessmentAnswersById.assessment_id, 'bucket id', assessmentAnswersById.bucket_id, 'headline', headlineInput);
         dispatch({
             type: 'SAGA/POST_HEADLINE_BY_ID',
             payload: {
-                assessment_id: 1,
-                bucket_id: 1,
-                headline_text: event.target.value
+                assessment_id: assessmentAnswersById.assessment_id,
+                bucket_id: assessmentAnswersById.bucket_id,
+                headline_text: headlineInput
             }
         })
     }
 
     const updateAssessmentAnswers = (event) => {
         // console.log('Updated answers:', levelRatingInput)
-        event.preventDefault();
         const updatedAssessmentAnswers = {
-          id: assessmentAnswersById.assessment_id,
-          level_rating: levelRatingInput,
-          phase: phaseInput,
-          tags: tagsInput,
-          findings: findingsInput,
-          impact: impactInput,
-          recommendations: recommendationsInput
+            assessment_id: assessmentAnswersById.assessment_id,
+            level_rating: levelRatingInput,
+            phase: phaseInput,
+            tags_id: tagsInput,
+            findings: findingsInput,
+            impact: impactInput,
+            recommendations: recommendationsInput
         }
         dispatch({
-          type: 'SAGA/UPDATE_ASSESSMENT_BY_ID',
-          payload: updatedAssessmentAnswers
+            type: 'SAGA/UPDATE_ASSESSMENT_BY_ID',
+            payload: updatedAssessmentAnswers
         })
         // history.push('/dashboard');
-      };
+    };
 
-    const handleSubmit = () => {
-        addNewHeadline();
-        updateAssessmentAnswers();
-    }
+    // const handleSubmit = () => {
+    //     addNewHeadline();
+    //     updateAssessmentAnswers();
+    // }
     const goToOverviewPage = () => {
         history.push(`/client-overview/${assessmentAnswersById.assessment_id}`)
     }
@@ -70,6 +79,7 @@ function AssessmentEdit() {
         history.push(`/dashboard`)
     }
 
+        // I'm not super attached to the <hr>'s & <br>'s in the modal, may want to change.
     return (
         <>
         {/* <div className="container-fluid">
@@ -89,6 +99,7 @@ function AssessmentEdit() {
                 id={assessmentAnswersById.assessment_id || ''} 
                 className="form-control" 
                 aria-describedby="passwordHelpInline" 
+                onChange={(event) => setHeadlineInput(event.target.value)}
                 />
             </div>
         </div>
@@ -102,7 +113,7 @@ function AssessmentEdit() {
                             <th scope="col">Function</th>
                             <th scope="col">Subfunction</th>
                             <th scope="col">Level</th>
-                            <th scope="col">Phase</th>
+                            {/* <th scope="col">Phase</th> */}
                             <th scope="col">Tags</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
@@ -116,7 +127,7 @@ function AssessmentEdit() {
                             <td>{assessmentAnswersById.function_name || ''}</td>
                             <td>{assessmentAnswersById.subfunction_name || ''}</td>
                             <td>{assessmentAnswersById.level_rating || ''}</td>
-                            <td>{assessmentAnswersById.phase || ''}</td>
+                            {/* <td>{assessmentAnswersById.phase || ''}</td> */}
                             <td>{assessmentAnswersById.tag_name || ''}</td>
                             <td><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                                 Expand
@@ -184,7 +195,8 @@ function AssessmentEdit() {
                                     onChange={(evt) => setLevelRatingInput(evt.target.value)}
                                 />
                                 </div>
-                                <div>
+                                {/* <br></br> */}
+                                {/* <div>
                                 <h5>Phase</h5>
                                 <input
                                     type='text'
@@ -192,16 +204,26 @@ function AssessmentEdit() {
                                     placeholder={assessmentAnswersById.phase || ''}
                                     onChange={(evt) => setPhaseInput(evt.target.value)} 
                                 />
-                                </div>
+                                </div> */}
+                                {/* Need to figure out how to have the correct tag checked on load of modal. */}
                                 <div>
+                                    <hr></hr>
                                 <h5>Tags</h5>
-                                <input
-                                    type='text'
-                                    value={tagsInput || ''}
-                                    placeholder={assessmentAnswersById.tag_name || ''}
-                                    onChange={(evt) => setTagsInput(evt.target.value)}
-                                />
+                                {tags.map((tag) => {
+                                    return (
+                                    <div key={tag.id} className="g-3">
+                                        <input 
+                                        type="checkbox" 
+                                        className="form-check-input" 
+                                        name="tagsInput"
+                                        value={tag.id} 
+                                        onChange={(evt) => setTagsInput(evt.target.value)}/>
+                                        <label htmlFor="tagsInput" className="form-check-label"> {tag.name}</label>
+                                    </div>
+                                    )
+                                })}
                                 </div>
+                                    <hr></hr>
                                 <div>
                                 <h5>Findings</h5>
                                 <textarea
@@ -211,6 +233,7 @@ function AssessmentEdit() {
                                     onChange={(evt) => setFindingsInput(evt.target.value)} 
                                 />
                                 </div>
+                                    <br></br>
                                 <div>
                                 <h5>Impact</h5>
                                 <textarea
@@ -221,6 +244,7 @@ function AssessmentEdit() {
                                     onChange={(evt) => setImpactInput(evt.target.value)} 
                                 />
                                 </div>
+                                    <br></br>
                                 <div>
                                 <h5>Recommendations</h5>
                                 <textarea
@@ -233,7 +257,7 @@ function AssessmentEdit() {
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" className="btn btn-primary">Submit</button>
+                                <button type="button" className="btn btn-primary" onClick={updateAssessmentAnswers}>Submit</button>
                             </div>
                             </div>
                         </div>
@@ -246,8 +270,8 @@ function AssessmentEdit() {
         <div className="container">
             <div className="row">
                 <div className="col-md-12 bg-light float-right">
+                    <button type="submit" className="float-end" onClick={addNewHeadline}>Submit</button>
                     <button type="button" className="float-end" onClick={goToDashboard}>Cancel</button>
-                    <button type="submit" className="float-end" onClick={handleSubmit}>Submit</button>
                 </div>
             </div>
         </div>

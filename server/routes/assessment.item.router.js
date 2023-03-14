@@ -11,15 +11,16 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     const sqlText = `
         SELECT
             "assessment_id",
-            "client_id", 
+            "client_assessments"."client_id", 
+            "assessment_items"."bucket_id",
             "client"."company_name" AS "company_name",
-	        "buckets"."name" AS "bucket_name",
-	        "assessment_items"."level_rating", 
-	        "assessment_items"."phase",
-	        "functions"."name" AS "function_name",
-	        "subfunctions"."name" AS "subfunction_name",
-	        "tags"."name" AS "tag_name",
-	        "findings",
+            "buckets"."name" AS "bucket_name",
+            "assessment_items"."level_rating", 
+            "assessment_items"."phase",
+            "functions"."name" AS "function_name",
+            "subfunctions"."name" AS "subfunction_name",
+            "tags"."name" AS "tag_name",
+            "findings",
             "impact",
             "recommendations"
         FROM "assessment_items" 
@@ -36,7 +37,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     pool.query(sqlText, sqlValues)
         .then((dbRes) => {
             res.send(dbRes.rows[0])
-            console.log(dbRes.rows[0])
+            // console.log(dbRes.rows[0])
         })
         .catch((dbErr) => {
             console.log('Error in Edit Assessment GET', dbErr);
@@ -79,18 +80,18 @@ router.post('/:id', rejectUnauthenticated, (req, res) => {
 })
 
 
-/** ---------- POST HEADLINE BY ASSESSMENT ID---------- **/
-router.post('/:id', rejectUnauthenticated, (req, res) => {
+/** ---------- POST HEADLINE --------- **/
+router.post('/', rejectUnauthenticated, (req, res) => {
     console.log('***** req.params.id', req.params);
     console.log('***** req.body.headline', req.body);
     const sqlQuery = `
         INSERT INTO "buckets_headlines"
-            ("assessment_id", "headline_text", "bucket_id")
+            ("assessment_id", "bucket_id", "headline_text")
         VALUES
         ($1, $2, $3);
     `;
     //Will need bucket_id too.
-    const sqlValues = [req.params.id, req.body.headline]
+    const sqlValues = [req.body.assessment_id, req.body.bucket_id, req.body.headline_text]
     pool.query(sqlQuery, sqlValues)
     .then((response) => {
         res.sendStatus(201);
@@ -102,6 +103,8 @@ router.post('/:id', rejectUnauthenticated, (req, res) => {
 })
 
 /** ---------- PUT ASSESSMENT EDITS BY ASSESSMENT ID---------- **/
-
+router.put('/:id'), rejectUnauthenticated, (req, res) => {
+    
+}
 
 module.exports = router;
