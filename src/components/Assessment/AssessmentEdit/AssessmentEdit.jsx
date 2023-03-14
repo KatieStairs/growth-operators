@@ -52,10 +52,10 @@ function AssessmentEdit() {
     const updateAssessmentAnswers = (event) => {
         // console.log('Updated answers:', levelRatingInput)
         const updatedAssessmentAnswers = {
-            id: assessmentAnswersById.assessment_id,
+            assessment_id: assessmentAnswersById.assessment_id,
             level_rating: levelRatingInput,
             phase: phaseInput,
-            tags: tagsInput,
+            tags_id: tagsInput,
             findings: findingsInput,
             impact: impactInput,
             recommendations: recommendationsInput
@@ -79,6 +79,7 @@ function AssessmentEdit() {
         history.push(`/dashboard`)
     }
 
+        // I'm not super attached to the <hr>'s & <br>'s in the modal, may want to change.
     return (
         <>
         {/* <div className="container-fluid">
@@ -112,7 +113,7 @@ function AssessmentEdit() {
                             <th scope="col">Function</th>
                             <th scope="col">Subfunction</th>
                             <th scope="col">Level</th>
-                            <th scope="col">Phase</th>
+                            {/* <th scope="col">Phase</th> */}
                             <th scope="col">Tags</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
@@ -126,7 +127,7 @@ function AssessmentEdit() {
                             <td>{assessmentAnswersById.function_name || ''}</td>
                             <td>{assessmentAnswersById.subfunction_name || ''}</td>
                             <td>{assessmentAnswersById.level_rating || ''}</td>
-                            <td>{assessmentAnswersById.phase || ''}</td>
+                            {/* <td>{assessmentAnswersById.phase || ''}</td> */}
                             <td>{assessmentAnswersById.tag_name || ''}</td>
                             <td><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                                 Expand
@@ -194,7 +195,8 @@ function AssessmentEdit() {
                                     onChange={(evt) => setLevelRatingInput(evt.target.value)}
                                 />
                                 </div>
-                                <div>
+                                {/* <br></br> */}
+                                {/* <div>
                                 <h5>Phase</h5>
                                 <input
                                     type='text'
@@ -202,12 +204,14 @@ function AssessmentEdit() {
                                     placeholder={assessmentAnswersById.phase || ''}
                                     onChange={(evt) => setPhaseInput(evt.target.value)} 
                                 />
-                                </div>
+                                </div> */}
+                                {/* Need to figure out how to have the correct tag checked on load of modal. */}
                                 <div>
+                                    <hr></hr>
                                 <h5>Tags</h5>
                                 {tags.map((tag) => {
                                     return (
-                                    <div key={tag.id} className="g-3, border">
+                                    <div key={tag.id} className="g-3">
                                         <input 
                                         type="checkbox" 
                                         className="form-check-input" 
@@ -219,15 +223,7 @@ function AssessmentEdit() {
                                     )
                                 })}
                                 </div>
-                                {/* <div>
-                                <h5>Tags</h5>
-                                <input
-                                    type='text'
-                                    value={tagsInput || ''}
-                                    placeholder={assessmentAnswersById.tag_name || ''}
-                                    onChange={(evt) => setTagsInput(evt.target.value)}
-                                />
-                                </div> */}
+                                    <hr></hr>
                                 <div>
                                 <h5>Findings</h5>
                                 <textarea
@@ -237,6 +233,7 @@ function AssessmentEdit() {
                                     onChange={(evt) => setFindingsInput(evt.target.value)} 
                                 />
                                 </div>
+                                    <br></br>
                                 <div>
                                 <h5>Impact</h5>
                                 <textarea
@@ -247,6 +244,7 @@ function AssessmentEdit() {
                                     onChange={(evt) => setImpactInput(evt.target.value)} 
                                 />
                                 </div>
+                                    <br></br>
                                 <div>
                                 <h5>Recommendations</h5>
                                 <textarea
