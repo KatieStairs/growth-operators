@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, Link, useHistory } from "react-router-dom";
+import { useParams, Link, useHistory, useLocation } from "react-router-dom";
 
 import AssessmentSection from "./AssessmentSection";
 
@@ -8,6 +8,7 @@ function AssessmentPage ({functionsArray}) {
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useParams();
+  const pathname = useLocation();
   const structure = useSelector((store => store.structure))
 
 
@@ -19,6 +20,10 @@ function AssessmentPage ({functionsArray}) {
     {subfunctionID: null, levelRatingInput: null, findingsInput: '', impactsInput: '', 
     recommendationsInput: '', phaseInput: null, tagsInput: []}
   ); 
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
 
   function evalTagsInput(allInputFields, formObject){ // checks tag arrays for duplicates/uncheck action
     let keepTagInputs = formObject.tagsInput;
@@ -199,22 +204,16 @@ function AssessmentPage ({functionsArray}) {
   }
 
   const handleSaveForLater = (event) => {
-    event.preventDefault();
     saveToDatabase();
-    // history.push('/dashboard');
   }
 
   const handleContinue = (event) => {
-    event.preventDefault();
-   (event) => saveToDatabase(event);
-
-    // evalLocation();
+    saveToDatabase();
   }
   
   const evalLocation = () => {
     let currentLocationIndex = null;
     let nextLocationObject = null;
-
     let newRoute = '';
 
     for (const functionObject of functionsArray ){
@@ -227,7 +226,7 @@ function AssessmentPage ({functionsArray}) {
         currentLocationIndex = Number(functionsArray.indexOf(functionObject));
         nextLocationObject = functionsArray.at(currentLocationIndex + 1)
         let nextLocationID = nextLocationObject.id;
-        newRoute = `assessment-form/${params.assessment_id}/${params.bucket_id}/${nextLocationID}`;
+        newRoute = `/assessment-form/${params.assessment_id}/${params.bucket_id}/${nextLocationID}`;
       }
     }
     return newRoute;
@@ -243,11 +242,6 @@ function AssessmentPage ({functionsArray}) {
     setAllInputFields({subfunctionID: null, levelRatingInput: null, findingsInput: '',
     impactsInput: '', recommendationsInput: '', phaseInput: null, tagsInput: null})
   }
-
-  // console.log('Width: ', document.getElementById('progress-bar').offsetWidth)
-
-  // const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-  // const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
   return (
     <>
@@ -284,11 +278,9 @@ function AssessmentPage ({functionsArray}) {
                       type="range" 
                       className="form-range" 
                       name="levelRatingInput"
-                      // id={subfunction.id} 
                       min="0" 
                       max="5" 
                       step="1" 
-                      // value={input.levelRatingInput}
                       onChange={(event) => handleInputChange(subfunction, index, event)}
                     />
                   </div>
@@ -299,8 +291,6 @@ function AssessmentPage ({functionsArray}) {
                       type="text" 
                       className="form-control" 
                       name="findingsInput"
-                      // id={subfunction.id} 
-                      // value={input.findingsInput}
                       onChange={(event) => handleInputChange(subfunction, index, event)}
                     />
                   </div>
@@ -311,8 +301,6 @@ function AssessmentPage ({functionsArray}) {
                       type="text" 
                       className="form-control" 
                       name="impactsInput"
-                      // id={subfunction.id} 
-                      // value={input.impactsInput}
                       onChange={(event) => handleInputChange(subfunction, index, event)} 
                     />
                   </div>
@@ -323,8 +311,6 @@ function AssessmentPage ({functionsArray}) {
                         type="text" 
                         className="form-control" 
                         name="recommendationsInput"
-                        // id={subfunction.id} 
-                        // value={input.recommendationsInput}
                         onChange={(event) => handleInputChange(subfunction, index, event)}
                       />
                     </div>
@@ -335,8 +321,6 @@ function AssessmentPage ({functionsArray}) {
                         type="number" 
                         className="form-control" 
                         name="phaseInput"
-                        // id={subfunction.id} 
-                        // value={input.phaseInput}
                         onChange={(event) => handleInputChange(subfunction, index, event)}
                       />
                     </div>
@@ -350,7 +334,6 @@ function AssessmentPage ({functionsArray}) {
                               type="checkbox" 
                               className="form-check-input" 
                               name="tagsInput"
-                              // id={subfunction.id} 
                               value={tag.id} 
                               onChange={(event) => handleInputChange(subfunction, index, event)}/>
                             <label htmlFor="tagsInput" className="form-check-label"> {tag.name}</label>
@@ -369,10 +352,14 @@ function AssessmentPage ({functionsArray}) {
                       Cancel
                       </button>
                     </Link>
-                    <button className="btn btn-primary" onClick={(event) => handleContinue(event)}>Continue</button>
+                    <Link to={evalLocation}>
+                      <button className="btn btn-primary" onClick={(event) => handleContinue(event)}>Continue</button>
+                    </Link>
                   </div>
                   <div className="d-grid g-2 d-md-flex justify-content-md-end">
+                    <Link to="/dashboard">
                     <button className="btn btn-link" type="submit" onClick={(event) => handleSaveForLater(event)}>Save for Later</button>
+                    </Link>
                   </div>
                   </>
                   : <></>
