@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Nav from '../../Nav/Nav'
 
 function AssessmentAnswers() {
     const dispatch = useDispatch();
+    const params = useParams();
     const history = useHistory();
     // const assessmentAnswersList = useSelector(store => store.assessmentAnswersList);
     const assessmentAnswersById = useSelector(store => store.assessmentAnswersById);

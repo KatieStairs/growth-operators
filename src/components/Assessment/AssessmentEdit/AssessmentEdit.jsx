@@ -8,9 +8,11 @@ function AssessmentEdit() {
     const params = useParams();
     const dispatch = useDispatch();
     const assessmentAnswersById = useSelector((store) => store.assessmentAnswersById);
+    const structure = useSelector((store => store.structure));
+    const tags = structure.tagsReducer;
     const history = useHistory();
-    const user = useSelector(store => store.user)
 
+    const [headlineInput, setHeadlineInput] = useState(assessmentAnswersById.headline_text)
     const [levelRatingInput, setLevelRatingInput] = useState(assessmentAnswersById.level_rating)
     const [phaseInput, setPhaseInput] = useState(assessmentAnswersById.phase)
     const [tagsInput, setTagsInput] = useState(assessmentAnswersById.tags)
@@ -22,46 +24,53 @@ function AssessmentEdit() {
         // console.log('params.id', params.id)
         dispatch({
             type: 'SAGA/GET_ASSESSMENT_ANSWERS_BY_ID',
-            payload: 1
+            payload: params.id
         })
     }, []);
 
-    const addNewHeadline = event => {
-        event.preventDefault();
-        // console.log('assessment_id', assessmentAnswersById.assessment_id, 'headline', event.target.value);
+    //Used Lauren's Tags reducer to generate the edit tag portion of the modal.
+    useEffect(() => {
+        // console.log('params.id', params.id)
+        dispatch({
+            type: 'SAGA/FETCH_ALL_TAGS',
+            payload: params.id
+        })
+    }, []);
+
+    const addNewHeadline = (event) => {
+        console.log('assessment_id', assessmentAnswersById.assessment_id, 'bucket id', assessmentAnswersById.bucket_id, 'headline', headlineInput);
         dispatch({
             type: 'SAGA/POST_HEADLINE_BY_ID',
             payload: {
-                assessment_id: 1,
-                bucket_id: 1,
-                headline_text: event.target.value
+                assessment_id: assessmentAnswersById.assessment_id,
+                bucket_id: assessmentAnswersById.bucket_id,
+                headline_text: headlineInput
             }
         })
     }
 
     const updateAssessmentAnswers = (event) => {
         // console.log('Updated answers:', levelRatingInput)
-        event.preventDefault();
         const updatedAssessmentAnswers = {
-          id: assessmentAnswersById.assessment_id,
-          level_rating: levelRatingInput,
-          phase: phaseInput,
-          tags: tagsInput,
-          findings: findingsInput,
-          impact: impactInput,
-          recommendations: recommendationsInput
+            id: assessmentAnswersById.assessment_id,
+            level_rating: levelRatingInput,
+            phase: phaseInput,
+            tags: tagsInput,
+            findings: findingsInput,
+            impact: impactInput,
+            recommendations: recommendationsInput
         }
         dispatch({
-          type: 'SAGA/UPDATE_ASSESSMENT_BY_ID',
-          payload: updatedAssessmentAnswers
+            type: 'SAGA/UPDATE_ASSESSMENT_BY_ID',
+            payload: updatedAssessmentAnswers
         })
         // history.push('/dashboard');
-      };
+    };
 
-    const handleSubmit = () => {
-        addNewHeadline();
-        updateAssessmentAnswers();
-    }
+    // const handleSubmit = () => {
+    //     addNewHeadline();
+    //     updateAssessmentAnswers();
+    // }
     const goToOverviewPage = () => {
         history.push(`/client-overview/${assessmentAnswersById.assessment_id}`)
     }
@@ -89,6 +98,7 @@ function AssessmentEdit() {
                 id={assessmentAnswersById.assessment_id || ''} 
                 className="form-control" 
                 aria-describedby="passwordHelpInline" 
+                onChange={(event) => setHeadlineInput(event.target.value)}
                 />
             </div>
         </div>
@@ -195,13 +205,29 @@ function AssessmentEdit() {
                                 </div>
                                 <div>
                                 <h5>Tags</h5>
+                                {tags.map((tag) => {
+                                    return (
+                                    <div key={tag.id} className="g-3, border">
+                                        <input 
+                                        type="checkbox" 
+                                        className="form-check-input" 
+                                        name="tagsInput"
+                                        value={tag.id} 
+                                        onChange={(evt) => setTagsInput(evt.target.value)}/>
+                                        <label htmlFor="tagsInput" className="form-check-label"> {tag.name}</label>
+                                    </div>
+                                    )
+                                })}
+                                </div>
+                                {/* <div>
+                                <h5>Tags</h5>
                                 <input
                                     type='text'
                                     value={tagsInput || ''}
                                     placeholder={assessmentAnswersById.tag_name || ''}
                                     onChange={(evt) => setTagsInput(evt.target.value)}
                                 />
-                                </div>
+                                </div> */}
                                 <div>
                                 <h5>Findings</h5>
                                 <textarea
@@ -233,7 +259,7 @@ function AssessmentEdit() {
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" className="btn btn-primary">Submit</button>
+                                <button type="button" className="btn btn-primary" onClick={updateAssessmentAnswers}>Submit</button>
                             </div>
                             </div>
                         </div>
@@ -246,8 +272,8 @@ function AssessmentEdit() {
         <div className="container">
             <div className="row">
                 <div className="col-md-12 bg-light float-right">
+                    <button type="submit" className="float-end" onClick={addNewHeadline}>Submit</button>
                     <button type="button" className="float-end" onClick={goToDashboard}>Cancel</button>
-                    <button type="submit" className="float-end" onClick={handleSubmit}>Submit</button>
                 </div>
             </div>
         </div>
