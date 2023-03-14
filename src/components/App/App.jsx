@@ -13,7 +13,7 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import AboutPage from '../AboutPage/AboutPage';
 import ClientOverview from '../ClientOverview/ClientOverview';
-import ClientPresentation from '../ClientDeliverables/ClientPresentation/ClientPresentation';
+import PresentationGenerator from '../ClientDeliverables/ClientPresentation/PresentationGenerator';
 import ClientReport from '../ClientDeliverables/ClientReport/ClientReport';
 import Dashboard from '../Dashboard/Dashboard';
 import LoginPage from '../LoginPage/LoginPage';
@@ -78,7 +78,7 @@ function App() {
           <ProtectedRoute
             // logged in shows ClientOverview else shows LoginPage
             exact
-            path="/client-overview/:id"
+            path="/client-overview/:client-id"
           >
             <ClientOverview />
           </ProtectedRoute>
@@ -86,9 +86,9 @@ function App() {
           <ProtectedRoute
             // logged in shows ClientPresentation else shows LoginPage
             exact
-            path="/client-presentation"
+            path="/presentation/"
           >
-            {/* <ClientPresentation /> */}
+            <PresentationGenerator />
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -204,6 +204,6 @@ function App() {
       </div>
     </Router>
   );
-}
+};
 
 export default App;
