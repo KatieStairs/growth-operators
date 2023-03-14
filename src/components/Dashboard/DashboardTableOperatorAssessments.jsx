@@ -12,7 +12,7 @@ function DashboardTableOperatorAssessments({ client }) {
     const handleDetailsClick = (client) => {
         let assessmentId = client.assessment_id;
         console.log('details id clicked', assessmentId);
-        history.push(`/assessment-answers/${assessmentId}}`)
+        history.push(`/assessment-answers/${assessmentId}`)
     }
     const handleSeeClick = (client) => {
         let assessmentId = client.assessment_id;
