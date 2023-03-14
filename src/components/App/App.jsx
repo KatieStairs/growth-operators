@@ -78,9 +78,9 @@ function App() {
           <ProtectedRoute
             // logged in shows ClientOverview else shows LoginPage
             exact
-            path="/client-overview"
+            path="/client-overview/:id"
           >
-            {/* <ClientOverview /> */}
+            <ClientOverview />
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -167,7 +167,7 @@ function App() {
           <ProtectedRoute
             // logged in shows the Assessment Edit page else shows LoginPage
             exact
-            path="/assessment-edit"
+            path="/assessment-edit/:id"
           >
             <AssessmentEdit />
           </ProtectedRoute>
