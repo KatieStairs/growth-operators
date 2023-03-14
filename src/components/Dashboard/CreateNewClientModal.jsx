@@ -26,7 +26,14 @@ function CreateNewClientModal() {
             type: 'SAGA/POST_CLIENT',
             payload: newCompany
         });
+        clearNewClientForm();
     }
+    const clearNewClientForm = () => {
+        setCompanyNameInput('');
+        setContactPersonInput('');
+        setEmailInput('');
+        setDateInput('');
+      }
 
     return(
     <div>
@@ -79,7 +86,7 @@ function CreateNewClientModal() {
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" onClick={handleSubmit}>Submit</button>
+            <button type="button" class="btn btn-primary" onClick={handleSubmit} data-bs-dismiss="modal">Submit</button>
             </div>
         </div>
         </div>

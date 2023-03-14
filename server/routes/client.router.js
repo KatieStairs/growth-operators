@@ -65,9 +65,8 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
     res.sendStatus(500);
   })
 });
-// POST to create new client AND new client assessment AND user_client!  Yeah boi!
+// POST to create new client AND new client assessment AND user_client!
 router.post('/', rejectUnauthenticated, (req, res) => {
-  console.log(req);
   const userId = req.user.id;
   const newCompany = req.body;
   // console.log('in client router, newCompany:', newCompany);
@@ -100,7 +99,6 @@ router.post('/', rejectUnauthenticated, (req, res) => {
       pool.query(insertClientAssessment,[newCompanyId, newCompany.date, 'Edit in Progress'])
       .then((result) => {
         const newClientAssessments = result.rows[0].id;
-        // console.log('client_assessments id:', newClientAssessments);
         const insertUserClient = `
           INSERT INTO "user_client" 
           ("user_id", "client_id")
@@ -108,27 +106,26 @@ router.post('/', rejectUnauthenticated, (req, res) => {
           ($1, $2);
           `
       pool.query(insertUserClient, [userId, newCompanyId])
-      }).then((result, newClientAssessments) =>{
+      .then((result) =>{
         const insertClientAssessment = `
       INSERT INTO "assessment_items"
       ("assessment_id", "bucket_id", "function_id", "subfunction_id", "level_rating", "findings", "impact", "recommendations", "phase")
       VALUES
       ($1, $2, $3, $4, $5, $6, $7, $8, $9)
         `
-        console.log('newClientAssessments:', newClientAssessments);
         const assessmentValues = [
           newClientAssessments,
-          '',
-          '',
-          '',
-          '',
-          '',
-          '',
-          '',
-          ''
+          '1',
+          '1',
+          '1',
+          '1',
+          '1',
+          '1',
+          '1',
+          '1'
         ];
         pool.query(insertClientAssessment, assessmentValues)
-      }).then((response) => {
+      })}).then((response) => {
         res.sendStatus(201);
       })
      }).catch((err) => {
@@ -136,7 +133,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     });
 });
-// res.sendStatus(201);
+
 // added rejectUnauthenticated, -adam
 router.put('/:id', rejectUnauthenticated, (req, res) => {
   const client = req.body;
