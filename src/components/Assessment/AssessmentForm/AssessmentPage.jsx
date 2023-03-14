@@ -233,13 +233,21 @@ function AssessmentPage ({functionsArray}) {
     return newRoute;
   }
 
+  const evalFormProgress = (functionObject) => {
+    const evalFormBarValue = functionObject.function_index;
+    console.log('evalFormBarValue: ', evalFormBarValue);
+    return evalFormBarValue;
+  }
+
   function clearInputFields() {
     setAllInputFields({subfunctionID: null, levelRatingInput: null, findingsInput: '',
     impactsInput: '', recommendationsInput: '', phaseInput: null, tagsInput: null})
   }
 
-  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+  // console.log('Width: ', document.getElementById('progress-bar').offsetWidth)
+
+  // const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  // const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
   return (
     <>
@@ -247,8 +255,18 @@ function AssessmentPage ({functionsArray}) {
       if (Number(params.function_id) === functionObject.id) {
         return (
           <div key={functionObject.id}>
-            <div className="progress" role="progressbar" aria-label="Basic example" aria-valuenow={functionObject.function_index} aria-valuemin="0" aria-valuemax={functionsArray.length}>
-              <div className="progress-bar w-75"></div>
+            <div>
+              <div className="progress" role="progressbar" aria-label="Basic example" aria-valuenow={functionObject.function_index} aria-valuemin="0" aria-valuemax={functionsArray.length} >
+                <div className="progress-bar" style={{"width": ((functionObject.function_index)/(functionsArray.length)).toLocaleString("en", {style: "percent"})}}></div>
+              </div>
+              <ul id="form-page-progress-label" className="list-inline" max-width={{"width": ((functionObject.function_index)/(functionsArray.length)).toLocaleString("en", {style: "percent"})}}>
+              <li className="list-inline-item">0</li>
+                {functionsArray.map((functionListItem) => {
+                  return (
+                    <li className="list-inline-item">{functionListItem.function_index}</li>
+                  )
+                })}
+              </ul>
             </div>
             <h3>{functionObject.name}</h3>
             {subfunctionsArray.map((subfunction, input, index) => {
