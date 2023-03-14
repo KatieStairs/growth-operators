@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Nav from '../../Nav/Nav'
 
 function AssessmentEdit() {
     const params = useParams();
@@ -32,6 +33,7 @@ function AssessmentEdit() {
             type: 'SAGA/POST_HEADLINE_BY_ID',
             payload: {
                 assessment_id: 1,
+                bucket_id: 1,
                 headline_text: event.target.value
             }
         })
@@ -50,7 +52,7 @@ function AssessmentEdit() {
           recommendations: recommendationsInput
         }
         dispatch({
-          type: 'UPDATE_ASSESSMENT_ANSWERS',
+          type: 'SAGA/UPDATE_ASSESSMENT_BY_ID',
           payload: updatedAssessmentAnswers
         })
         // history.push('/dashboard');
@@ -58,6 +60,7 @@ function AssessmentEdit() {
 
     const handleSubmit = () => {
         addNewHeadline();
+        updateAssessmentAnswers();
     }
     const goToOverviewPage = () => {
         history.push(`/client-overview/${assessmentAnswersById.assessment_id}`)
@@ -68,9 +71,27 @@ function AssessmentEdit() {
     }
 
     return (
+        <>
+        {/* <div className="container-fluid">
+            <div className="row flex-nowrap">
+                <Nav />
+                <div className="col py-3"> */}
+                    <button data-bs-toggle="collapse" data-bs-target="#sidebar">Toggle Menu</button>
         <div className="assessmentAnswers">
-        <button data-bs-toggle="collapse" data-bs-target="#sidebar">Toggle Menu</button>
-        <h1>{assessmentAnswersById.company_name} Assessment Answers</h1>
+        <h1>{assessmentAnswersById.bucket_name} - Review & Submit</h1>
+        <div className="row g-3 align-items-center">
+            <div className="col-auto">
+                <label for="inputPassword6" className="col-form-label">Headline: </label>
+            </div>
+            <div className="col-10">
+                <input 
+                type="text" 
+                id={assessmentAnswersById.assessment_id || ''} 
+                className="form-control" 
+                aria-describedby="passwordHelpInline" 
+                />
+            </div>
+        </div>
         <div className="container shadow min-vh-100 py-2">
             <div className="table-responsive">
                 <table className="table">
@@ -106,14 +127,14 @@ function AssessmentEdit() {
                                 Edit
                             </button></td>
                         </tr>
-                        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Expanded Assessment Answers</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body text-center">
+                        <div className="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal-dialog">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h1 className="modal-title fs-5" id="exampleModalLabel">Expanded Assessment Answers</h1>
+                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                            <div className="modal-body text-center">
                                 <div>
                                 <h5>Findings</h5>
                                 <textarea
@@ -140,20 +161,20 @@ function AssessmentEdit() {
                                 />
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             </div>
                             </div>
                         </div>
                         </div>
-                        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Assessment</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div className="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal-dialog">
+                            <div className="modal-content">
+                            <div className="modal-header">
+                                <h1 className="modal-title fs-5" id="exampleModalLabel">Edit Assessment</h1>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body text-center">
+                            <div className="modal-body text-center">
                                 <div>
                                 <h5>Level</h5>
                                 <input
@@ -210,19 +231,30 @@ function AssessmentEdit() {
                                 />
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Submit</button>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" className="btn btn-primary">Submit</button>
                             </div>
                             </div>
                         </div>
                         </div>
-
                     </tbody>
                 </table>
             </div>
         </div>
         </div>
+        <div className="container">
+            <div className="row">
+                <div className="col-md-12 bg-light float-right">
+                    <button type="button" className="float-end" onClick={goToDashboard}>Cancel</button>
+                    <button type="submit" className="float-end" onClick={handleSubmit}>Submit</button>
+                </div>
+            </div>
+        </div>
+                {/* </div>	
+            </div>
+        </div> */}
+        </>
     )
 }
 
