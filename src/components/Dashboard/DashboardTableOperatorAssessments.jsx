@@ -1,23 +1,25 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-
+// this is the second table in the operator dashboard
 function DashboardTableOperatorAssessments({ client }) {
     const history = useHistory();
-
+    // this will take the operator to the edit page
     const handleEditClick = (client) => {
         let assessmentId = client.assessment_id;
         console.log('edit id clicked', assessmentId);
         history.push(`/assessment-edit/${assessmentId}`)
     }
+    // this will take the operator to the Details/assessment answers page
     const handleDetailsClick = (client) => {
         let assessmentId = client.assessment_id;
         console.log('details id clicked', assessmentId);
         history.push(`/assessment-answers/${assessmentId}`)
     }
+    // this will take the operator to see the assessment
     const handleSeeClick = (client) => {
         let assessmentId = client.assessment_id;
         console.log('see id clicked', assessmentId);
-        // this one will have to be changed
+        // this one will have to be changed to see assessment
         history.push(`/assessment-answers/${assessmentId}`)
     }
 
