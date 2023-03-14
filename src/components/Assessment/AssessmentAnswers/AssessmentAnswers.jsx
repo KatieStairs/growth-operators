@@ -24,7 +24,7 @@ function AssessmentAnswers() {
     }
 
     const goToOverviewPage = () => {
-        history.push(`/client-overview/${assessmentAnswersById.assessment_id}`)
+        history.push(`/client-overview/${assessmentAnswersById.client_id}`)
     }
 
     return (
