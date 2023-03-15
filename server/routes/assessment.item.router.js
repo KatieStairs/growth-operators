@@ -16,12 +16,12 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
             "client"."company_name" AS "company_name",
             "buckets"."name" AS "bucket_name",
             "assessment_items"."level_rating", 
-            "assessment_items"."phase",
             "functions"."id" AS "function_id",
             "functions"."name" AS "function_name",
             "subfunctions"."id" AS "subfunction_id",
             "subfunctions"."name" AS "subfunction_name",
             "tags"."name" AS "tag_name",
+            "tags_assessment_items"."tag_id" AS "tag_id",
             "findings",
             "impact",
             "recommendations"

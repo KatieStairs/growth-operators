@@ -153,8 +153,8 @@ function App() {
             exact
             path="/all-clients"
           >
-             <AllClients /> 
-           </ProtectedRoute> 
+            <AllClients /> 
+          </ProtectedRoute> 
 
           <ProtectedRoute
             // logged in shows the Assessment Form page else shows LoginPage
@@ -175,7 +175,7 @@ function App() {
           <ProtectedRoute
             // logged in shows the Assessment Answers page else shows LoginPage
             exact
-            path="/assessment-answers"
+            path="/assessment-answers/:id"
           >
             <AssessmentAnswers />
           </ProtectedRoute>
