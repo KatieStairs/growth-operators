@@ -5,9 +5,7 @@ import Nav from '../../Nav/Nav'
 
 function AssessmentAnswers() {
     const dispatch = useDispatch();
-    const params = useParams();
     const history = useHistory();
-    // const assessmentAnswersList = useSelector(store => store.assessmentAnswersList);
     const assessmentAnswersById = useSelector(store => store.assessmentAnswersById);
 
     
@@ -45,7 +43,6 @@ function AssessmentAnswers() {
                             <th scope="col">Function</th>
                             <th scope="col">Subfunction</th>
                             <th scope="col">Level</th>
-                            {/* <th scope="col">Phase</th> */}
                             <th scope="col">Tags</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
@@ -59,7 +56,6 @@ function AssessmentAnswers() {
                             <td>{assessmentAnswersById.function_name || ''}</td>
                             <td>{assessmentAnswersById.subfunction_name || ''}</td>
                             <td>{assessmentAnswersById.level_rating || ''}</td>
-                            {/* <td>{assessmentAnswersById.phase || ''}</td> */}
                             <td>{assessmentAnswersById.tag_name || ''}</td>
                             <td><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                                 Expand
