@@ -60,7 +60,7 @@ function* deleteClient(action) {
 function* postClient(action) {
   try {
     const newCompany = action.payload
-    console.log(action.payload);
+    // console.log(action.payload);
     const clientResponse = yield axios({
       method: 'POST',
       url: '/api/client',

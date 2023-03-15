@@ -11,18 +11,16 @@ router.get('/dashboard', rejectUnauthenticated, (req, res) => {
     // console.log('in GET by client_id', userId)
     const sqlText = `
     SELECT 
-        "client_assessments"."id" AS "assessment_id",
+    	"client_assessments"."id" AS "assessment_id",
         "company_name",
         "status",
         "engagement_date",
-        "phase",
         "client"."id" AS "client_id"
     FROM 
 	    "client"
     JOIN "user_client" ON "client"."id" = "user_client"."client_id"
     JOIN "user" ON "user"."id" = "user_client"."user_id"
     JOIN "client_assessments" ON "client_assessments"."client_id" = "client"."id"
-    JOIN "assessment_items" ON "assessment_items"."assessment_id" = "client_assessments"."id"
     WHERE "user"."id"= $1;
     `
     const sqlValues = [userId];
@@ -115,12 +113,10 @@ router.post('/', rejectUnauthenticated, (req, res) => {
         INSERT INTO "client_assessments"
         ("client_id", "engagement_date", "status")
         VALUES
-        ( $1, $2, $3)
-        RETURNING id;
+        ( $1, $2, $3);
         `;
       pool.query(insertClientAssessment,[newCompanyId, newCompany.date, 'Edit in Progress'])
-      .then((result) => {
-        const newClientAssessments = result.rows[0].id;
+      .then((response) => {
         const insertUserClient = `
           INSERT INTO "user_client" 
           ("user_id", "client_id")
@@ -128,26 +124,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
           ($1, $2);
           `
       pool.query(insertUserClient, [userId, newCompanyId])
-      .then((result) =>{
-        const insertClientAssessment = `
-      INSERT INTO "assessment_items"
-      ("assessment_id", "bucket_id", "function_id", "subfunction_id", "level_rating", "findings", "impact", "recommendations", "phase")
-      VALUES
-      ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-        `
-        const assessmentValues = [
-          newClientAssessments,
-          '1',
-          '1',
-          '1',
-          '1',
-          '1',
-          '1',
-          '1',
-          '1'
-        ];
-        pool.query(insertClientAssessment, assessmentValues)
-      })}).then((response) => {
+      }).then((response) => {
         res.sendStatus(201);
       })
      }).catch((err) => {

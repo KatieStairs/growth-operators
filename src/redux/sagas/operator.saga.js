@@ -13,7 +13,7 @@ function* getOperatorDashboard() {
             type: 'SET_OPERATOR_DASHBOARD',
             payload: operator_dashboard.data
         }) 
-        console.log('client dashboard SAGA', operator_dashboard.data)
+        // console.log('client dashboard SAGA', operator_dashboard.data)
     } catch (error) {
         console.log('SAGA / GET operator dashboard fail', error);
     }
