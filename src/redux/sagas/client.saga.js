@@ -60,7 +60,7 @@ function* deleteClient(action) {
 function* postClient(action) {
   try {
     const newCompany = action.payload
-    console.log(action.payload);
+    // console.log(action.payload);
     const clientResponse = yield axios({
       method: 'POST',
       url: '/api/client',
@@ -82,5 +82,9 @@ function* postClient(action) {
 
 export default function* clientSaga() {
   yield takeLatest('SAGA/GET_ALL_CLIENTS', getAllClients);
+  yield takeLatest('SAGA/POST_CLIENT', postClient);
+  yield takeLatest('SAGA/GET_CLIENT_OVERVIEW', getClientOverview);
+  yield takeLatest('SAGA/DELETE_CLIENT_BY_ID', deleteClient);
+  yield takeLatest('SAGA/PUT_CLIENT_INFO_BY_ID', updateClientInfo);
 };
 
