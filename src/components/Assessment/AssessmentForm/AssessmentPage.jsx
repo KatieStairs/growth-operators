@@ -1,46 +1,38 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, Link, useHistory, useLocation } from "react-router-dom";
-
-import AssessmentSection from "./AssessmentSection";
+import { useParams, Link, useLocation } from "react-router-dom";
 
 function AssessmentPage ({functionsArray}) {
   const dispatch = useDispatch();
-  const history = useHistory();
   const params = useParams();
-  const pathname = useLocation();
+  const pathname = useLocation(); // needed for useEffect
   const structure = useSelector((store => store.structure))
-
-
   const subfunctionsArray = structure.subfunctionsReducer;
   const tags = structure.tagsReducer;
   const [formArray, setFormArray] = useState([]); // Overarching array of input objects, used to hold all input fields. 
-
   const [allInputFields, setAllInputFields] = useState( // Object for inputs on form subfunction sections
     {subfunctionID: null, levelRatingInput: null, findingsInput: '', impactsInput: '', 
     recommendationsInput: '', phaseInput: null, tagsInput: []}
   ); 
 
-  useEffect(() => {
-    window.scrollTo(0, 0)
+  useEffect(() => { // Forces page to start at the top 
+    window.scrollTo(0, 0) // if removed, when user presses continue, next page loads already scrolled to bottom
   }, [pathname])
 
   function evalTagsInput(allInputFields, formObject){ // checks tag arrays for duplicates/uncheck action
     let keepTagInputs = formObject.tagsInput;
-      for (const i of keepTagInputs) {
-        for (const j of allInputFields.tagsInput) {
-          if (i === j){
-            console.log('i, j', i, j)
-            let removeIndex = keepTagInputs.indexOf(i);
-            keepTagInputs.splice(removeIndex, 1);
-          }
+    for (const i of keepTagInputs) {
+      for (const j of allInputFields.tagsInput) {
+        if (i === j){
+          let removeIndex = keepTagInputs.indexOf(i);
+          keepTagInputs.splice(removeIndex, 1);
         }
       }
-    console.log('keepTagInputs: ', keepTagInputs)
+      }
     return keepTagInputs;
   }
 
-  const handleInputChange = (subfunction, index, event) => { // handles page inputs, allInputFields, formArray
+  const handleInputChange = (subfunction, event) => { // handles page inputs, allInputFields, formArray
     if (allInputFields.subfunctionID === null) {     // if no info in allInputFields, sets allInputFields where a value exists.
       setAllInputFields({[event.target.name]: event.target.value, 'subfunctionID': subfunction.id})
     } 
@@ -52,13 +44,13 @@ function AssessmentPage ({functionsArray}) {
       else { // updates relevant allInputFields only
         setAllInputFields(prevState => ({...prevState, [event.target.name]: event.target.value}))
       }
-     
     }
+
     else { // if there's already info in allInputFields *BUT* it's from a different subfunction section
       if (formArray.length >= 1) { // only runs the following logic if formArray has enough objects in it
       let formArrayToggle;
         for (const formObject of formArray) {
-          if (formObject.subfunctionID === allInputFields.subfunctionID){
+          if (formObject.subfunctionID === allInputFields.subfunctionID){ // checks for matching subfunction IDs
             let spliceInputIndex = formArray.indexOf(formObject)  
             let newFormObject = {
               ...formObject,
@@ -83,7 +75,7 @@ function AssessmentPage ({functionsArray}) {
           }
         }
 
-        if (formArrayToggle === false) {
+        if (formArrayToggle === false) { // only runs if no matching subfunctionID found above
           let newFormObject = {
             subfunctionID: allInputFields.subfunctionID,
             levelRatingInput: allInputFields.levelRatingInput,
@@ -93,13 +85,13 @@ function AssessmentPage ({functionsArray}) {
             phaseInput: allInputFields.phaseInput,
             tagsInput: allInputFields.tagsInput,
           }; 
-
           formArray.push(newFormObject);
           clearInputFields();
           setAllInputFields({[event.target.name]: event.target.value, 'subfunctionID': subfunction.id})
         }
 
-      } else {
+      } 
+      else { // runs if formArray is empty
         let newFormObject = {
           subfunctionID: allInputFields.subfunctionID,
           levelRatingInput: allInputFields.levelRatingInput,
@@ -117,48 +109,35 @@ function AssessmentPage ({functionsArray}) {
     }
   }
 
-  const saveToDatabase = () => {
-    if (formArray.length >= 1) {
+  const saveToDatabase = () => { // handles formArray, dispatches to database
+    if (formArray.length >= 1) { // only runs the following logic if formArray has enough objects in it
       let formArrayToggle;
-        for (const formObject of formArray) {
-          if (formObject.subfunctionID === allInputFields.subfunctionID){
-            let spliceInputIndex = formArray.indexOf(formObject)  
-            let newFormObject = {
-              ...formObject,
-              levelRatingInput: allInputFields.levelRatingInput || formObject.levelRatingInput,
-              findingsInput: allInputFields.findingsInput || formObject.findingsInput,
-              impactsInput: allInputFields.impactsInput || formObject.impactsInput,
-              recommendationsInput: allInputFields.recommendationsInput || formObject.recommendationsInput,
-              phaseInput: allInputFields.phaseInput || formObject.phaseInput,
-              tagsInput: 
-                (!allInputFields.tagsInput) ? formObject.tagsInput
-                : (!formObject.tagsInput) ? allInputFields.tagsInput
-                : evalTagsInput(allInputFields, formObject)
-            }; 
-            formArray.splice(spliceInputIndex, 1, newFormObject);
-            formArrayToggle = true;
-            clearInputFields();
-            return formArray;
-          } 
-          else {
-            formArrayToggle = false;
-          }
-        }
-
-        if (formArrayToggle === false) {
+      for (const formObject of formArray) {
+        if (formObject.subfunctionID === allInputFields.subfunctionID){ // checks for matching subfunction IDs
+          let spliceInputIndex = formArray.indexOf(formObject)  
           let newFormObject = {
-            subfunctionID: allInputFields.subfunctionID,
-            levelRatingInput: allInputFields.levelRatingInput,
-            findingsInput: allInputFields.findingsInput,
-            impactsInput: allInputFields.impactsInput,
-            recommendationsInput: allInputFields.recommendationsInput,
-            phaseInput: allInputFields.phaseInput,
-            tagsInput: allInputFields.tagsInput,
+            ...formObject,
+            levelRatingInput: allInputFields.levelRatingInput || formObject.levelRatingInput,
+            findingsInput: allInputFields.findingsInput || formObject.findingsInput,
+            impactsInput: allInputFields.impactsInput || formObject.impactsInput,
+            recommendationsInput: allInputFields.recommendationsInput || formObject.recommendationsInput,
+            phaseInput: allInputFields.phaseInput || formObject.phaseInput,
+            tagsInput: 
+              (!allInputFields.tagsInput) ? formObject.tagsInput
+              : (!formObject.tagsInput) ? allInputFields.tagsInput
+              : evalTagsInput(allInputFields, formObject)
           }; 
-          formArray.push(newFormObject);
+          formArray.splice(spliceInputIndex, 1, newFormObject);
+          formArrayToggle = true;
           clearInputFields();
-        }
+          return formArray;
+        } 
         else {
+          formArrayToggle = false;
+        }
+      }
+
+        if (formArrayToggle === false) { // only runs if no matching subfunctionID found above
           let newFormObject = {
             subfunctionID: allInputFields.subfunctionID,
             levelRatingInput: allInputFields.levelRatingInput,
@@ -168,11 +147,26 @@ function AssessmentPage ({functionsArray}) {
             phaseInput: allInputFields.phaseInput,
             tagsInput: allInputFields.tagsInput,
           }; 
-
           formArray.push(newFormObject);
           clearInputFields();
         }
-    } else {
+        // else { // Fairly certain this was an accidental extra; commenting out, may remove after testing.
+        //   let newFormObject = {
+        //     subfunctionID: allInputFields.subfunctionID,
+        //     levelRatingInput: allInputFields.levelRatingInput,
+        //     findingsInput: allInputFields.findingsInput,
+        //     impactsInput: allInputFields.impactsInput,
+        //     recommendationsInput: allInputFields.recommendationsInput,
+        //     phaseInput: allInputFields.phaseInput,
+        //     tagsInput: allInputFields.tagsInput,
+        //   }; 
+
+        //   formArray.push(newFormObject);
+        //   clearInputFields();
+        // }
+
+    } 
+    else { // runs if formArray is empty
       let newFormObject = {
         subfunctionID: allInputFields.subfunctionID,
         levelRatingInput: allInputFields.levelRatingInput,
@@ -182,7 +176,6 @@ function AssessmentPage ({functionsArray}) {
         phaseInput: allInputFields.phaseInput,
         tagsInput: allInputFields.tagsInput,
       }; 
-
       formArray.push(newFormObject);
       clearInputFields();
     }
@@ -198,33 +191,25 @@ function AssessmentPage ({functionsArray}) {
       type: 'SAGA/POST_ANSWERS',
       payload: assessmentSave
     })
-
-    console.log('saved')
-
   }
 
-  const handleSaveForLater = (event) => {
+  const handleSaveForLater = () => {
     saveToDatabase();
   }
 
-  const handleContinue = (event) => {
+  const handleContinue = () => {
     saveToDatabase();
   }
   
-  const evalLocation = () => {
-    let currentLocationIndex = null;
-    let nextLocationObject = null;
+  const evalLocation = () => { // evaluates current url params, conditionally returns newRoute
     let newRoute = '';
-
     for (const functionObject of functionsArray ){
       if (params.function_id == functionsArray.at(-1).id){
-        let nextBucket = Number(params.bucket_id) + 1;
-        let nextFunction = Number(params.function_id) + 1
-        newRoute = `/assessment-form/${params.assessment_id}/${nextBucket}/${nextFunction}`;
+        newRoute = `/assessment-review/${params.assessment_id}/${params.bucket_id}`;
       } 
-        else if (params.function_id == functionObject.id){
-        currentLocationIndex = Number(functionsArray.indexOf(functionObject));
-        nextLocationObject = functionsArray.at(currentLocationIndex + 1)
+      else if (params.function_id == functionObject.id){
+        let currentLocationIndex = Number(functionsArray.indexOf(functionObject));
+        let nextLocationObject = functionsArray.at(currentLocationIndex + 1)
         let nextLocationID = nextLocationObject.id;
         newRoute = `/assessment-form/${params.assessment_id}/${params.bucket_id}/${nextLocationID}`;
       }
@@ -232,13 +217,7 @@ function AssessmentPage ({functionsArray}) {
     return newRoute;
   }
 
-  const evalFormProgress = (functionObject) => {
-    const evalFormBarValue = functionObject.function_index;
-    console.log('evalFormBarValue: ', evalFormBarValue);
-    return evalFormBarValue;
-  }
-
-  function clearInputFields() {
+  function clearInputFields() { // clears input fields
     setAllInputFields({subfunctionID: null, levelRatingInput: null, findingsInput: '',
     impactsInput: '', recommendationsInput: '', phaseInput: null, tagsInput: null})
   }
@@ -254,16 +233,17 @@ function AssessmentPage ({functionsArray}) {
                 <div className="progress-bar" style={{"width": ((functionObject.function_index)/(functionsArray.length)).toLocaleString("en", {style: "percent"})}}></div>
               </div>
               <ul id="form-page-progress-label" className="list-inline" max-width={{"width": ((functionObject.function_index)/(functionsArray.length)).toLocaleString("en", {style: "percent"})}}>
-              <li className="list-inline-item">0</li>
+              {/* li here does not justify numbers below progress bar; needs CSS override. */}  
+                <li className="list-inline-item">0</li>
                 {functionsArray.map((functionListItem) => {
                   return (
-                    <li className="list-inline-item">{functionListItem.function_index}</li>
+                    <li className="list-inline-item"  key={functionListItem.function_index}>{functionListItem.function_index}</li>
                   )
                 })}
               </ul>
             </div>
             <h3>{functionObject.name}</h3>
-            {subfunctionsArray.map((subfunction, input, index) => {
+            {subfunctionsArray.map((subfunction) => {
               return (
                 <form key={subfunction.id} className="mb-5 ">
                   <h4>{subfunction.name}</h4>
@@ -281,7 +261,7 @@ function AssessmentPage ({functionsArray}) {
                       min="0" 
                       max="5" 
                       step="1" 
-                      onChange={(event) => handleInputChange(subfunction, index, event)}
+                      onChange={(event) => handleInputChange(subfunction, event)}
                     />
                   </div>
 
@@ -291,7 +271,7 @@ function AssessmentPage ({functionsArray}) {
                       type="text" 
                       className="form-control" 
                       name="findingsInput"
-                      onChange={(event) => handleInputChange(subfunction, index, event)}
+                      onChange={(event) => handleInputChange(subfunction, event)}
                     />
                   </div>
 
@@ -301,7 +281,7 @@ function AssessmentPage ({functionsArray}) {
                       type="text" 
                       className="form-control" 
                       name="impactsInput"
-                      onChange={(event) => handleInputChange(subfunction, index, event)} 
+                      onChange={(event) => handleInputChange(subfunction, event)} 
                     />
                   </div>
                   <div className="row mb-3">
@@ -311,7 +291,7 @@ function AssessmentPage ({functionsArray}) {
                         type="text" 
                         className="form-control" 
                         name="recommendationsInput"
-                        onChange={(event) => handleInputChange(subfunction, index, event)}
+                        onChange={(event) => handleInputChange(subfunction, event)}
                       />
                     </div>
                   
@@ -321,7 +301,7 @@ function AssessmentPage ({functionsArray}) {
                         type="number" 
                         className="form-control" 
                         name="phaseInput"
-                        onChange={(event) => handleInputChange(subfunction, index, event)}
+                        onChange={(event) => handleInputChange(subfunction, event)}
                       />
                     </div>
 
@@ -335,7 +315,7 @@ function AssessmentPage ({functionsArray}) {
                               className="form-check-input" 
                               name="tagsInput"
                               value={tag.id} 
-                              onChange={(event) => handleInputChange(subfunction, index, event)}/>
+                              onChange={(event) => handleInputChange(subfunction, event)}/>
                             <label htmlFor="tagsInput" className="form-check-label"> {tag.name}</label>
                           </div>
                         )
@@ -348,17 +328,15 @@ function AssessmentPage ({functionsArray}) {
                   <>
                   <div className="d-grid gap-2 d-md-flex justify-content-md-end mb-2">
                     <Link to="/dashboard">
-                      <button className="btn btn-primary">
-                      Cancel
-                      </button>
+                      <button className="btn btn-primary">Cancel</button>
                     </Link>
                     <Link to={evalLocation}>
-                      <button className="btn btn-primary" onClick={(event) => handleContinue(event)}>Continue</button>
+                      <button className="btn btn-primary" onClick={() => handleContinue()}>Continue</button>
                     </Link>
                   </div>
                   <div className="d-grid g-2 d-md-flex justify-content-md-end">
                     <Link to="/dashboard">
-                    <button className="btn btn-link" type="submit" onClick={(event) => handleSaveForLater(event)}>Save for Later</button>
+                      <button className="btn btn-link" type="submit" onClick={() => handleSaveForLater()}>Save for Later</button>
                     </Link>
                   </div>
                   </>
@@ -372,7 +350,6 @@ function AssessmentPage ({functionsArray}) {
       }
     })}
     </>
-    
   )
 }
 
