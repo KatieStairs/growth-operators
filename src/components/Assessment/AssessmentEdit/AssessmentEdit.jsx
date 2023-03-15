@@ -49,10 +49,35 @@ function AssessmentEdit() {
         })
     }
 
+    // // Lauren's code from assessmentPage for reference to go to the next bucket page.
+    // const evalLocation = () => {
+    //     let currentLocationIndex = null;
+    //     let nextLocationObject = null;
+    //     let newRoute = '';
+    
+    //     for (const functionObject of functionsArray ){
+    //       if (params.function_id == functionsArray.at(-1).id){
+    //         let nextBucket = Number(params.bucket_id) + 1;
+    //         let nextFunction = Number(params.function_id) + 1
+    //         newRoute = `/assessment-form/${params.assessment_id}/${nextBucket}/${nextFunction}`;
+    //       } 
+    //         else if (params.function_id == functionObject.id){
+    //         currentLocationIndex = Number(functionsArray.indexOf(functionObject));
+    //         nextLocationObject = functionsArray.at(currentLocationIndex + 1)
+    //         let nextLocationID = nextLocationObject.id;
+    //         newRoute = `/assessment-form/${params.assessment_id}/${params.bucket_id}/${nextLocationID}`;
+    //       }
+    //     }
+    //     return newRoute;
+    //   }
+
     const updateAssessmentAnswers = (event) => {
-        // console.log('Updated answers:', levelRatingInput)
+        // console.log('Updated answers:', assessmentAnswersById.function_id, assessmentAnswersById.subfunction_id)
         const updatedAssessmentAnswers = {
             assessment_id: assessmentAnswersById.assessment_id,
+            bucket_id: assessmentAnswersById.bucket_id,
+            function_id: assessmentAnswersById.function_id,
+            subfunction_id: assessmentAnswersById.subfunction_id,
             level_rating: levelRatingInput,
             phase: phaseInput,
             tags_id: tagsInput,
