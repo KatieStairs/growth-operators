@@ -183,7 +183,7 @@ function App() {
           <ProtectedRoute
             // logged in shows the Assessment Review page else shows LoginPage
             exact
-            path="/assessment-review"
+            path="/assessment-review/:assessment_id/:bucket_id"
           >
             {/* <AssessmentReview /> */}
           </ProtectedRoute>

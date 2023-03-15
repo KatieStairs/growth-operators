@@ -55,6 +55,7 @@ router.get('/buckets/:id/functions', rejectUnauthenticated, (req, res) => {
     "functions"."id", 
     "functions"."name", 
     "functions"."function_index",
+    "buckets"."id" AS "bucket_id",
     "buckets"."name" AS "bucket_name"
   FROM "functions"
   JOIN "buckets"
