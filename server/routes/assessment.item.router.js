@@ -17,7 +17,9 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
             "buckets"."name" AS "bucket_name",
             "assessment_items"."level_rating", 
             "assessment_items"."phase",
+            "functions"."id" AS "function_id",
             "functions"."name" AS "function_name",
+            "subfunctions"."id" AS "subfunction_id",
             "subfunctions"."name" AS "subfunction_name",
             "tags"."name" AS "tag_name",
             "findings",
@@ -37,7 +39,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     pool.query(sqlText, sqlValues)
         .then((dbRes) => {
             res.send(dbRes.rows[0])
-            // console.log(dbRes.rows[0])
+            console.log(dbRes.rows[0])
         })
         .catch((dbErr) => {
             console.log('Error in Edit Assessment GET', dbErr);
@@ -82,15 +84,16 @@ router.post('/:id', rejectUnauthenticated, (req, res) => {
 
 /** ---------- POST HEADLINE --------- **/
 router.post('/', rejectUnauthenticated, (req, res) => {
-    console.log('***** req.params.id', req.params);
-    console.log('***** req.body.headline', req.body);
+    // console.log('***** req.params.id', req.params);
+    // console.log('***** req.body.headline', req.body);
     const sqlQuery = `
         INSERT INTO "buckets_headlines"
-            ("assessment_id", "bucket_id", "headline_text")
+            ("assessment_id", 
+            "bucket_id", 
+            "headline_text")
         VALUES
         ($1, $2, $3);
     `;
-    //Will need bucket_id too.
     const sqlValues = [req.body.assessment_id, req.body.bucket_id, req.body.headline_text]
     pool.query(sqlQuery, sqlValues)
     .then((response) => {
@@ -103,8 +106,36 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 })
 
 /** ---------- PUT ASSESSMENT EDITS BY ASSESSMENT ID---------- **/
-router.put('/:id'), rejectUnauthenticated, (req, res) => {
-    
-}
+
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+    // const idToUpdate = req.params.id;
+    // console.log('PUT ASSESSMENT ID, req.body', req.params.id, req.body)
+    const sqlText = `
+      UPDATE "assessment_items"
+        SET 
+        "bucket_id"=$1, 
+        "function_id"=$2, 
+        "subfunction_id"=$3, 
+        "level_rating"=$4, 
+        "findings"=$5, 
+        "impact"=$6, 
+        "recommendations"=$7, 
+        "phase"=$8
+        WHERE "assessment_id"=$9;
+    `;
+    const sqlValues = [
+        req.body.bucket_id, req.body.function_id, 
+        req.body.subfunction_id, req.body.level_rating, req.body.findings, 
+        req.body.impact, req.body.recommendations, req.body.phase, req.params.id
+    ];
+    pool.query(sqlText, sqlValues)
+      .then((result) => {
+        res.sendStatus(200);
+      })
+      .catch((error) => {
+        console.log('Error in put edit assessment db query', error)
+        res.sendStatus(500);
+      });
+  });
 
 module.exports = router;
