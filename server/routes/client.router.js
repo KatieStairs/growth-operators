@@ -113,12 +113,10 @@ router.post('/', rejectUnauthenticated, (req, res) => {
         INSERT INTO "client_assessments"
         ("client_id", "engagement_date", "status")
         VALUES
-        ( $1, $2, $3)
-        RETURNING id;
+        ( $1, $2, $3);
         `;
       pool.query(insertClientAssessment,[newCompanyId, newCompany.date, 'Edit in Progress'])
-      .then((result) => {
-        // const newClientAssessments = result.rows[0].id;
+      .then((response) => {
         const insertUserClient = `
           INSERT INTO "user_client" 
           ("user_id", "client_id")

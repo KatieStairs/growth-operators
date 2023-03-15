@@ -10,13 +10,13 @@ function DashboardTableOperatorAssessments({ client }) {
         history.push(`/assessment-edit/${assessmentId}`)
     }
     // this will take the operator to the client overview answers page
-    const handleDetailsClick = (client) => {
+    const handleClientOverviewClick = (client) => {
         let clientId = client.client_id;
         // console.log('details id clicked', assessmentId);
         history.push(`/client-overview/${clientId}`)
     }
     // this will take the operator to see the assessment answers
-    const handleSeeClick = (client) => {
+    const handleSeeOverviewClick = (client) => {
         let assessmentId = client.assessment_id;
         // console.log('see id clicked', assessmentId);
         // this one will have to be changed to see assessment
@@ -29,8 +29,8 @@ return (
         <td>{client.company_name}</td>
         <td>{new Date(client.engagement_date).toLocaleDateString()}</td>
         <td><button type="button" className="btn btn-primary" onClick={() => handleEditClick(client)}>Edit</button></td>
-        <td><button type="button" className="btn btn-primary" onClick={() => handleDetailsClick(client)}>See Details</button></td>
-        <td><button type="button" className="btn btn-primary" onClick={() => handleSeeClick(client)}>See Assessment</button></td>
+        <td><button type="button" className="btn btn-primary" onClick={() => handleClientOverviewClick(client)}>See Details</button></td>
+        <td><button type="button" className="btn btn-primary" onClick={() => handleSeeOverviewClick(client)}>See Assessment</button></td>
     </tr>
 )
 }
