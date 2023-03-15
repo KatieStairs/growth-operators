@@ -19,19 +19,6 @@ function AssessmentPage ({functionsArray}) {
     window.scrollTo(0, 0) // if removed, when user presses continue, next page loads already scrolled to bottom
   }, [pathname])
 
-  function evalTagsInput(allInputFields, formObject){ // checks tag arrays for duplicates/uncheck action
-    let keepTagInputs = formObject.tagsInput;
-    for (const i of keepTagInputs) {
-      for (const j of allInputFields.tagsInput) {
-        if (i === j){
-          let removeIndex = keepTagInputs.indexOf(i);
-          keepTagInputs.splice(removeIndex, 1);
-        }
-      }
-      }
-    return keepTagInputs;
-  }
-
   const handleInputChange = (subfunction, event) => { // handles page inputs, allInputFields, formArray
     if (allInputFields.subfunctionID === null) {     // if no info in allInputFields, sets allInputFields where a value exists.
       setAllInputFields({[event.target.name]: event.target.value, 'subfunctionID': subfunction.id})
@@ -61,8 +48,7 @@ function AssessmentPage ({functionsArray}) {
               phaseInput: allInputFields.phaseInput || formObject.phaseInput,
               tagsInput: 
                 (!allInputFields.tagsInput) ? formObject.tagsInput
-                : (!formObject.tagsInput) ? allInputFields.tagsInput
-                : evalTagsInput(allInputFields, formObject)
+                : allInputFields.tagsInput
             }; 
             formArray.splice(spliceInputIndex, 1, newFormObject);
             formArrayToggle = true;
@@ -180,18 +166,40 @@ function AssessmentPage ({functionsArray}) {
       clearInputFields();
     }
 
-    let assessmentSave = {
-      formArray: formArray,
-      assessmentID: params.assessment_id,
-      bucket_id: params.bucket_id,
-      function_id: params.function_id
-    }
+    // let assessmentSave = {
+    //   formArray: formArray,
+    //   assessmentID: params.assessment_id,
+    //   bucket_id: params.bucket_id,
+    //   function_id: params.function_id
+    // }
 
-    dispatch({
-      type: 'SAGA/POST_ANSWERS',
-      payload: assessmentSave
-    })
-  }
+    for (const formObject of formArray){
+      let assessmentSave = {
+        assessment_id: Number(params.assessment_id),
+        bucket_id: Number(params.bucket_id),
+        function_id: Number(params.function_id),
+        subfunction_id: Number(formObject.subfunctionID),
+        level_rating: Number(formObject.levelRatingInput),
+        findings: formObject.findingsInput,
+        impact: formObject.impactsInput,
+        recommendations: formObject.recommendationsInput,
+        phase: Number(formObject.phaseInput),
+        tag_id: formObject.tagsInput
+      }
+
+      dispatch({
+        type: 'SAGA/POST_ASSESSMENT_ANSWERS',
+        payload: assessmentSave
+      })
+
+      // for (const tag_id of formObject.tagsInput) {
+      //   dispatch({
+      //     type: 'SAGA/POST_ASSESSMENT_TAG_ANSWERS',
+      //     payload: tag_id
+      //   })
+      }
+    }
+  
 
   const handleSaveForLater = () => {
     saveToDatabase();
@@ -311,7 +319,7 @@ function AssessmentPage ({functionsArray}) {
                         return (
                           <div key={tag.id} className="g-3">
                             <input 
-                              type="checkbox" 
+                              type="radio" 
                               className="form-check-input" 
                               name="tagsInput"
                               value={tag.id} 
