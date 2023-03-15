@@ -25,7 +25,7 @@ const functionsReducer = (state = [], action) => {
     case 'SET_FUNCTIONS_BY_BUCKET':
       return action.payload;
       // returns name, function_index from "functions"; 
-      // bucket_name from "buckets"
+      // bucket_id, bucket_name from "buckets"
     default:
       return state;
   }
