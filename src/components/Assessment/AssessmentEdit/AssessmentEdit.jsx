@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Nav from '../../Nav/Nav'
@@ -55,18 +55,17 @@ function AssessmentEdit() {
     //     let nextLocationObject = null;
     //     let newRoute = '';
     
-    //     for (const functionObject of functionsArray ){
-    //       if (params.function_id == functionsArray.at(-1).id){
-    //         let nextBucket = Number(params.bucket_id) + 1;
-    //         let nextFunction = Number(params.function_id) + 1
-    //         newRoute = `/assessment-form/${params.assessment_id}/${nextBucket}/${nextFunction}`;
-    //       } 
-    //         else if (params.function_id == functionObject.id){
-    //         currentLocationIndex = Number(functionsArray.indexOf(functionObject));
-    //         nextLocationObject = functionsArray.at(currentLocationIndex + 1)
-    //         let nextLocationID = nextLocationObject.id;
-    //         newRoute = `/assessment-form/${params.assessment_id}/${params.bucket_id}/${nextLocationID}`;
-    //       }
+    //         if (assessmentAnswersById.function_id == functionsArray.at(-1).id){
+    //             let nextBucket = Number(params.bucket_id) + 1;
+    //             let nextFunction = Number(params.function_id) + 1
+    //             newRoute = `/assessment-form/${params.assessment_id}/${nextBucket}/${nextFunction}`;
+    //         } 
+    //             else if (params.function_id == functionObject.id){
+    //             currentLocationIndex = Number(functionsArray.indexOf(functionObject));
+    //             nextLocationObject = functionsArray.at(currentLocationIndex + 1)
+    //             let nextLocationID = nextLocationObject.id;
+    //             newRoute = `/assessment-form/${params.assessment_id}/${params.bucket_id}/${nextLocationID}`;
+    //         }
     //     }
     //     return newRoute;
     //   }
@@ -299,7 +298,22 @@ function AssessmentEdit() {
                     <button type="button" className="float-end" onClick={goToDashboard}>Cancel</button>
                 </div>
             </div>
-        </div>
+            {/* <div className="d-grid gap-2 d-md-flex justify-content-md-end mb-2">
+                    <Link to="/dashboard">
+                    <button className="btn btn-primary">
+                    Cancel
+                    </button>
+                    </Link>
+                    <Link to={evalLocation}>
+                    <button className="btn btn-primary" onClick={(event) => handleContinue(event)}>Continue</button>
+                    </Link>
+                </div>
+                <div className="d-grid g-2 d-md-flex justify-content-md-end">
+                    <Link to="/dashboard">
+                    <button className="btn btn-link" type="submit" onClick={(event) => handleSaveForLater(event)}>Save for Later</button>
+                    </Link>
+                </div> */}
+            </div>
                 {/* </div>	
             </div>
         </div> */}
