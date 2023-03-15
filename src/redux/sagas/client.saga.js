@@ -88,7 +88,6 @@ export default function* clientSaga() {
   yield takeLatest('SAGA/DELETE_CLIENT_BY_ID', deleteClient);
   yield takeLatest('SAGA/POST_CLIENT', postClient);
   yield takeLatest('SAGA/GET_CLIENT_OVERVIEW', getClientOverview);
-
 };
 
 
