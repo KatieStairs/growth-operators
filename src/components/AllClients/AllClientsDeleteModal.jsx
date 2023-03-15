@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-function AllClientsEditModal({ client }) {
+function AllClientsDeleteModal({ client }) {
   const dispatch = useDispatch();
 
   const deleteClient = () => {
@@ -55,4 +55,4 @@ function AllClientsEditModal({ client }) {
   );
 };
 
-export default AllClientsEditModal;
+export default AllClientsDeleteModal;

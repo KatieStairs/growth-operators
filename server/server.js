@@ -33,6 +33,7 @@ app.use('/structure', assessmentStructureRouter);
 app.use('/assessment', assessmentItemRouter);
 app.use('/assessment-item', assessmentItemRouter);
 app.use('/client-assessment', clientAssessmentRouter);
+// app.use('/assessment-edit', assessmentItemRouter);
 
 
 

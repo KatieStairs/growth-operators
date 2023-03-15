@@ -1,6 +1,9 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 function AllClientsRow({ client }) {
+  const history = useHistory();
+  
   return (
     <tr key={client.id}>
       <th scope="row">{client.company_name}</th>
@@ -8,10 +11,11 @@ function AllClientsRow({ client }) {
       <td>Status</td>
       <td>{client.operators}</td>
       <td>
-        <button
+      <button
         type="button"
         className="btn btn-secondary"
-        >Archive</button>
+        onClick={() => history.push(`/client-overview/${client.id}`)}
+        >See Overview</button>
       </td>
       <td>
         <button
