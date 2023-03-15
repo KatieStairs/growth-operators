@@ -39,14 +39,14 @@ function* saveAssessmentAnswers (action) {
 function* postHeadlineById (action) {
     console.log('SAGA/POST_HEADLINE', action.payload);
     const newHeadline = action.payload;
-    console.log('SAGA/POST_HEADLINE assessment id', newHeadline.headline_text)
-    console.log('SAGA/POST_HEADLINE bucket id', newHeadline.bucket_id)
+    // console.log('SAGA/POST_HEADLINE assessment id', newHeadline.headline_text)
+    // console.log('SAGA/POST_HEADLINE bucket id', newHeadline.bucket_id)
     try {
         const response = yield axios({
             method: 'POST',
             url: `/assessment`,
             data: {
-                assessment_id: assessment_id,
+                assessment_id: newHeadline.assessment_id,
                 bucket_id: newHeadline.bucket_id,
                 headline_text: newHeadline.headline_text
             }
@@ -58,11 +58,11 @@ function* postHeadlineById (action) {
 
 function* updateAssessment(action) {
     const editedAssessment = action.payload;
-    console.log('SAGA/ UPDATE ASSESSMENT', editedAssessment)
+    // console.log('SAGA/ UPDATE ASSESSMENT', editedAssessment)
     try {
     yield axios({
         method: 'PUT',
-        url: `/assessment`,
+        url: `/assessment/${action.payload.assessment_id}`,
         data: editedAssessment
         })
     } catch (error) {

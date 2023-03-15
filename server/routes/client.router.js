@@ -15,7 +15,8 @@ router.get('/dashboard', rejectUnauthenticated, (req, res) => {
         "company_name",
         "status",
         "engagement_date",
-        "phase"
+        "phase",
+        "client"."id" AS "client_id"
     FROM 
 	    "client"
     JOIN "user_client" ON "client"."id" = "user_client"."client_id"
