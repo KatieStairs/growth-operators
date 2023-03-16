@@ -620,7 +620,7 @@ router.get('/bucket-6/tags/:id', rejectUnauthenticated, (req, res) => {
   OR "tags_assessment_items"."tag_id" = 2
     AND "buckets"."id" = 6
     AND "assessment_items"."assessment_id" = $1;
-    `;
+  `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
       res.send(response.rows);
