@@ -6,6 +6,7 @@ import clientSaga from './client.saga';
 import assessmentSaga from './assessment.saga';
 import structureSaga from './assessment.structure.saga';
 import operatorSaga from './operator.saga';
+import presentationSaga from './presentation.saga';
 
 
 // rootSaga is the primary saga.
@@ -23,6 +24,7 @@ export default function* rootSaga() {
     clientSaga(),
     assessmentSaga(),
     structureSaga(), // FETCH for buckets, functions by bucket, subfunctions by function
-    operatorSaga()
+    operatorSaga(),
+    presentationSaga()
   ]);
 }

@@ -1,12 +1,12 @@
 import Reveal from 'reveal.js';
 import Markdown from 'reveal.js/plugin/markdown/markdown.esm.js';
 
-function ExecutiveSummary () {
+function ThankYou () {
   return (
     <section>
-      Executive Summary (Avg of function scores, grouped by bucket for radar chart)
+      <h1>Thank you!</h1>
     </section>
   )
 };
 
-export default ExecutiveSummary;
+export default ThankYou;
