@@ -6,7 +6,8 @@
 -- i. Column 1 // substring_name
 -- ii. Column 3 // function_name
 -- iii. Column 5 // level_rating_criteria
--- 4. Copy, paste, and execute the below code. 
+-- 4. Copy, paste, and execute the below code.
+-- 5. Register a user before executing the final query.
 
 -- Dummy data provided for all tables except "user" and "user_client"
 

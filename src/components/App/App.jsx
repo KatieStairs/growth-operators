@@ -23,6 +23,7 @@ import AssessmentForm from '../Assessment/AssessmentForm/AssessmentForm';
 import AssessmentEdit from '../Assessment/AssessmentEdit/AssessmentEdit';
 import AssessmentAnswers from '../Assessment/AssessmentAnswers/AssessmentAnswers';
 import AssessmentReview from '../Assessment/AssessmentReview/AssessmentReview';
+import AssessmentList from '../ClientDeliverables/ClientPresentation/AssessmentList';
 
 
 import 'bootstrap';
@@ -193,6 +194,13 @@ function App() {
           path="/dashboard"
           >
             <Dashboard />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+          exact
+          path="/assessment-list"
+          >
+            <AssessmentList />
           </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}

@@ -13,6 +13,7 @@ const clientRouter = require('./routes/client.router');
 const assessmentStructureRouter = require('./routes/assessment.structure.router');
 const assessmentItemRouter = require('./routes/assessment.item.router');
 const clientAssessmentRouter = require('./routes/client.assessment.router');
+const presentationRouter = require('./routes/presentation.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -33,6 +34,7 @@ app.use('/structure', assessmentStructureRouter);
 app.use('/assessment', assessmentItemRouter);
 app.use('/assessment-item', assessmentItemRouter);
 app.use('/client-assessment', clientAssessmentRouter);
+app.use('/presentation', presentationRouter)
 // app.use('/assessment-edit', assessmentItemRouter);
 
 
