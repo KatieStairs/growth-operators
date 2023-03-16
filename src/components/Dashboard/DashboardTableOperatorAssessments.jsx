@@ -33,6 +33,14 @@ return (
         <td><button type="button" className="btn btn-primary" onClick={() => handleSeeOverviewClick(client)}>See Assessment</button></td>
     </tr>
 )
+} else if(client.status === 'Not Yet Started'){
+    <tr>
+    <td>{client.company_name}</td>
+    <td>{new Date(client.engagement_date).toLocaleDateString()}</td>
+    <td><button type="button" className="btn btn-primary" onClick={() => handleEditClick(client)}>Edit</button></td>
+    <td><button type="button" className="btn btn-primary" onClick={() => handleClientOverviewClick(client)}>See Details</button></td>
+    <td><button type="button" className="btn btn-primary" onClick={() => handleSeeOverviewClick(client)}>See Assessment</button></td>
+</tr>
 }
 }
 
