@@ -9,16 +9,6 @@ const assessmentList = (state = [], action) => {
   };
 };
 
-
-const headlines = (state = [], action) => {
-  switch (action.type) {
-  case 'SET_PRESENTATION_HEADLINE_DATA':
-    return action.payload;
-  default:
-    return state;
-  };
-};
-
 const strengthTags = (state = [], action) => {
   switch (action.type) {
   case 'SET_PRESENTATION_STRENGTH_DATA':
@@ -64,9 +54,54 @@ const summaryRatings = (state = [], action) => {
   };
 };
 
-const bucketRatings = (state = [], action) => {
+const bucket1Data = (state = [], action) => {
   switch (action.type) {
-  case 'SET_PRESENTATION_BUCKET_RATINGS':
+  case 'SET_PRESENTATION_BUCKET_1_DATA':
+    return action.payload;
+  default:
+    return state;
+  };
+};
+
+const bucket2Data = (state = [], action) => {
+  switch (action.type) {
+  case 'SET_PRESENTATION_BUCKET_2_DATA':
+    return action.payload;
+  default:
+    return state;
+  };
+};
+
+const bucket3Data = (state = [], action) => {
+  switch (action.type) {
+  case 'SET_PRESENTATION_BUCKET_3_DATA':
+    return action.payload;
+  default:
+    return state;
+  };
+};
+
+const bucket4Data = (state = [], action) => {
+  switch (action.type) {
+  case 'SET_PRESENTATION_BUCKET_4_DATA':
+    return action.payload;
+  default:
+    return state;
+  };
+};
+
+const bucket5Data = (state = [], action) => {
+  switch (action.type) {
+  case 'SET_PRESENTATION_BUCKET_5_DATA':
+    return action.payload;
+  default:
+    return state;
+  };
+};
+
+const bucket6Data = (state = [], action) => {
+  switch (action.type) {
+  case 'SET_PRESENTATION_BUCKET_6_DATA':
     return action.payload;
   default:
     return state;

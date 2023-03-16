@@ -43,24 +43,6 @@ router.get('/assessments/:id', rejectUnauthenticated, (req, res) => {
       });
   });
 
-  router.get('/headlines/:id', rejectUnauthenticated, (req, res) => {
-    const queryText = `
-    SELECT
-      "bucket_id",
-      "headline_text"
-      FROM "buckets_headlines"
-      WHERE "assessment_id" = $1;
-      `;
-    pool.query(queryText, [req.params.id])
-      .then((response) => {
-        res.send(response.rows);
-      })
-      .catch((error) => {
-        console.log('Error completing presentation.router /headlines GET', error);
-        res.sendStatus(500);
-      });
-  });
-
   router.get('/strengths/:id', rejectUnauthenticated, (req, res) => {
     const queryText = `
     SELECT
@@ -163,7 +145,6 @@ router.get('/assessments/:id', rejectUnauthenticated, (req, res) => {
   router.get('/summary-ratings/:id', rejectUnauthenticated, (req, res) => {
     const queryText = `
     SELECT
-      SELECT
       SUM("level_rating") FILTER (WHERE "bucket_id" = 1) AS "organizational_effectiveness_rating",
       SUM("level_rating") FILTER (WHERE "bucket_id" = 2) AS "employee_engagement_rating",
       SUM("level_rating") FILTER (WHERE "bucket_id" = 3) AS "training_development_rating",
@@ -179,6 +160,240 @@ router.get('/assessments/:id', rejectUnauthenticated, (req, res) => {
       })
       .catch((error) => {
         console.log('Error completing presentation.router /summary-ratings GET', error);
+        res.sendStatus(500);
+      });
+  });
+
+  router.get('/bucket-1/:id', rejectUnauthenticated, (req, res) => {
+    const queryText = `
+    SELECT
+      "buckets_headlines"."headline_text",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 1)
+        AS "mission_vision_values_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 2)
+        AS "business_goals_org_alignment_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 3)
+        AS "workflow_procedures_structures_systems_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 4)
+        AS "succession_planning_rating"
+    FROM "assessment_items"
+    JOIN "buckets_headlines"
+      ON "assessment_items"."bucket_id" = "buckets_headlines"."bucket_id"
+    WHERE "assessment_items"."assessment_id" = $1
+      AND "assessment_items"."bucket_id" = 1
+    GROUP BY "buckets_headlines"."headline_text";
+      `;
+    pool.query(queryText, [req.params.id])
+      .then((response) => {
+        res.send(response.rows);
+      })
+      .catch((error) => {
+        console.log('Error completing presentation.router /bucket-1 GET', error);
+        res.sendStatus(500);
+      });
+  });
+
+  router.get('/bucket-2/:id', rejectUnauthenticated, (req, res) => {
+    const queryText = `
+    SELECT
+      "buckets_headlines"."headline_text",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 1)
+        AS "employee_communication_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 2)
+        AS "measurement_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 3)
+        AS "problem_resolution_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 4)
+        AS "retention_planning_analysis_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 5)
+        AS "recognition_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 6)
+        AS "charitable_giving_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 7)
+        AS "health_wellness_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 8)
+        AS "diversity_equity_inclusion_rating"
+    FROM "assessment_items"
+    JOIN "buckets_headlines"
+      ON "assessment_items"."bucket_id" = "buckets_headlines"."bucket_id"
+    WHERE "assessment_items"."assessment_id" = 1
+      AND "assessment_items"."bucket_id" = 2
+    GROUP BY "buckets_headlines"."headline_text";
+      `;
+    pool.query(queryText, [req.params.id])
+      .then((response) => {
+        res.send(response.rows);
+      })
+      .catch((error) => {
+        console.log('Error completing presentation.router /bucket-2 GET', error);
+        res.sendStatus(500);
+      });
+  });
+
+  router.get('/bucket-3/:id', rejectUnauthenticated, (req, res) => {
+    const queryText = `
+    SELECT
+      "buckets_headlines"."headline_text",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 1)
+        AS "company_wide_compliance_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 2)
+        AS "employee_resources_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 3)
+        AS "new_hire_orientation_onboarding_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 4)
+        AS "training_tools_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 5)
+        AS "assessment_tracking_measurement_rating"
+    FROM "assessment_items"
+    JOIN "buckets_headlines"
+      ON "assessment_items"."bucket_id" = "buckets_headlines"."bucket_id"
+    WHERE "assessment_items"."assessment_id" = 1
+      AND "assessment_items"."bucket_id" = 3
+    GROUP BY "buckets_headlines"."headline_text";
+      `;
+    pool.query(queryText, [req.params.id])
+      .then((response) => {
+        res.send(response.rows);
+      })
+      .catch((error) => {
+        console.log('Error completing presentation.router /bucket-3 GET', error);
+        res.sendStatus(500);
+      });
+  });
+
+  router.get('/bucket-4/:id', rejectUnauthenticated, (req, res) => {
+    const queryText = `
+    SELECT
+      "buckets_headlines"."headline_text",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 1)
+        AS "compensation_plan_philosophy_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 2)
+        AS "benefits_strategy_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 3)
+        AS "enrollment_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 4)
+        AS "employee_education_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 5)
+        AS "administer_benefit_comp_plans_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 6)
+        AS "compliance_rating"
+  FROM "assessment_items"
+  JOIN "buckets_headlines"
+    ON "assessment_items"."bucket_id" = "buckets_headlines"."bucket_id"
+  WHERE "assessment_items"."assessment_id" = 1
+    AND "assessment_items"."bucket_id" = 4
+  GROUP BY "buckets_headlines"."headline_text";
+      `;
+    pool.query(queryText, [req.params.id])
+      .then((response) => {
+        res.send(response.rows);
+      })
+      .catch((error) => {
+        console.log('Error completing presentation.router /bucket-4 GET', error);
+        res.sendStatus(500);
+      });
+  });
+
+  router.get('/bucket-5/:id', rejectUnauthenticated, (req, res) => {
+    const queryText = `
+    SELECT
+      "buckets_headlines"."headline_text",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 1)
+        AS "team_rationalization_synergies_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 2)
+        AS "selection_process_design_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 3)
+        AS "staffing_execution_admin_rating"
+  FROM "assessment_items"
+  JOIN "buckets_headlines"
+    ON "assessment_items"."bucket_id" = "buckets_headlines"."bucket_id"
+  WHERE "assessment_items"."assessment_id" = 1
+    AND "assessment_items"."bucket_id" = 5
+  GROUP BY "buckets_headlines"."headline_text";
+      `;
+    pool.query(queryText, [req.params.id])
+      .then((response) => {
+        res.send(response.rows);
+      })
+      .catch((error) => {
+        console.log('Error completing presentation.router /bucket-5 GET', error);
+        res.sendStatus(500);
+      });
+  });
+
+  router.get('/bucket-6/:id', rejectUnauthenticated, (req, res) => {
+    const queryText = `
+    SELECT
+      "buckets_headlines"."headline_text",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 1)
+        AS "federal_state_local_requirements_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 2)
+        AS "employee_handbook_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 3)
+        AS "employee_data_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 4)
+        AS "unemployment_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 5)
+        AS "hr_legal_risk_management_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 6)
+        AS "payroll_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 7)
+        AS "ethics_corp_governance_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 8)
+        AS "safety_workers_compensation_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 9)
+        AS "labor_relations_rating",
+      SUM("assessment_items"."level_rating")
+        FILTER (WHERE "assessment_items"."function_id" = 10)
+        AS "safety_policies_rating"
+  FROM "assessment_items"
+  JOIN "buckets_headlines"
+    ON "assessment_items"."bucket_id" = "buckets_headlines"."bucket_id"
+  WHERE "assessment_items"."assessment_id" = 1
+    AND "assessment_items"."bucket_id" = 6
+  GROUP BY "buckets_headlines"."headline_text";
+      `;
+    pool.query(queryText, [req.params.id])
+      .then((response) => {
+        res.send(response.rows);
+      })
+      .catch((error) => {
+        console.log('Error completing presentation.router /bucket-6 GET', error);
         res.sendStatus(500);
       });
   });
