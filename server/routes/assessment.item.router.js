@@ -39,7 +39,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     pool.query(sqlText, sqlValues)
         .then((dbRes) => {
             res.send(dbRes.rows[0])
-            console.log(dbRes.rows[0])
+            // console.log(dbRes.rows[0])
         })
         .catch((dbErr) => {
             console.log('Error in Edit Assessment GET', dbErr);
@@ -93,6 +93,24 @@ router.post('/:id', rejectUnauthenticated, (req, res) => {
     })
 })
 
+/** ---------- POST ASSESSMENT SLIDE INPUTS BY ASSESSMENT ID ---------- **/
+router.post('/slide/:id', rejectUnauthenticated, (req, res) => {
+    console.log('Req.body: ', req.body)
+    const sqlQuery = `
+        INSERT INTO "assessment_items"
+            ("assessment_id", "next_steps", "future_state")
+        VALUES
+            ($1,$2,$3);`;
+    const sqlValues = [req.body.assessment_id, req.body.next_steps, req.body.future_state];
+    pool.query(sqlQuery,sqlValues)
+    .then((results) => {
+        res.sendStatus(201);
+    })
+    .catch((error) => {
+        console.log('Error in POST /assessment/:id: ', error);
+        res.sendStatus(500);
+    })
+})
 
 /** ---------- POST HEADLINE --------- **/
 router.post('/', rejectUnauthenticated, (req, res) => {

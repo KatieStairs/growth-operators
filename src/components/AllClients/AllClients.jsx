@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector} from 'react-redux';
 import AllClientsRow from './AllClientsRow';
 import AllClientsEditModal from './AllClientsEditModal';
 import AllClientsDeleteModal from './AllClientsDeleteModal';
@@ -11,7 +11,7 @@ function AllClients() {
   return (
     <div className="container-fluid">
     <div className="container-fluid text-center">
-      <h2>All Clients</h2>
+      <h1>All Clients</h1>
     </div>
       <table className="table table-striped table-hover">
         <thead>
@@ -20,9 +20,9 @@ function AllClients() {
             <th scope="col">Engagement Start</th>
             <th scope="col">Status</th>
             <th scope="col">Operators</th>
+            <th scope="col">See Contact Details</th>
+            <th scope="col">Edit Contact Details</th>
             <th scope="col">Archive</th>
-            <th scope="col">See Details</th>
-            <th scope="col">Edit</th>
             <th scope="col">Delete</th>
           </tr>
         </thead>

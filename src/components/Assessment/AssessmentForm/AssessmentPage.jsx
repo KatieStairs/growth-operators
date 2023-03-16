@@ -8,6 +8,7 @@ function AssessmentPage ({functionsArray}) {
   const pathname = useLocation(); // needed for useEffect
   const structure = useSelector((store => store.structure))
   const subfunctionsArray = structure.subfunctionsReducer;
+  const bucketsArray = structure.bucketsReducer;
   const tags = structure.tagsReducer;
   const [formArray, setFormArray] = useState([]); // Overarching array of input objects, used to hold all input fields. 
   const [allInputFields, setAllInputFields] = useState( // Object for inputs on form subfunction sections
@@ -200,7 +201,6 @@ function AssessmentPage ({functionsArray}) {
       }
     }
   
-
   const handleSaveForLater = () => {
     saveToDatabase();
   }
@@ -212,6 +212,9 @@ function AssessmentPage ({functionsArray}) {
   const evalLocation = () => { // evaluates current url params, conditionally returns newRoute
     let newRoute = '';
     for (const functionObject of functionsArray ){
+      if (params.function_id == functionsArray.at(-1).id && params.bucket_id == bucketsArray.at(-1).id){
+        newRoute = `/assessment-form/${params.assessment_id}/final-slide-inputs`;
+      } 
       if (params.function_id == functionsArray.at(-1).id){
         newRoute = `/assessment-review/${params.assessment_id}/${params.bucket_id}`;
       } 
