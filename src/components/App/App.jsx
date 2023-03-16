@@ -41,7 +41,7 @@ function App() {
   return (
     <Router>
       <div>
-        <Nav />
+        {/* <Nav /> */}
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/login" />
@@ -78,7 +78,7 @@ function App() {
           <ProtectedRoute
             // logged in shows ClientOverview else shows LoginPage
             exact
-            path="/client-overview/:client-id"
+            path="/client-overview/" /* /client-overview/:client-id */
           >
             <ClientOverview />
           </ProtectedRoute>

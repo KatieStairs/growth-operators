@@ -72,11 +72,12 @@ function* getClientOverview(action) {
       params: clientId
     })
     
+    console.log("getclientoverview response", response.data)
 
-    // yield put({
-    //   type: 'SET_CLIENT_OVERVIEW',
-    //   payload: response.data
-    // })
+    yield put({
+      type: 'SET_CLIENT_OVERVIEW',
+      payload: response.data
+    })
   } catch (error) {
     console.error('getAllClients GET request failed', error);
   }

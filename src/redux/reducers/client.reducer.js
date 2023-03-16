@@ -10,7 +10,17 @@ const allClients = (state = {}, action) => {
   }
 };
 
+const clientOverview = (state = {}, action) => {
+  switch (action.type) {
+    case 'SET_CLIENT_OVERVIEW':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
-  allClients
+  allClients,
+  clientOverview
 });
 

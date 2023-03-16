@@ -5,7 +5,6 @@ import './Nav.css';
 import { useSelector } from 'react-redux';
 
 function Nav() {
-  const user = useSelector((store) => store.user);
 
   return (
     <>
@@ -50,33 +49,9 @@ function Nav() {
                         </li>
                     </ul>
                     <hr></hr>
-                    {
-                    // This is code for a user avatar and dropdown for user settings if we want to use it
-
-                    /* <div className="dropdown pb-4">
-                        <a href="#" className="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span className="d-none d-sm-inline mx-1">Malik Ibrahim</span>
-                        </a>
-                        <ul className="dropdown-menu dropdown-menu-dark text-small shadow">
-                            <li><a className="dropdown-item" href="#">New project...</a></li>
-                            <li><a className="dropdown-item" href="#">Settings</a></li>
-                            <li><a className="dropdown-item" href="#">Profile</a></li>
-                            <li>
-                                <hr className="dropdown-divider"></hr>
-                            </li>
-                            <li><a className="dropdown-item" href="#">Sign out</a></li>
-                        </ul>
-                    </div> */}
                 </div>
             </div>
             
-            {/* /*This part may have to be in other other pages and content should go where it says "Content Area" */}
-
-            {/* <div className="col py-3">
-            <button data-bs-toggle="collapse" data-bs-target="#sidebar">Toggle Menu</button>
-                
-            </div> */}
-
     </>
   );
 }
