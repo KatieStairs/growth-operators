@@ -6,39 +6,52 @@ const router = express.Router();
 
 /** ---------- GET ASSESSMENT BY ASSESSMENT ID ---------- **/
 router.get('/:id', rejectUnauthenticated, (req, res) => {
+    console.log('Req.params: ', req.params)
     const idOfAssessment = req.params.id;
     // console.log('in GET by assessment_id', idOfAssessment)
     const sqlText = `
         SELECT
-            "assessment_id",
-            "client_assessments"."client_id", 
+            "client"."company_name",
+            "assessment_items"."id",
             "assessment_items"."bucket_id",
-            "client"."company_name" AS "company_name",
+            "buckets"."bucket_index",
             "buckets"."name" AS "bucket_name",
-            "assessment_items"."level_rating", 
-            "functions"."id" AS "function_id",
+            "assessment_items"."function_id",
+            "functions"."function_index",
             "functions"."name" AS "function_name",
-            "subfunctions"."id" AS "subfunction_id",
+            "assessment_items"."subfunction_id",
+            "subfunctions"."subfunction_index",
             "subfunctions"."name" AS "subfunction_name",
+            "assessment_items"."level_rating",
+            "assessment_items"."findings",
+            "assessment_items"."impact",
+            "assessment_items"."recommendations",
+            "assessment_items"."phase",
+            "assessment_items"."next_steps",
+            "assessment_items"."future_state",
             "tags"."name" AS "tag_name",
-            "tags_assessment_items"."tag_id" AS "tag_id",
-            "findings",
-            "impact",
-            "recommendations"
+            "tags"."id" AS "tag_id"
         FROM "assessment_items" 
-        JOIN "client_assessments" ON "client_id" = "client_assessments"."client_id"
-        JOIN "buckets" ON "bucket_id" = "buckets"."id"
-        JOIN "functions" ON "function_id" = "functions"."id"
-        JOIN "subfunctions" ON "subfunction_id" = "subfunctions"."id"
-        JOIN "tags_assessment_items" ON "assessment_items"."id" = "tags_assessment_items"."assessment_item_id"
-        JOIN "tags" ON "tags_assessment_items"."assessment_item_id" = "tags"."id"
-        JOIN "client" ON "client_assessments"."client_id" = "client"."id"
+        JOIN "client_assessments" 
+            ON "assessment_items"."assessment_id" = "client_assessments"."id"
+        JOIN "buckets" 
+            ON "assessment_items"."bucket_id" = "buckets"."id"
+        JOIN "functions" 
+            ON "assessment_items"."function_id" = "functions"."id"
+        JOIN "subfunctions" 
+            ON "assessment_items"."subfunction_id" = "subfunctions"."id"
+        JOIN "tags_assessment_items" 
+            ON "assessment_items"."id" = "tags_assessment_items"."assessment_item_id"
+        JOIN "tags" 
+            ON "tags_assessment_items"."tag_id" = "tags"."id"
+        JOIN "client" 
+            ON "client_assessments"."client_id" = "client"."id"
         WHERE "assessment_id" = $1;
     `
     const sqlValues = [idOfAssessment];
     pool.query(sqlText, sqlValues)
         .then((dbRes) => {
-            res.send(dbRes.rows[0])
+            res.send(dbRes.rows)
             // console.log(dbRes.rows[0])
         })
         .catch((dbErr) => {
@@ -139,28 +152,40 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 
 router.put('/:id', rejectUnauthenticated, (req, res) => {
     // const idToUpdate = req.params.id;
-    // console.log('PUT ASSESSMENT ID, req.body', req.params.id, req.body)
+    console.log('PUT ASSESSMENT ID, req.body', req.params.id, req.body)
     const sqlText = `
       UPDATE "assessment_items"
         SET 
-        "bucket_id"=$1, 
-        "function_id"=$2, 
-        "subfunction_id"=$3, 
-        "level_rating"=$4, 
-        "findings"=$5, 
-        "impact"=$6, 
-        "recommendations"=$7, 
-        "phase"=$8
-        WHERE "assessment_id"=$9;
+        "level_rating"=$1, 
+        "findings"=$2, 
+        "impact"=$3, 
+        "recommendations"=$4
+        WHERE "assessment_id"=$5 AND "subfunction_id"=$6
+        RETURNING "id";
     `;
-    const sqlValues = [
-        req.body.bucket_id, req.body.function_id, 
-        req.body.subfunction_id, req.body.level_rating, req.body.findings, 
-        req.body.impact, req.body.recommendations, req.body.phase, req.params.id
+    const sqlValues = [req.body.level_rating, req.body.findings, 
+        req.body.impact, req.body.recommendations,
+        req.params.id, req.body.subfunction_id 
     ];
     pool.query(sqlText, sqlValues)
       .then((result) => {
-        res.sendStatus(200);
+        let assessmentItemID = result.rows[0].id;
+        const newSqlText = `
+        UPDATE "tags_assessment_items"
+        SET 
+            "tag_id" = $2
+        WHERE "assessment_item_id" = $1;
+        `;
+        const newSqlValues = [assessmentItemID, req.body.tags_id]
+        pool.query(newSqlText, newSqlValues)
+        .then((result) => {
+            res.sendStatus(200);
+        })
+        .catch((error) => {
+            console.log('Error in PUT tags router: ', error)
+            res.sendStatus(500);
+        })
+
       })
       .catch((error) => {
         console.log('Error in put edit assessment db query', error)

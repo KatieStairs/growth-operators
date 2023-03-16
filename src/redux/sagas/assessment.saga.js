@@ -14,13 +14,15 @@ function* getAssessmentAnswersById(action) {
             type: 'SET_ASSESSMENT_ANSWERS_BY_ID',
             payload: response.data
         })
-        } catch (error) {
+        console.log(response.data);
+    } catch (error) {
             console.log('SAGA/ GET AA by id failed', error)
     }
 }
 
 
 function* postAssessmentAnswersByID (action) {
+
     try {
         yield axios({
             method: 'POST',
@@ -67,6 +69,7 @@ function* postHeadlineById (action) {
 
 function* updateAssessment(action) {
     const editedAssessment = action.payload;
+    console.log('Action.payload: ', action.payload)
     // console.log('SAGA/ UPDATE ASSESSMENT', editedAssessment)
     try {
     yield axios({
