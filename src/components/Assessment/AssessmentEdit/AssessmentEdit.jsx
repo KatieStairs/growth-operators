@@ -78,7 +78,6 @@ function AssessmentEdit() {
       function_id: assessmentAnswersById.function_id,
       subfunction_id: assessmentAnswersById.subfunction_id,
       level_rating: levelRatingInput,
-      phase: phaseInput,
       tags_id: tagsInput,
       findings: findingsInput,
       impact: impactInput,
@@ -105,7 +104,7 @@ function AssessmentEdit() {
         <div className="row flex-nowrap">
           <Nav /> */}
           <div className="col py-3">
-            <button data-bs-toggle="collapse" data-bs-target="#sidebar">Toggle Menu</button>
+            <button className="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#sidebar">Toggle Menu</button>
             <div className="col py-3 px-4">
               <h1>{assessmentAnswersById.company_name} {assessmentAnswersById.bucket_name} - Review & Submit</h1>
                 <div className="row g-3 align-items-center">
@@ -118,7 +117,7 @@ function AssessmentEdit() {
                     id={assessmentAnswersById.assessment_id || ''} 
                     className="form-control" 
                     aria-describedby="passwordHelpInline"
-                    // Katie/todo: make sure I get the headline text
+                    // Katie/todo: make sure I get the headline text!
                     placeholder={assessmentAnswersById.headline_text}
                     onChange={(event) => setHeadlineInput(event.target.value)}
                     />
@@ -148,11 +147,11 @@ function AssessmentEdit() {
                           <td>{assessmentAnswersById.subfunction_name || ''}</td>
                           <td>{assessmentAnswersById.level_rating || ''}</td>
                           <td>{assessmentAnswersById.tag_name || ''}</td>
-                          <td><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                          <td><button className="btn btn-secondary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                             Expand
                           </button></td>
-                          <td><button onClick={goToOverviewPage}>See Overview</button></td>
-                          <td><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                          <td><button className="btn btn-secondary" type="button" onClick={goToOverviewPage}>See Overview</button></td>
+                          <td><button className="btn btn-secondary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1">
                             Edit
                           </button></td>
                         </tr>
@@ -210,6 +209,7 @@ function AssessmentEdit() {
                                   <div className="modal-body text-center">
                                     <div>
                                       <h5>Level</h5>
+                                        <p>(Note: Must be an integer with no spaces.)</p>
                                         <input
                                           type='text'
                                           value={levelRatingInput || ''}
@@ -274,7 +274,7 @@ function AssessmentEdit() {
                                         </div>
                                         <div className="modal-footer">
                                           <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                          <button type="button" className="btn btn-primary" onClick={updateAssessmentAnswers}>Submit</button>
+                                          <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={updateAssessmentAnswers}>Submit</button>
                                         </div>
                                     </div>
                                   </div>
@@ -290,9 +290,9 @@ function AssessmentEdit() {
                             <Link to={evalLocation}>
                               {/* Katie/todo: Write conditional logic to say "submit and go to next bucket/
                               submit and go back to dashboard," depending on where the button takes them. */}
-                              <button type="submit" className="float-end" onClick={(event) => handleSubmit(event)}>Submit</button>
+                              <button type="submit" className="btn btn-primary float-end mx-1" onClick={(event) => handleSubmit(event)}>Submit</button>
                                 </Link>
-                              <button type="button" className="float-end px-2" onClick={goToDashboard}>Cancel</button>
+                              <button type="button" className="btn btn-secondary float-end mx-1" onClick={goToDashboard}>Cancel</button>
                               </div>
                             </div>
                           </div>

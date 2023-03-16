@@ -149,14 +149,13 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
         "level_rating"=$4, 
         "findings"=$5, 
         "impact"=$6, 
-        "recommendations"=$7, 
-        "phase"=$8
-        WHERE "assessment_id"=$9;
+        "recommendations"=$7
+        WHERE "assessment_id"=$8;
     `;
     const sqlValues = [
         req.body.bucket_id, req.body.function_id, 
         req.body.subfunction_id, req.body.level_rating, req.body.findings, 
-        req.body.impact, req.body.recommendations, req.body.phase, req.params.id
+        req.body.impact, req.body.recommendations, req.params.id
     ];
     pool.query(sqlText, sqlValues)
       .then((result) => {
