@@ -106,7 +106,7 @@ function AssessmentEdit() {
                 <div className="col py-3"> */}
                     <button data-bs-toggle="collapse" data-bs-target="#sidebar">Toggle Menu</button>
         <div className="col py-3 px-4">
-        <h1>{assessmentAnswersById.bucket_name} - Review & Submit</h1>
+        <h1>{assessmentAnswersById.company_name} {assessmentAnswersById.bucket_name} - Review & Submit</h1>
         <div className="row g-3 align-items-center">
             <div className="col-auto">
                 <label className="col-form-label-lg py-4">Headline: </label>
@@ -123,7 +123,7 @@ function AssessmentEdit() {
                 />
             </div>
         </div>
-        <div className="container shadow min-vh-100 py-2">
+        <div className="container shadow min-vh-auto py-2">
             <div className="table-responsive">
                 <table className="table">
                     <thead>
@@ -178,7 +178,7 @@ function AssessmentEdit() {
                                 <textarea
                                     type='text'
                                     value={assessmentAnswersById.impact}
-                                    rows={10}
+                                    rows={9}
                                     cols={35}
                                     readOnly
                                 />
@@ -254,7 +254,7 @@ function AssessmentEdit() {
                                     type='text'
                                     value={impactInput || ''}
                                     placeholder={assessmentAnswersById.impact || ''}
-                                    rows={10}
+                                    rows={9}
                                     cols={35}
                                     onChange={(evt) => setImpactInput(evt.target.value)} 
                                 />
