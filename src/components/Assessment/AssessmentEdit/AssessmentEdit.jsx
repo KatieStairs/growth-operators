@@ -53,6 +53,7 @@ function AssessmentEdit() {
         addNewHeadline();
     }
 
+    // Katie/todo: Need to do this again with the way I thought I was going to do it originally
     const evalLocation = () => {
         let newRoute = '';
         // console.log('functions array', functionsArray)
@@ -115,7 +116,9 @@ function AssessmentEdit() {
                 type="text" 
                 id={assessmentAnswersById.assessment_id || ''} 
                 className="form-control" 
-                aria-describedby="passwordHelpInline" 
+                aria-describedby="passwordHelpInline"
+                // Katie/todo: make sure I get the headline text
+                // placeholder={assessmentAnswersById.headline_text}
                 onChange={(event) => setHeadlineInput(event.target.value)}
                 />
             </div>
@@ -156,7 +159,7 @@ function AssessmentEdit() {
                         <div className="modal-dialog">
                             <div className="modal-content">
                                 <div className="modal-header">
-                                    <h1 className="modal-title fs-5" id="exampleModalLabel">Expanded Assessment Answers</h1>
+                                    <h1 className="modal-title fs-5" id="exampleModalLabel">Expanded Assessment</h1>
                                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                             <div className="modal-body text-center">
@@ -165,6 +168,8 @@ function AssessmentEdit() {
                                 <textarea
                                     type='text'
                                     value={assessmentAnswersById.findings}
+                                    cols={35}
+                                    style={{minWidth: 100}}
                                     readOnly 
                                 />
                                 </div>
@@ -173,7 +178,8 @@ function AssessmentEdit() {
                                 <textarea
                                     type='text'
                                     value={assessmentAnswersById.impact}
-                                    rows={12}
+                                    rows={10}
+                                    cols={35}
                                     readOnly
                                 />
                                 </div>
@@ -182,6 +188,7 @@ function AssessmentEdit() {
                                 <textarea
                                     type='text'
                                     value={assessmentAnswersById.recommendations}
+                                    cols={35}
                                     readOnly 
                                 />
                                 </div>
@@ -206,6 +213,7 @@ function AssessmentEdit() {
                                     type='text'
                                     value={levelRatingInput || ''}
                                     placeholder={assessmentAnswersById.level_rating || ''}
+                                    cols={35}
                                     onChange={(evt) => setLevelRatingInput(evt.target.value)}
                                 />
                                 </div>
@@ -216,10 +224,11 @@ function AssessmentEdit() {
                                     return (
                                     <div key={tag.id} className="g-3">
                                         <input 
-                                        type="checkbox" 
+                                        type="radio" 
                                         className="form-check-input" 
                                         name="tagsInput"
                                         value={tagsInput} 
+                                        cols={35}
                                         // defaultValue={assessmentAnswersById.tag_id}
                                         onChange={(evt) => setTagsInput(evt.target.value)}/>
                                         <label htmlFor="tagsInput" className="form-check-label"> {tag.name}</label>
@@ -234,6 +243,7 @@ function AssessmentEdit() {
                                     type='text'
                                     value={findingsInput || ''}
                                     placeholder={assessmentAnswersById.findings || ''}
+                                    cols={35}
                                     onChange={(evt) => setFindingsInput(evt.target.value)} 
                                 />
                                 </div>
@@ -244,7 +254,8 @@ function AssessmentEdit() {
                                     type='text'
                                     value={impactInput || ''}
                                     placeholder={assessmentAnswersById.impact || ''}
-                                    rows={12}
+                                    rows={10}
+                                    cols={35}
                                     onChange={(evt) => setImpactInput(evt.target.value)} 
                                 />
                                 </div>
@@ -255,6 +266,7 @@ function AssessmentEdit() {
                                     type='text'
                                     value={recommendationsInput || ''}
                                     placeholder={assessmentAnswersById.recommendations || ''}
+                                    cols={35}
                                     onChange={(evt) => setRecommendationsInput(evt.target.value)} 
                                 />
                                 </div>
@@ -275,12 +287,17 @@ function AssessmentEdit() {
             <div className="row">
                 <div className="col-md-12 bg-light float-right">
                     <Link to={evalLocation}>
-                    <button type="submit" className="float-end" onClick={(event) => handleSubmit(event)}>Submit and Continue to Next Bucket</button>
+                        {/* Katie/todo: Write conditional logic to say "submit and go to next bucket/
+                        submit and go back to dashboard," depending on where the button takes them. */}
+                    <button type="submit" className="float-end" onClick={(event) => handleSubmit(event)}>Submit</button>
                     </Link>
                     <button type="button" className="float-end px-2" onClick={goToDashboard}>Cancel</button>
                 </div>
             </div>
             </div>
+            {/* </div>
+            </div>
+            </div> */}
         </>
     )
 }
