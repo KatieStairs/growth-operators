@@ -120,7 +120,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
         VALUES
         ( $1, $2, $3);
         `;
-      pool.query(insertClientAssessment,[newCompanyId, newCompany.date, 'Edit in Progress'])
+      pool.query(insertClientAssessment,[newCompanyId, newCompany.date, 'Not Yet Started'])
       .then((response) => {
         const insertUserClient = `
           INSERT INTO "user_client" 

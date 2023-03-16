@@ -7,6 +7,7 @@ import './Dashboard.css';
 import CreateNewClientModal from './CreateNewClientModal';
 import DashboardTableActiveAssessments from './DashboardTableActiveAssessments';
 import DashboardTableOperatorAssessments from './DashboardTableOperatorAssessments';
+import LogOutButton from '../LogOutButton/LogOutButton';
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ function Dashboard() {
                     <th>Client Name</th>
                     <th>Engagement Start</th>
                     <th>Edit</th>
-                    <th>See Detail</th>
+                    <th>See Client Detail</th>
                     <th>See Assessment</th>
                   </tr>
                 </thead>
@@ -60,6 +61,8 @@ function Dashboard() {
                   })}
                 </tbody>
               </table>
+              {/* just putting this here for now */}
+              <LogOutButton />
             </div>
           </div>
 
