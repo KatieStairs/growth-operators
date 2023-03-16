@@ -5,7 +5,6 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 /** ---------- GET DASHBOARD INFO BY USER ID ---------- **/
-
 router.get('/dashboard', rejectUnauthenticated, (req, res) => {
     const userId = req.user.id;
     // console.log('in GET by client_id', userId)
@@ -35,6 +34,8 @@ router.get('/dashboard', rejectUnauthenticated, (req, res) => {
         })
 });
 // added rejectUnauthenticated, -adam
+
+/** ---------- GET ALL CLIENTS ---------- **/
 router.get('/all', rejectUnauthenticated, (req, res) => {
   const sqlQuery = `
   SELECT
@@ -42,6 +43,7 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
     "client"."company_name",
     "client"."contact_name",
     "client"."contact_email",
+    "client_assessments"."status",
     MAX("client_assessments"."engagement_date") as "engagement_date",
     STRING_AGG(DISTINCT "user"."name", ', ') as "operators"
 	FROM "client"
@@ -52,7 +54,8 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
 		"client"."id",
 		"client"."company_name",
 		"client"."contact_name",
-		"client"."contact_email"
+		"client"."contact_email",
+    "client_assessments"."status"
 	ORDER BY "client"."company_name" ASC;
   `;
   pool.query(sqlQuery)
@@ -65,6 +68,7 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
   })
 });
 
+/** ---------- GET (CLIENT OVERVIEW?) ---------- **/
 router.get('/overview', (req, res) => {
   console.log("hello you are in client overview route in server!", req.query);
   const clientId = parseInt(req.query.clientId);
@@ -84,6 +88,7 @@ router.get('/overview', (req, res) => {
   // })
 });
 
+/** ---------- POST NEW CLIENT ---------- **/
 // added rejectUnauthenticated, -adam
 // POST to create new client AND new client assessment AND user_client!
 router.post('/', rejectUnauthenticated, (req, res) => {
@@ -133,7 +138,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     });
 });
 
-// added rejectUnauthenticated, -adam
+/** ---------- PUT CLIENT CONTACT DETAILS ---------- **/
 router.put('/:id', rejectUnauthenticated, (req, res) => {
   const client = req.body;
   const sqlQuery = `
@@ -153,13 +158,35 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
     console.error('Error in PUT /client/:id:', error);
   });
 });
+
+/** ---------- PUT CLIENT STATUS (ARCHIVE) ---------- **/
+router.put('/:id/archive', rejectUnauthenticated, (req, res) => {
+  const sqlQuery = `
+  UPDATE "client_assessments"
+    SET "status" = $1
+    WHERE "client_id" = $2;`;
+  const sqlValues = ['Archived', req.params.id];
+  pool.query(sqlQuery, sqlValues)
+  .then((response) => {
+    res.sendStatus(201);
+  })
+  .catch((error) => {
+    console.error('Error in PUT /client/:id:', error);
+  });
+});
+
+
+
+/** ---------- DELETE CLIENT ---------- **/
 // added rejectUnauthenticated, -adam
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
+  console.log('Req.body: ', req.body)
+  console.log('Req.params: ', req.params)
   const sqlQuery = `
   DELETE FROM "client"
     WHERE "id" = $1
   `;
-  pool.query(sqlQuery, [req.params.id])
+  pool.query(sqlQuery, [req.body.id])
   .then((response) => {
     res.sendStatus(205);
   })
