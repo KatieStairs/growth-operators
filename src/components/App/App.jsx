@@ -23,6 +23,7 @@ import AssessmentForm from '../Assessment/AssessmentForm/AssessmentForm';
 import AssessmentEdit from '../Assessment/AssessmentEdit/AssessmentEdit';
 import AssessmentAnswers from '../Assessment/AssessmentAnswers/AssessmentAnswers';
 import AssessmentReview from '../Assessment/AssessmentReview/AssessmentReview';
+import AssessmentEndInputs from '../Assessment/AssessmentForm/AssessmentSlideInputs';
 
 
 import 'bootstrap';
@@ -62,12 +63,16 @@ function App() {
           {/* // Two components here - one for review & edit all, one for review & edit by bucket (what's shown following the assessment form)
           // R&E All -- conditional rendering based only on assessment id, found by navigating from dashboard 'edit' button
           // R&E Bucket -- conditional rendering based on assessment_id, bucket_id, found at the end of bucket in assessment form */}
-          <ProtectedRoute exact path="/assessment-edit/:assessment_id">
+          <ProtectedRoute exact path="/assessment-edit/:assessment_id/:bucket_id">
             <AssessmentEdit />
           </ProtectedRoute>
 
           <ProtectedRoute exact path="/assessment-form/:assessment_id/:bucket_id/:function_id">
             <AssessmentForm />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/assessment-form/:assessment_id/final-slide-inputs">
+            <AssessmentEndInputs />
           </ProtectedRoute>
 
           <ProtectedRoute exact path="/assessment-review/:assessment_id/:bucket_id">

@@ -237,13 +237,15 @@ CREATE TABLE "assessment_items" (
 	"findings" VARCHAR,
 	"impact" VARCHAR,
 	"recommendations" VARCHAR,
-	"phase" INTEGER
+	"phase" INTEGER,
+	"next_steps" VARCHAR,
+	"future_state" VARCHAR
 );
 
 INSERT INTO "assessment_items"
 ("assessment_id", "bucket_id", "function_id", "subfunction_id", "level_rating", "findings", "impact", "recommendations", "phase")
 VALUES
-(1,1,1,1,1,'Look what I found!','Deep Impact is a 1998 American science-fiction disaster film directed by Mimi Leder, written by Bruce Joel Rubin and Michael Tolkin, and starring Robert Duvall, Téa Leoni, Elijah Wood, Vanessa Redgrave, Maximilian Schell, and Morgan Freeman','No recommendations at this time.',1),
+(1,1,1,1,1,'Look what I found!','Deep Impact is a 1998 American science-fiction disaster film directed by Mimi Leder, written by Bruce Joel Rubin and Michael Tolkin, and starring Robert Duvall, Téa Leoni, Elijah Wood, Vanessa Redgrave, Maximilian Schell, and Morgan Freeman','No recommendations at this time.',1,'No next steps.', 'No future state.'),
 (2,2,2,2,2,'Look at all these findings','Steven Spielberg served as an executive producer of Deep Impact. It was released by Paramount Pictures in North America and by DreamWorks Pictures internationally on May 8, 1998. The film depicts the attempts to prepare for and destroy a 7-mile (11 km) wide comet set to collide with Earth and cause a mass extinction.','ONLY recommendations at this time.',2),
 (3,3,3,3,3,'So many findings I have found tonight!','Deep Impact was released in the same summer as a similarly themed film, Armageddon, which fared better at the box office, while astronomers described Deep Impact as being more scientifically accurate. Both films were similarly received by critics, with Armageddon scoring 38% and Deep Impact scoring 44% on Rotten Tomatoes.','Too many recommendations at this time. 😔',3),
 (4,4,4,4,4,'Life, uh... finds a way.','Deep Impact grossed over $349 million worldwide on an $80 million production budget. It was the final film by cinematographer Dietrich Lohmann, who died before the films release.','NO',null),

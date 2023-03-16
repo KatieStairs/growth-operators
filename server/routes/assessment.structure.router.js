@@ -49,7 +49,7 @@ router.get('/buckets', rejectUnauthenticated, (req, res) => {
 
 /** ---------- GET FUNCTIONS BY BUCKET ID ---------- **/
 router.get('/buckets/:id/functions', rejectUnauthenticated, (req, res) => {
-  // console.log('Req.params: ', req.params);
+  console.log('Req.params: ', req.params);
   const sqlQuery =`
   SELECT 
     "functions"."id", 
