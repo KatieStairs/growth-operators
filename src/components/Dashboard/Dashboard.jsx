@@ -12,7 +12,7 @@ function Dashboard() {
   const dispatch = useDispatch();
   const operatorDashboard = useSelector(store => store.operatorDashboard);
   const user = useSelector((store) => store.user);
-  console.log('in dashboard', operatorDashboard.operatorDashboard);
+  // console.log('in dashboard', operatorDashboard.operatorDashboard);
   useEffect(() => {
     dispatch({
         type: 'SAGA/GET_OPERATOR_DASHBOARD'

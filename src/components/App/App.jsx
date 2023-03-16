@@ -43,162 +43,71 @@ function App() {
       <div>
         {/* <Nav /> */}
         <Switch>
-          {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/login" />
 
-          {/* Visiting localhost:3000/about will show the about page. */}
-          <Route
-            // shows AboutPage at all times (logged in or not)
-            exact
-            path="/about"
-          >
-            {/* <AboutPage /> */}
+          <Route exact path="/about">
+            <AboutPage /> {/* shows AboutPage at all times (logged in or not) */}
           </Route>
 
-          {/* For protected routes, the view could show one of several things on the same route.
-            Visiting localhost:3000/user will show the UserPage if the user is logged in.
-            If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
-            Even though it seems like they are different pages, the user is always on localhost:3000/user */}
+          {/* If the user is not logged in, the ProtectedRoute will show the LoginPage (component). */}
 
-            <ProtectedRoute
-          exact
-          path="/dashboard"
-          >
-            <Dashboard />
-          </ProtectedRoute>
-
-          <ProtectedRoute
-            // logged in shows ClientReport else shows LoginPage
-            exact
-            path="/all-clients"
-          >
+          <ProtectedRoute exact path="/all-clients">
             <AllClients />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows ClientOverview else shows LoginPage
-            exact
-            path="/client-overview/:client-id"
-          >
-            <ClientOverview />
-          </ProtectedRoute>
+          {/* <ProtectedRoute exact path="/assessment-answers/:id">
+            <AssessmentAnswers />
+          </ProtectedRoute> */}
 
-          <ProtectedRoute
-            // logged in shows ClientPresentation else shows LoginPage
-            exact
-            path="/presentation/"
-          >
-            <PresentationGenerator />
-          </ProtectedRoute>
-
-          <ProtectedRoute
-            // logged in shows ClientReport else shows LoginPage
-            exact
-            path="/client-report"
-          >
-            {/* <ClientReport /> */}
-          </ProtectedRoute>
-
-          <Route
-            exact
-            path="/login"
-          >
-            {user.id ?
-              // If the user is already logged in, 
-              // redirect to the /user page
-              <Redirect to="/dashboard" />
-              :
-              // Otherwise, show the login page
-              <LoginPage />
-            }
-          </Route>
-
-          {/* <Route
-            exact
-            path="/registration"
-          >
-            {user.id ?
-              // If the user is already logged in, 
-              // redirect them to the /user page
-              <Redirect to="/dashboard" />
-              :
-              // Otherwise, show the registration page
-              <RegisterPage />
-            }
-          </Route> */}
-
-          {/* <Route
-            exact
-            path="/dashboard"
-          >
-            {user.id ?
-              // If the user is already logged in, 
-              // redirect them to the /user page
-              <Redirect to="/dashboard" />
-              :
-              // Otherwise, show the Landing page
-              <Dashboard />
-            }
-          </Route> */}
-
-          <ProtectedRoute
-            exact
-            path="/dashboard"
-          >
-            <Dashboard />
-          </ProtectedRoute>
-
-          <ProtectedRoute
-            // logged in shows AllClients else shows LoginPage
-            exact
-            path="/all-clients"
-          >
-            <AllClients /> 
-          </ProtectedRoute> 
-
-          <ProtectedRoute
-            // logged in shows the Assessment Form page else shows LoginPage
-            exact
-            path="/assessment-form/:assessment_id/:bucket_id/:function_id"
-          >
-            <AssessmentForm />
-          </ProtectedRoute>
-
-          <ProtectedRoute
-            // logged in shows the Assessment Edit page else shows LoginPage
-            exact
-            path="/assessment-edit/:id"
-          >
+          {/* // Two components here - one for review & edit all, one for review & edit by bucket (what's shown following the assessment form)
+          // R&E All -- conditional rendering based only on assessment id, found by navigating from dashboard 'edit' button
+          // R&E Bucket -- conditional rendering based on assessment_id, bucket_id, found at the end of bucket in assessment form */}
+          <ProtectedRoute exact path="/assessment-edit/:assessment_id">
             <AssessmentEdit />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows the Assessment Answers page else shows LoginPage
-            exact
-            path="/assessment-answers/:id"
-          >
-            <AssessmentAnswers />
+          <ProtectedRoute exact path="/assessment-form/:assessment_id/:bucket_id/:function_id">
+            <AssessmentForm />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows the Assessment Review page else shows LoginPage
-            exact
-            path="/assessment-review/:assessment_id/:bucket_id"
-          >
+          <ProtectedRoute exact path="/assessment-review/:assessment_id/:bucket_id">
             {/* <AssessmentReview /> */}
           </ProtectedRoute>
 
-          <ProtectedRoute
-          exact
-          path="/dashboard"
-          >
+          <ProtectedRoute exact path="/client-overview/:client_id" >
+            <ClientOverview />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/client-report">
+            {/* <ClientReport /> */}
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/dashboard" >
             <Dashboard />
           </ProtectedRoute>
 
+          <ProtectedRoute exact path="/presentation/">
+            <PresentationGenerator />
+          </ProtectedRoute>
+
+          <Route exact path="/login" >
+            {user.id 
+            ? <Redirect to="/dashboard" /> // If the user is already logged in, redirect to Dashboard
+            : <LoginPage /> // Otherwise, show the login page
+            }
+          </Route>
+
+          <Route exact path="/registration">
+            {user.id 
+            ? <Redirect to="/dashboard" /> // If the user is already logged in, redirect to Dashboard
+            : <RegisterPage /> // Otherwise, show the registration page
+            }
+          </Route>
+
           {/* If none of the other routes matched, we will show a 404. */}
-          {/* <Route>
+          <Route>
             <h1>404</h1>
-          </Route> */}
+          </Route>
         </Switch>
         <Footer />
       </div>

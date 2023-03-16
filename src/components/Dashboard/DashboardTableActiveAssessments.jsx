@@ -12,7 +12,7 @@ function DashboardTableActiveAssessments({ client }) {
     }
     const handleClientClick = (client) => {
         let clientId = client.client_id;
-        // console.log('client id clicked', clientId);
+        console.log('client id clicked', clientId);
         history.push(`/client-overview/${clientId}`)
     }
     if(client.status === 'Edit in Progress'){
