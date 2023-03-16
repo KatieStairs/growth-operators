@@ -62,7 +62,7 @@ function App() {
           {/* // Two components here - one for review & edit all, one for review & edit by bucket (what's shown following the assessment form)
           // R&E All -- conditional rendering based only on assessment id, found by navigating from dashboard 'edit' button
           // R&E Bucket -- conditional rendering based on assessment_id, bucket_id, found at the end of bucket in assessment form */}
-          <ProtectedRoute exact path="/assessment-edit/:assessment_id">
+          <ProtectedRoute exact path="/assessment-edit/:assessment_id/:bucket_id">
             <AssessmentEdit />
           </ProtectedRoute>
 
