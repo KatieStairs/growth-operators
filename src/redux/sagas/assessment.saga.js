@@ -19,20 +19,17 @@ function* getAssessmentAnswersById(action) {
     }
 }
 
-// LAUREN NOTE TO SELF - figure out tags addition
-function* saveAssessmentAnswers (action) {
-    console.log('Action.payload in saveAssessmentAnswers: ', action.payload)
+
+function* postAssessmentAnswers (action) {
+    console.log('Action.payload in postAssessmentAnswers: ', action.payload)
     try {
         yield axios({
             method: 'POST',
-            url: `/assessment/${action.payload.assessmentID}`,
+            url: `/assessment/${action.payload.assessment_id}`,
             data: action.payload
         })
-        // yield put({
-        //     type: 'SAGA/GET_ASSESSMENT_ANSWERS'
-        // })
     } catch (error) {
-        console.log('Error in saveAssessmentAnswers: ', error)
+        console.log('Error in postAssessmentAnswers: ', error)
     }
 }
 
@@ -74,7 +71,8 @@ function* updateAssessment(action) {
 
 function* assessmentSaga() {
     yield takeEvery('SAGA/GET_ASSESSMENT_ANSWERS_BY_ID', getAssessmentAnswersById);
-    yield takeEvery('SAGA/POST_ANSWERS', saveAssessmentAnswers);
+    yield takeEvery('SAGA/POST_ASSESSMENT_ANSWERS', postAssessmentAnswers);
+    // yield takeEvery('SAGA/POST_ASSESSMENT_TAG_ANSWERS', postAssessmentTagAnswers);
     yield takeEvery('SAGA/POST_HEADLINE_BY_ID', postHeadlineById);
     yield takeEvery('SAGA/UPDATE_ASSESSMENT_BY_ID', updateAssessment);
 }

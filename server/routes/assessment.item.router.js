@@ -16,12 +16,12 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
             "client"."company_name" AS "company_name",
             "buckets"."name" AS "bucket_name",
             "assessment_items"."level_rating", 
-            "assessment_items"."phase",
             "functions"."id" AS "function_id",
             "functions"."name" AS "function_name",
             "subfunctions"."id" AS "subfunction_id",
             "subfunctions"."name" AS "subfunction_name",
             "tags"."name" AS "tag_name",
+            "tags_assessment_items"."tag_id" AS "tag_id",
             "findings",
             "impact",
             "recommendations"
@@ -48,10 +48,8 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 });
 
 
-/** ---------- POST ASSESSMENT BY ASSESSMENT ID ---------- **/
+/** ---------- POST ASSESSMENT ANSWERS BY ASSESSMENT ID ---------- **/
 router.post('/:id', rejectUnauthenticated, (req, res) => {
-    // console.log('POST Assessment, req.params: ', req.params);
-    // console.log('POST Assessment, req.body: ', req.body);
     const sqlQuery = `
         INSERT INTO "assessment_items"
             ("assessment_id", 
@@ -64,16 +62,30 @@ router.post('/:id', rejectUnauthenticated, (req, res) => {
             "recommendations", 
             "phase")
         VALUES
-        ($1,$2,$3,$4,$5,$6,$7,$8,$9);`;
+            ($1,$2,$3,$4,$5,$6,$7,$8,$9)
+        RETURNING "id";`;
     const sqlValues = [
-        req.params.id, req.body.bucket_id, req.body.function_id, 
+        req.body.assessment_id, req.body.bucket_id, req.body.function_id, 
         req.body.subfunction_id, req.body.level_rating, req.body.findings, 
         req.body.impact, req.body.recommendations, req.body.phase
     ];
     pool.query(sqlQuery,sqlValues)
     .then((results) => {
-        // console.log('Success in POST /assessment/:id!');
-        res.sendStatus(201);
+        const newAssessmentItemID = results.rows[0].id;
+        const sqlTagQuery = `
+        INSERT INTO "tags_assessment_items"
+            ("assessment_item_id", "tag_id")
+        VALUES
+            ($1, $2)`;
+        const sqlTagValues = [newAssessmentItemID, req.body.tag_id]
+        pool.query(sqlTagQuery, sqlTagValues)
+        .then((results) => {
+            res.sendStatus(201);
+        })
+        .catch((error) => {
+            console.log('Error in POST /assessment/:id (tags): ', error);
+            res.sendStatus(500);
+        })
     })
     .catch((error) => {
         console.log('Error in POST /assessment/:id: ', error);

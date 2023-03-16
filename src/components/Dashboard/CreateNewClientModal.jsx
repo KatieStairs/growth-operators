@@ -77,8 +77,8 @@ function CreateNewClientModal() {
              {/* date could be fixed here but for the sake of time I just made it type='text' */}
             <h5>Engagement Date</h5>
                 <input
-                type='text'
-                placeholder="year-mm-dd"
+                type='date'
+                // placeholder="year-mm-dd"
                 value={dateInput}
                 onChange={(evt) => setDateInput(evt.target.value)} 
                 />

@@ -3,3 +3,29 @@
 .reveal {
   height: 100vh;
 };
+
+.range-labels {
+  margin: auto;
+  padding: 0;
+  list-style: none;
+}
+
+.range-labels .list-inline-item {
+    position: relative;
+    display: flex;
+    text-align: right;
+    width: 2.5rem;
+    color: #b2b2b2;
+    font-size: 14px;
+    justify-content: flex-end;
+}
+
+.functionObjectH3 {
+  clear: left;
+}
+
+#form-page-progress-label, #level-rating-progress-bar {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+}

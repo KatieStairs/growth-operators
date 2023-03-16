@@ -19,19 +19,6 @@ function AssessmentPage ({functionsArray}) {
     window.scrollTo(0, 0) // if removed, when user presses continue, next page loads already scrolled to bottom
   }, [pathname])
 
-  function evalTagsInput(allInputFields, formObject){ // checks tag arrays for duplicates/uncheck action
-    let keepTagInputs = formObject.tagsInput;
-    for (const i of keepTagInputs) {
-      for (const j of allInputFields.tagsInput) {
-        if (i === j){
-          let removeIndex = keepTagInputs.indexOf(i);
-          keepTagInputs.splice(removeIndex, 1);
-        }
-      }
-      }
-    return keepTagInputs;
-  }
-
   const handleInputChange = (subfunction, event) => { // handles page inputs, allInputFields, formArray
     if (allInputFields.subfunctionID === null) {     // if no info in allInputFields, sets allInputFields where a value exists.
       setAllInputFields({[event.target.name]: event.target.value, 'subfunctionID': subfunction.id})
@@ -61,8 +48,7 @@ function AssessmentPage ({functionsArray}) {
               phaseInput: allInputFields.phaseInput || formObject.phaseInput,
               tagsInput: 
                 (!allInputFields.tagsInput) ? formObject.tagsInput
-                : (!formObject.tagsInput) ? allInputFields.tagsInput
-                : evalTagsInput(allInputFields, formObject)
+                : allInputFields.tagsInput
             }; 
             formArray.splice(spliceInputIndex, 1, newFormObject);
             formArrayToggle = true;
@@ -180,18 +166,40 @@ function AssessmentPage ({functionsArray}) {
       clearInputFields();
     }
 
-    let assessmentSave = {
-      formArray: formArray,
-      assessmentID: params.assessment_id,
-      bucket_id: params.bucket_id,
-      function_id: params.function_id
-    }
+    // let assessmentSave = {
+    //   formArray: formArray,
+    //   assessmentID: params.assessment_id,
+    //   bucket_id: params.bucket_id,
+    //   function_id: params.function_id
+    // }
 
-    dispatch({
-      type: 'SAGA/POST_ANSWERS',
-      payload: assessmentSave
-    })
-  }
+    for (const formObject of formArray){
+      let assessmentSave = {
+        assessment_id: Number(params.assessment_id),
+        bucket_id: Number(params.bucket_id),
+        function_id: Number(params.function_id),
+        subfunction_id: Number(formObject.subfunctionID),
+        level_rating: Number(formObject.levelRatingInput),
+        findings: formObject.findingsInput,
+        impact: formObject.impactsInput,
+        recommendations: formObject.recommendationsInput,
+        phase: Number(formObject.phaseInput),
+        tag_id: formObject.tagsInput
+      }
+
+      dispatch({
+        type: 'SAGA/POST_ASSESSMENT_ANSWERS',
+        payload: assessmentSave
+      })
+
+      // for (const tag_id of formObject.tagsInput) {
+      //   dispatch({
+      //     type: 'SAGA/POST_ASSESSMENT_TAG_ANSWERS',
+      //     payload: tag_id
+      //   })
+      }
+    }
+  
 
   const handleSaveForLater = () => {
     saveToDatabase();
@@ -228,32 +236,34 @@ function AssessmentPage ({functionsArray}) {
       if (Number(params.function_id) === functionObject.id) {
         return (
           <div key={functionObject.id}>
+
+
             <div>
               <div className="progress" role="progressbar" aria-label="Basic example" aria-valuenow={functionObject.function_index} aria-valuemin="0" aria-valuemax={functionsArray.length} >
                 <div className="progress-bar" style={{"width": ((functionObject.function_index)/(functionsArray.length)).toLocaleString("en", {style: "percent"})}}></div>
               </div>
-              <ul id="form-page-progress-label" className="list-inline" max-width={{"width": ((functionObject.function_index)/(functionsArray.length)).toLocaleString("en", {style: "percent"})}}>
-              {/* li here does not justify numbers below progress bar; needs CSS override. */}  
-                <li className="list-inline-item">0</li>
+              <div id="form-page-progress-label" className="list-inline range-labels" > 
                 {functionsArray.map((functionListItem) => {
                   return (
-                    <li className="list-inline-item"  key={functionListItem.function_index}>{functionListItem.function_index}</li>
+                    <div className="list-inline-item"  key={functionListItem.function_index}>{functionListItem.function_index}</div>
                   )
                 })}
-              </ul>
+              </div>
             </div>
-            <h3>{functionObject.name}</h3>
+            <h3 className="functionObjectH3">{functionObject.name}</h3>
             {subfunctionsArray.map((subfunction) => {
               return (
                 <form key={subfunction.id} className="mb-5 ">
                   <h4>{subfunction.name}</h4>
                   <div className="col-md-10 mb-3">
-                    <label htmlFor="levelRatingInput" className="form-label"><h6>Level Rating</h6></label>
+                    <h6>Level Rating</h6>
                     <ul>
-                      <li>{(subfunction.level_criteria_strong)}</li>
-                      <li>{(subfunction.level_criteria_adequate)}</li>
-                      <li>{(subfunction.level_criteria_weak)}</li>
+                      <li>0 // Out of Scope</li>
+                      <li>1-2 // {(subfunction.level_criteria_weak)}</li>
+                      <li>3-4 // {(subfunction.level_criteria_adequate)}</li>
+                      <li>5 // {(subfunction.level_criteria_strong)}</li>
                     </ul>
+
                     <input 
                       type="range" 
                       className="form-range" 
@@ -263,6 +273,15 @@ function AssessmentPage ({functionsArray}) {
                       step="1" 
                       onChange={(event) => handleInputChange(subfunction, event)}
                     />
+                    <div id="level-rating-progress-bar" className="list-inline range-labels" >
+                      <div className="list-inline-item">0</div>
+                      <div className="list-inline-item">1</div>
+                      <div className="list-inline-item">2</div>
+                      <div className="list-inline-item">3</div>
+                      <div className="list-inline-item">4</div>
+                      <div className="list-inline-item">5</div>
+                    </div>
+                    
                   </div>
 
                   <div className="col mb-3">
@@ -306,12 +325,12 @@ function AssessmentPage ({functionsArray}) {
                     </div>
 
                     <div className="col mb-3">
-                      <h6>Tags</h6>
+                      <h6>Tag</h6>
                       {tags.map((tag) => {
                         return (
                           <div key={tag.id} className="g-3">
                             <input 
-                              type="checkbox" 
+                              type="radio" 
                               className="form-check-input" 
                               name="tagsInput"
                               value={tag.id} 
