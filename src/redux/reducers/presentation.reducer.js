@@ -101,8 +101,8 @@ export default combineReducers({
   assessmentList,
   strengthTags,
   opportunityTags,
+  summaryRatings,
   bucketData,
   bucketTags,
-  summaryRatings,
   operatorInputs
 });
