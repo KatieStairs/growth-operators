@@ -19,9 +19,9 @@ function AssessmentList () {
           </tr>
         </thead>
         <tbody>
-        {/* {assessments.map((assessment) => {
+        {assessments.map((assessment) => {
           return <AssessmentRow key={assessment.id} assessment={assessment}/>
-        })} */}
+        })}
         </tbody>
       </table>
     </div>

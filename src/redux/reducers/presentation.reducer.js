@@ -27,24 +27,6 @@ const opportunityTags = (state = [], action) => {
   };
 };
 
-const quickWinTags = (state = [], action) => {
-  switch (action.type) {
-  case 'SET_PRESENTATION_QUICK_WIN_DATA':
-    return action.payload;
-  default:
-    return state;
-  };
-};
-
-const fireDrillTags = (state = [], action) => {
-  switch (action.type) {
-  case 'SET_PRESENTATION_FIRE_DRILL_DATA':
-    return action.payload;
-  default:
-    return state;
-  };
-};
-
 const summaryRatings = (state = [], action) => {
   switch (action.type) {
   case 'SET_PRESENTATION_SUMMARY_RATINGS':
@@ -54,55 +36,53 @@ const summaryRatings = (state = [], action) => {
   };
 };
 
-const bucket1Data = (state = [], action) => {
+const bucketData = (state = {
+  bucket1: {},
+  bucket2: {},
+  bucket3: {},
+  bucket4: {},
+  bucket5: {},
+  bucket6: {}
+}, action) => {
   switch (action.type) {
   case 'SET_PRESENTATION_BUCKET_1_DATA':
-    return action.payload;
-  default:
-    return state;
-  };
-};
-
-const bucket2Data = (state = [], action) => {
-  switch (action.type) {
+    return {...state, bucket1: action.payload};
   case 'SET_PRESENTATION_BUCKET_2_DATA':
-    return action.payload;
-  default:
-    return state;
-  };
-};
-
-const bucket3Data = (state = [], action) => {
-  switch (action.type) {
+    return {...state, bucket2: action.payload};
   case 'SET_PRESENTATION_BUCKET_3_DATA':
-    return action.payload;
-  default:
-    return state;
-  };
-};
-
-const bucket4Data = (state = [], action) => {
-  switch (action.type) {
+    return {...state, bucket3: action.payload};
   case 'SET_PRESENTATION_BUCKET_4_DATA':
-    return action.payload;
-  default:
-    return state;
-  };
-};
-
-const bucket5Data = (state = [], action) => {
-  switch (action.type) {
+    return {...state, bucket4: action.payload};
   case 'SET_PRESENTATION_BUCKET_5_DATA':
-    return action.payload;
+    return {...state, bucket5: action.payload};
+  case 'SET_PRESENTATION_BUCKET_6_DATA':
+    return {...state, bucket6: action.payload};
   default:
     return state;
   };
 };
 
-const bucket6Data = (state = [], action) => {
+const bucketTags = (state = {
+  bucket1: {},
+  bucket2: {},
+  bucket3: {},
+  bucket4: {},
+  bucket5: {},
+  bucket6: {}
+}, action) => {
   switch (action.type) {
-  case 'SET_PRESENTATION_BUCKET_6_DATA':
-    return action.payload;
+  case 'SET_PRESENTATION_BUCKET_1_TAGS':
+    return {...state, bucket1: action.payload};
+  case 'SET_PRESENTATION_BUCKET_2_TAGS':
+    return {...state, bucket2: action.payload};
+  case 'SET_PRESENTATION_BUCKET_3_TAGS':
+    return {...state, bucket3: action.payload};
+  case 'SET_PRESENTATION_BUCKET_4_TAGS':
+    return {...state, bucket4: action.payload};
+  case 'SET_PRESENTATION_BUCKET_5_TAGS':
+    return {...state, bucket5: action.payload};
+  case 'SET_PRESENTATION_BUCKET_6_TAGS':
+    return {...state, bucket6: action.payload};
   default:
     return state;
   };
@@ -119,11 +99,10 @@ const operatorInputs = (state = [], action) => {
 
 export default combineReducers({
   assessmentList,
-  headlines,
   strengthTags,
   opportunityTags,
-  quickWinTags,
-  fireDrillTags,
+  bucketData,
+  bucketTags,
   summaryRatings,
   operatorInputs
 });

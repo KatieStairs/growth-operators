@@ -1,12 +1,12 @@
 import Reveal from 'reveal.js';
 import Markdown from 'reveal.js/plugin/markdown/markdown.esm.js';
 
-function ExecutiveSummary () {
+function FocusAreas () {
   return (
     <section>
-      Executive Summary (Avg of function scores, grouped by bucket for radar chart)
+      Top Priority Focus Areas/Recommendations (???)
     </section>
   )
 };
 
-export default ExecutiveSummary;
+export default FocusAreas;

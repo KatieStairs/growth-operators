@@ -32,7 +32,8 @@ function* getPresentationData(action) {
       bucket3Tags,
       bucket4Tags,
       bucket5Tags,
-      bucket6Tags
+      bucket6Tags,
+      operatorInputs
     } = yield all({
       strengthTags: call(axios.get, `/presentation/strengths/${action.payload}`),
       opportunityTags: call(axios.get, `/presentation/opportunities/${action.payload}`),
@@ -49,6 +50,7 @@ function* getPresentationData(action) {
       bucket4Tags: call(axios.get, `/presentation/bucket-4/tags/${action.payload}`),
       bucket5Tags: call(axios.get, `/presentation/bucket-5/tags/${action.payload}`),
       bucket6Tags: call(axios.get, `/presentation/bucket-6/tags/${action.payload}`),
+      operatorInputs: call(axios.get, `/presentation/operator-inputs/${action.payload}`),
     });
     yield put({
       type: 'SET_PRESENTATION_STRENGTH_DATA',
@@ -109,6 +111,10 @@ function* getPresentationData(action) {
     yield put({
       type: 'SET_PRESENTATION_BUCKET_6_TAGS',
       payload: bucket6Tags
+    });
+    yield put({
+      type: 'SET_PRESENTATION_OPERATOR_INPUTS',
+      payload: operatorInputs
     });
   } catch (error) {
       console.error('PresentationData GET failed', error);
