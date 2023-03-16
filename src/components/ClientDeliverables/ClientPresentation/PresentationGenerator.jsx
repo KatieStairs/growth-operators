@@ -1,8 +1,10 @@
 import { React, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import Reveal from 'reveal.js/dist/reveal.esm.js';
 import './Presentation.css';
 
 function PresentationGenerator () {
+  const presentationData = useSelector((store) => store.presentation);
 
   useEffect(() => {
     let deck = new Reveal({
@@ -29,10 +31,6 @@ function PresentationGenerator () {
           <p>2. Develop and share actionable recommendations</p>
           <p>3. Prioritize potential work to address top areas of concern</p>
           <p>4. Provide insights into potential HR capabilities for the future</p>
-          </section>
-
-          <section>
-          Methodology 'Fun Facts' (stretch)
           </section>
           
           <section>

@@ -160,4 +160,27 @@ router.get('/assessments/:id', rejectUnauthenticated, (req, res) => {
       });
   });
 
+  router.get('/summary-ratings/:id', rejectUnauthenticated, (req, res) => {
+    const queryText = `
+    SELECT
+      SELECT
+      SUM("level_rating") FILTER (WHERE "bucket_id" = 1) AS "organizational_effectiveness_rating",
+      SUM("level_rating") FILTER (WHERE "bucket_id" = 2) AS "employee_engagement_rating",
+      SUM("level_rating") FILTER (WHERE "bucket_id" = 3) AS "training_development_rating",
+      SUM("level_rating") FILTER (WHERE "bucket_id" = 4) AS "benefits_compensation_rating",
+      SUM("level_rating") FILTER (WHERE "bucket_id" = 5) AS "recruiting_staffing_rating",
+      SUM("level_rating") FILTER (WHERE "bucket_id" = 6) AS "hris_payroll_compliance_rating"
+    FROM "assessment_items"
+    WHERE "assessment_id" = $1;
+      `;
+    pool.query(queryText, [req.params.id])
+      .then((response) => {
+        res.send(response.rows);
+      })
+      .catch((error) => {
+        console.log('Error completing presentation.router /summary-ratings GET', error);
+        res.sendStatus(500);
+      });
+  });
+
   module.exports = router;
