@@ -98,12 +98,12 @@ function AllClientsEditModal({ client }) {
           className="modal-footer">
             <button
             type="button"
-            className="btn btn-outline-secondary"
+            className="btn btn-outline-primary"
             data-bs-dismiss="modal"
             >Close</button>
             <button
             type="button"
-            className="btn btn-secondary"
+            className="btn btn-primary"
             onClick={submitEdits}
             data-bs-dismiss="modal"
             >Save changes</button>
