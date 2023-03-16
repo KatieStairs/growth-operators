@@ -23,6 +23,7 @@ import AssessmentForm from '../Assessment/AssessmentForm/AssessmentForm';
 import AssessmentEdit from '../Assessment/AssessmentEdit/AssessmentEdit';
 import AssessmentAnswers from '../Assessment/AssessmentAnswers/AssessmentAnswers';
 import AssessmentReview from '../Assessment/AssessmentReview/AssessmentReview';
+import AssessmentEndInputs from '../Assessment/AssessmentForm/AssessmentSlideInputs';
 
 
 import 'bootstrap';
@@ -68,6 +69,10 @@ function App() {
 
           <ProtectedRoute exact path="/assessment-form/:assessment_id/:bucket_id/:function_id">
             <AssessmentForm />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/assessment-form/:assessment_id/final-slide-inputs">
+            <AssessmentEndInputs />
           </ProtectedRoute>
 
           <ProtectedRoute exact path="/assessment-review/:assessment_id/:bucket_id">

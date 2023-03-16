@@ -20,8 +20,7 @@ function* getAssessmentAnswersById(action) {
 }
 
 
-function* postAssessmentAnswers (action) {
-    console.log('Action.payload in postAssessmentAnswers: ', action.payload)
+function* postAssessmentAnswersByID (action) {
     try {
         yield axios({
             method: 'POST',
@@ -30,6 +29,19 @@ function* postAssessmentAnswers (action) {
         })
     } catch (error) {
         console.log('Error in postAssessmentAnswers: ', error)
+    }
+}
+
+function* postAssessmentSlideInputsByID (action) {
+    console.log('Action.payload in postAssessmentSlideInputsByID: ', action.payload)
+    try {
+        yield axios({
+            method: 'POST',
+            url: `/assessment/slide/${action.payload.assessment_id}`,
+            data: action.payload
+        })
+    } catch (error) {
+        console.log('Error in postAssessmentSlideInputsByID: ', error)
     }
 }
 
@@ -71,7 +83,8 @@ function* updateAssessment(action) {
 
 function* assessmentSaga() {
     yield takeEvery('SAGA/GET_ASSESSMENT_ANSWERS_BY_ID', getAssessmentAnswersById);
-    yield takeEvery('SAGA/POST_ASSESSMENT_ANSWERS', postAssessmentAnswers);
+    yield takeEvery('SAGA/POST_ASSESSMENT_ANSWERS', postAssessmentAnswersByID);
+    yield takeEvery('SAGA/POST_ASSESSMENT_SLIDE_INPUTS', postAssessmentSlideInputsByID)
     // yield takeEvery('SAGA/POST_ASSESSMENT_TAG_ANSWERS', postAssessmentTagAnswers);
     yield takeEvery('SAGA/POST_HEADLINE_BY_ID', postHeadlineById);
     yield takeEvery('SAGA/UPDATE_ASSESSMENT_BY_ID', updateAssessment);
