@@ -3,14 +3,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link, useLocation } from "react-router-dom";
 
 function AssessmentEndInputs () {
+  const dispatch = useDispatch();
   const [nextSteps, setNextSteps] = useState('');
   const [futureState, setFutureState] = useState('');
   const params = useParams();
 
   const handleSave = () => {
+    event.preventDefault;
+    let slideTextInputs = {
+      assessment_id: params.assessment_id,
+      next_steps: nextSteps,
+      future_state: futureState
+    }
+
+    console.log('slideTextInputs: ', slideTextInputs)
+
     dispatch({
       type: 'SAGA/POST_ASSESSMENT_SLIDE_INPUTS',
-      payload: nextSteps, futureState
+      payload: slideTextInputs
     })
   }
 
@@ -51,9 +61,9 @@ function AssessmentEndInputs () {
           </Link>
         </div>
         <div className="d-grid g-2 d-md-flex justify-content-md-end">
-          <Link to="/dashboard">
+          {/* <Link to="/dashboard"> */}
             <button className="btn btn-link" type="submit" onClick={() => handleSave()}>Save for Later</button>
-          </Link>
+          {/* </Link> */}
         </div>
       </form>
     </div >
