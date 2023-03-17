@@ -10,6 +10,7 @@ import DashboardTableOperatorAssessments from './DashboardTableOperatorAssessmen
 import LogOutButton from '../LogOutButton/LogOutButton';
 
 function Dashboard() {
+  document.title = 'Dashboard';
   const dispatch = useDispatch();
   const operatorDashboard = useSelector(store => store.operatorDashboard);
   const user = useSelector((store) => store.user);

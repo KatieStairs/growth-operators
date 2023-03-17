@@ -1,18 +1,40 @@
 import React from 'react';
-import { useSelector} from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import AllClientsRow from './AllClientsRow';
 import AllClientsEditModal from './AllClientsEditModal';
 import AllClientsDeleteModal from './AllClientsDeleteModal';
 import AllClientsDetailsModal from './AllClientsDetailsModal';
 
 function AllClients() {
+  document.title = 'All Clients & Assessments';
+  const dispatch = useDispatch();
   const clients = useSelector((store) => store.client.allClients);
+
+  useEffect(() => {
+    dispatch({type: 'SAGA/GET_ALL_CLIENTS'})
+  }, [])
+
+  useEffect(() => {
+    if (clients) {
+      console.log('clients: ', clients)
+    }
+  }, [clients]);
+
+  if(!clients) {
+    return null;
+  } else {
 
   return (
     <div className="container-fluid">
-    <div className="container-fluid text-center">
-      <h1>All Clients</h1>
-    </div>
+    <div className="container-fluid">
+      <div className="container g-3 mt-3">
+      <h1>All Clients & Assessments</h1>
+      </div>
+
+    <div className="col py-3 px-4">
+      <div className="mb-5 mt-5 g-3">
+        <div className="container shadow min-vh-auto py-2 mt-3">
       <table className="table table-striped table-hover">
         <thead>
           <tr>
@@ -28,21 +50,26 @@ function AllClients() {
         </thead>
         <tbody>
         {clients.map((client) => {
-          return <AllClientsRow key={client.id} client={client}/>
+          return <AllClientsRow key={client.assessment_id} client={client}/>
         })}
         </tbody>
       </table>
+      </div>
+      </div>
+    </div>
       {clients.map((client) => {
-        return <AllClientsEditModal key={client.id} client={client}/>
+        return <AllClientsEditModal key={client.assessment_id} client={client}/>
       })}
       {clients.map((client) => {
-        return <AllClientsDeleteModal key={client.id} client={client}/>
+        return <AllClientsDeleteModal key={client.assessment_id} client={client}/>
       })}
       {clients.map((client) => {
-        return <AllClientsDetailsModal key={client.id} client={client}/>
+        return <AllClientsDetailsModal key={client.assessment_id} client={client}/>
       })}
     </div>
+    </div>
   );
+}
 }
 
 export default AllClients;
