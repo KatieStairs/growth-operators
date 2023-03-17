@@ -25,7 +25,7 @@ function DashboardTableActiveAssessments({ client }) {
     if(client.status === 'Edit in Progress'){
         return (
             <tr>
-                <td onClick={() => handleClientClick(client)}><a href="#" className="pe-auto">{client.company_name}</a></td>  
+                <td>{client.company_name}</td>  
                 <td>{client.status}</td>
                 <td><button type="button" className="btn btn-primary" onClick={() => handleEditClick(client)}>Edit</button></td>
             </tr>
@@ -33,7 +33,7 @@ function DashboardTableActiveAssessments({ client }) {
     } else if(client.status === 'Not Yet Started'){
         return (
             <tr>
-                <td onClick={() => handleClientClick(client)}><a href="#" className="pe-auto">{client.company_name}</a></td>  
+                <td>{client.company_name}</td>  
                 <td>{client.status}</td>
                 <td><button type="button" className="btn btn-primary" onClick={() => handleStartClick(client)}>Start</button></td>
             </tr>

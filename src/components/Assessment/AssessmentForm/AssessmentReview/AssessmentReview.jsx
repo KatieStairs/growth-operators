@@ -7,6 +7,7 @@ import Nav from '../../../Nav/Nav'
 import AssessmentReviewPage from './AssessmentReviewPage';
 
 function AssessmentReview() {
+  document.title = 'Review - Assessment Form Answers';
   const params = useParams();
   const dispatch = useDispatch();
   const history = useHistory();

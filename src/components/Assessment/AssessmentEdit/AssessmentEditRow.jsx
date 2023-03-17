@@ -34,13 +34,13 @@ function AssessmentEditRow ({answer}) {
             data-bs-target={`#expanded-assessment-modal-${answer.id}`} 
           >Expand</button>
       </td>
-      <td>
+      {/* <td>
         <button 
           type="button" 
           className="btn btn-primary"
           onClick={goToOverviewPage}
         >Overview</button>
-      </td>
+      </td> */}
       <td>
         <button 
           type="button" 
