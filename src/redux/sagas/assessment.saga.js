@@ -20,9 +20,23 @@ function* getAssessmentAnswersById(action) {
     }
 }
 
+function* getBucketHeadlinesByAssessmentID (action) {
+    try{
+        const response = yield axios({
+            method: 'GET',
+            url: `/assessment/${action.payload}/headlines`
+        })
+        yield put({
+            type: 'SET_BUCKET_HEADLINES_BY_ASSESSMENT_ID',
+            payload: response.data
+        })
+        console.log(response.data);
+    } catch (error) {
+            console.log('Error in getBucketHeadlinesByAssessmentID: ', error)
+    }
+}
 
 function* postAssessmentAnswersByID (action) {
-
     try {
         yield axios({
             method: 'POST',
@@ -85,6 +99,7 @@ function* updateAssessment(action) {
 
 
 function* assessmentSaga() {
+    yield takeEvery('SAGA/GET_BUCKET_HEADLINES_BY_ASSESSMENT_ID', getBucketHeadlinesByAssessmentID)
     yield takeEvery('SAGA/GET_ASSESSMENT_ANSWERS_BY_ID', getAssessmentAnswersById);
     yield takeEvery('SAGA/POST_ASSESSMENT_ANSWERS', postAssessmentAnswersByID);
     yield takeEvery('SAGA/POST_ASSESSMENT_SLIDE_INPUTS', postAssessmentSlideInputsByID)

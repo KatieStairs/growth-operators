@@ -1,8 +1,11 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory, Link} from 'react-router-dom';
 
 function AssessmentReviewRow ({answer}) {
   const history = useHistory();
+  const structure = useSelector((store => store.structure))
+  const tags = structure.tagsReducer;
   
   const goToOverviewPage = () => {
     history.push(`/client-overview/${answer.client_id}`)
@@ -16,7 +19,13 @@ function AssessmentReviewRow ({answer}) {
       <td>{answer.function_name || ''}</td>
       <td>{answer.subfunction_name || ''}</td>
       <td>{answer.level_rating || ''}</td>
-      <td>{answer.tag_name || ''}</td>
+      <td>
+        {tags.map((tag) => {
+          if (tag.id === answer.tag_id){
+            return tag.name;
+          }
+        })}
+      </td>
       <td>
           <button 
             type="button" 

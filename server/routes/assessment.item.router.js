@@ -6,9 +6,7 @@ const router = express.Router();
 
 /** ---------- GET ASSESSMENT BY ASSESSMENT ID ---------- **/
 router.get('/:id', rejectUnauthenticated, (req, res) => {
-    console.log('Req.params: ', req.params)
     const idOfAssessment = req.params.id;
-    // console.log('in GET by assessment_id', idOfAssessment)
     const sqlText = `
         SELECT
             "client"."company_name",
@@ -27,10 +25,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
             "assessment_items"."impact",
             "assessment_items"."recommendations",
             "assessment_items"."phase",
-            "assessment_items"."next_steps",
-            "assessment_items"."future_state",
-            "tags"."name" AS "tag_name",
-            "tags"."id" AS "tag_id"
+            "tags_assessment_items"."tag_id"
         FROM "assessment_items" 
         JOIN "client_assessments" 
             ON "assessment_items"."assessment_id" = "client_assessments"."id"
@@ -40,19 +35,16 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
             ON "assessment_items"."function_id" = "functions"."id"
         JOIN "subfunctions" 
             ON "assessment_items"."subfunction_id" = "subfunctions"."id"
-        JOIN "tags_assessment_items" 
-            ON "assessment_items"."id" = "tags_assessment_items"."assessment_item_id"
-        JOIN "tags" 
-            ON "tags_assessment_items"."tag_id" = "tags"."id"
         JOIN "client" 
             ON "client_assessments"."client_id" = "client"."id"
-        WHERE "assessment_id" = $1;
-    `
+        JOIN "tags_assessment_items" 
+            ON "assessment_items"."id" = "tags_assessment_items"."assessment_item_id"
+        WHERE "assessment_items"."assessment_id" = $1
+        ORDER BY "bucket_index" ASC, "function_index" ASC, "subfunction_index" ASC;`;
     const sqlValues = [idOfAssessment];
     pool.query(sqlText, sqlValues)
         .then((dbRes) => {
             res.send(dbRes.rows)
-            // console.log(dbRes.rows[0])
         })
         .catch((dbErr) => {
             console.log('Error in Edit Assessment GET', dbErr);
@@ -60,6 +52,24 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
         })
 });
 
+
+/** ---------- GET BUCKET HEADLINES BY ASSESSMENT ID ---------- **/
+router.get('/:id/headlines', rejectUnauthenticated, (req, res) => {
+    const sqlQuery = `
+        SELECT * 
+        FROM "buckets_headlines" 
+        WHERE "buckets_headlines"."assessment_id" = $1
+        ORDER BY "bucket_id" ASC;`;
+    const sqlValues = [req.params.id];
+    pool.query(sqlQuery, sqlValues)
+        .then((response) => {
+            res.send(response.rows);
+        })
+        .catch((error) => {
+            console.log('Error in Edit Assessment GET', error);
+            res.sendStatus(500);
+        })
+});
 
 /** ---------- POST ASSESSMENT ANSWERS BY ASSESSMENT ID ---------- **/
 router.post('/:id', rejectUnauthenticated, (req, res) => {
@@ -70,16 +80,17 @@ router.post('/:id', rejectUnauthenticated, (req, res) => {
             "function_id", 
             "subfunction_id", 
             "level_rating", 
+            "phase",
             "findings", 
             "impact", 
             "recommendations", 
             "phase")
         VALUES
-            ($1,$2,$3,$4,$5,$6,$7,$8,$9)
+            ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
         RETURNING "id";`;
     const sqlValues = [
         req.body.assessment_id, req.body.bucket_id, req.body.function_id, 
-        req.body.subfunction_id, req.body.level_rating, req.body.findings, 
+        req.body.subfunction_id, req.body.level_rating, req.body.phase, req.body.findings, 
         req.body.impact, req.body.recommendations, req.body.phase
     ];
     pool.query(sqlQuery,sqlValues)

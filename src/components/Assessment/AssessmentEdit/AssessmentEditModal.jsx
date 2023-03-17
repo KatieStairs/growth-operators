@@ -8,8 +8,9 @@ function AssessmentEditModal ({answer}) {
   const structure = useSelector((store => store.structure));
   const tags = structure.tagsReducer;
 
-  const [levelRatingInput, setLevelRatingInput] = useState(answer.level_rating || null)
-  const [tagsInput, setTagsInput] = useState(answer.tags || null)
+  const [levelRatingInput, setLevelRatingInput] = useState(answer.level_rating || '')
+  const [tagsInput, setTagsInput] = useState(answer.tags || '')
+  const [phaseInput, setPhaseInput] = useState(answer.phase || '')
   const [findingsInput, setFindingsInput] = useState(answer.findings || '')
   const [impactInput, setImpactInput] = useState(answer.impact || '')
   const [recommendationsInput, setRecommendationsInput] = useState(answer.recommendations || '')
@@ -24,8 +25,9 @@ function AssessmentEditModal ({answer}) {
       bucket_id: answer.bucket_id,
       function_id: answer.function_id,
       subfunction_id: answer.subfunction_id,
-      level_rating: levelRatingInput,
-      tags_id: tagsInput,
+      level_rating: Number(levelRatingInput),
+      phase: Number(phaseInput),
+      tags_id: Number(tagsInput),
       findings: findingsInput,
       impact: impactInput,
       recommendations: recommendationsInput
@@ -62,12 +64,27 @@ function AssessmentEditModal ({answer}) {
               ><h5>Level</h5>
               </label>
               <input 
-                type='text'
+                type='number'
                 className="form-control"
                 id={`edit-assessment-modal-${answer.id}-control-level-input`} 
                 value={levelRatingInput}
                 placeholder={answer.level_rating}
                 onChange={(evt) => setLevelRatingInput(evt.target.value)}
+              />
+            </div>
+            <div className="mb-3">
+              <label
+              htmlFor={`edit-assessment-modal-${answer.id}-control-phase-input`}
+              className="form-label"
+              ><h5>Phase</h5>
+              </label>
+              <input 
+                type='number'
+                className="form-control"
+                id={`edit-assessment-modal-${answer.id}-control-phase-input`} 
+                value={phaseInput}
+                placeholder={answer.phase}
+                onChange={(evt) => setPhaseInput(evt.target.value)}
               />
             </div>
             <div className="mb-3">

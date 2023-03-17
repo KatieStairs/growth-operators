@@ -12,7 +12,8 @@ function AssessmentEdit() {
   const params = useParams();
   const dispatch = useDispatch();
   const [dataLoaded, setDataLoaded] = useState(false);
-  const assessmentAnswersById = useSelector((store) => store.assessmentAnswersById);
+  const assessmentItems = useSelector((store) => store.assessmentItems);
+  const assessmentAnswersById = assessmentItems.assessmentAnswersById;
   const structure = useSelector((store => store.structure));
   const tags = structure.tagsReducer;
   const functionsArray = structure.functionsReducer;

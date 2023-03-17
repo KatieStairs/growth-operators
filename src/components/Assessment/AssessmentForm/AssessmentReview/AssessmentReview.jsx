@@ -1,30 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams, useHistory, Link} from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Nav from '../../../Nav/Nav'
-import AssessmentReviewRow from './AssessmentReviewRow';
 import AssessmentReviewPage from './AssessmentReviewPage';
-import AssessmentEditExpandModal from '../../AssessmentEdit/AssessmentEditExpandModal';
-import AssessmentEditModal from '../../AssessmentEdit/AssessmentEditModal';
 
 function AssessmentReview() {
   const params = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
-  const answers = useSelector((store) => store.assessmentAnswersById);
+  const assessmentItems = useSelector((store) => store.assessmentItems);
+  const answers = assessmentItems.assessmentAnswersById;
+
   const structure = useSelector((store => store.structure))
   const bucketsArray = structure.bucketsReducer;
   const functionsArray = structure.functionsReducer;
 
-  const [newRoute, setNewRoute] = useState('')
-
   useEffect(() => {
     dispatch({type: 'SAGA/GET_ASSESSMENT_ANSWERS_BY_ID', payload: params.assessment_id})
-    dispatch({type: 'SAGA/FETCH_ALL_TAGS',payload: params.assessment_id})
+    dispatch({type: 'SAGA/GET_BUCKET_HEADLINES_BY_ASSESSMENT_ID', payload: params.assessment_id})
+    dispatch({type: 'SAGA/FETCH_ALL_TAGS'})
     dispatch({type: 'SAGA/FETCH_FUNCTIONS_BY_BUCKET', payload: params.bucket_id});
-    dispatch({type: 'SAGA/FETCH_ALL_BUCKETS'});
   }, []);
 
   useEffect(() => {
@@ -44,7 +41,7 @@ function AssessmentReview() {
     }
   }
 
-  const evalBucket = (element, index, answers) => {
+  const evalBucket = (element) => {
     return Number(params.bucket_id) === element.bucket_id 
   }
 
