@@ -1,6 +1,7 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link} from 'react-router-dom';
+
 import AllClientsRow from './AllClientsRow';
 import AllClientsEditModal from './AllClientsEditModal';
 import AllClientsDeleteModal from './AllClientsDeleteModal';
@@ -33,7 +34,7 @@ function AllClients() {
       </div>
 
     <div className="col py-3 px-4">
-      <div className="mb-5 mt-5 g-3">
+      <div className="mb-3 mt-5 g-3">
         <div className="container shadow min-vh-auto py-2 mt-3">
       <table className="table table-striped table-hover">
         <thead>
@@ -66,6 +67,15 @@ function AllClients() {
       {clients.map((client) => {
         return <AllClientsDetailsModal key={client.assessment_id} client={client}/>
       })}
+    </div>
+    <div className="container">
+      <div className="row">
+        <div className="col-md-12">
+          <Link to='/dashboard'>
+            <button type="submit" className="float-end btn btn-primary">Return to Dashboard</button>
+          </Link>
+        </div>
+      </div>
     </div>
     </div>
   );

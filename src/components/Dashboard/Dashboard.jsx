@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams, Link, useLocation } from "react-router-dom";
 import './Dashboard.css';
 
 // this is the Operator Dashboard
@@ -28,12 +29,12 @@ function Dashboard() {
 
         <h2>Welcome, {user.username}!</h2>
           <div className="grid">
-            <div className="grid-col grid-col_8">
+            <div className="grid-col grid-col_8 mt-3 mb-3">
               <table className="table">
                 <thead>
                   <tr>
                     <th>Client Name</th>
-                    <th>Process Step</th>
+                    <th>Status</th>
                     <th>Edit</th>
                   </tr>
                 </thead>
@@ -45,15 +46,16 @@ function Dashboard() {
               </table>
             </div>
             <CreateNewClientModal />
-            <div className="grid-col grid-col_10">
+
+            <div className="grid-col grid-col_10 mt-3 mb-3 g-3">
               <table className="table">
                 <thead>
                   <tr>
                     <th>Client Name</th>
                     <th>Engagement Start</th>
                     <th>Edit</th>
-                    <th>See Client Detail</th>
-                    <th>See Assessment</th>
+                    {/* <th>See Client Detail</th> */}
+                    {/* <th>See Assessment</th> */}
                   </tr>
                 </thead>
                 <tbody>
@@ -63,8 +65,31 @@ function Dashboard() {
                 </tbody>
               </table>
               {/* just putting this here for now */}
+              
+              <div className="col-auto g-3">
+
+              <Link to="/all-clients">
+                <button className="btn btn-link">All Clients</button>
+              </Link>//
+              <Link to="/assessment-edit/2">
+                <button className="btn btn-link">Edit (All Answers)</button>
+              </Link>//
+              <Link to="/assessment-form/2/2/5">
+                <button className="btn btn-link">Assessment Form</button>
+              </Link>//
+              <Link to="/assessment-review/2/2">
+                <button className="btn btn-link">Review Assessment Submission</button>
+              </Link>//
+              <Link to="/assessment-form/2/final-slide-inputs">
+                <button className="btn btn-link">Assessment Form (End)</button>
+              </Link>//
+              <Link to="/presentation">
+                <button className="btn btn-link">Presentation</button>
+              </Link>
+              </div>
               <LogOutButton />
             </div>
+            
           </div>
 
     </div>

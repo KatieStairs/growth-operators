@@ -54,7 +54,7 @@ function AssessmentReviewPage ({answers}) {
                         <th scope="col">Level</th>
                         <th scope="col">Tag</th>
                         <th scope="col"></th>
-                        <th scope="col"></th>
+                        {/* <th scope="col"></th> */}
                         <th scope="col"></th>
                       </tr>
                     </thead>
