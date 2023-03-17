@@ -44,6 +44,7 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
     "client"."contact_name",
     "client"."contact_email",
     "client_assessments"."status",
+    "client_assessments"."id" AS "assessment_id",
     MAX("client_assessments"."engagement_date") as "engagement_date",
     STRING_AGG(DISTINCT "user"."name", ', ') as "operators"
 	FROM "client"
@@ -55,6 +56,7 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
 		"client"."company_name",
 		"client"."contact_name",
 		"client"."contact_email",
+    "client_assessments"."id",
     "client_assessments"."status"
 	ORDER BY "client"."company_name" ASC;
   `;
