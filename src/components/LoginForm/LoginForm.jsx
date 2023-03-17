@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
 
+
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -25,14 +26,14 @@ function LoginForm() {
   }; // end login
 
   return (
-    <form className="formPanel" onSubmit={login}>
+    <form className="formPanel py-2" onSubmit={login}>
       <h2>Login</h2>
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}
         </h3>
       )}
-      <div>
+      <div className="py-2">
         <label htmlFor="username">
           Username:
           <input
@@ -44,7 +45,7 @@ function LoginForm() {
           />
         </label>
       </div>
-      <div>
+      <div className="py-2">
         <label htmlFor="password">
           Password:
           <input
@@ -57,10 +58,10 @@ function LoginForm() {
         </label>
       </div>
       <div>
-        <input className="btn" type="submit" name="submit" value="Log In" />
+        <input className="btn border border-2 rounded" type="submit" name="submit" value="Log In" />
       </div>
     </form>
   );
-}
+  }
 
 export default LoginForm;

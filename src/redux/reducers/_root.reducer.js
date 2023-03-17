@@ -5,6 +5,7 @@ import client from './client.reducer'
 import assessmentItems from './assessment.item.reducer';
 import structure from './assessment.structure.reducer';
 import operatorDashboard from './operator.reducer';
+import presentation from './presentation.reducer';
 
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   assessmentItems, // contains assessments by assessment_id, bucket headlines by assessment_id
   structure, // contains buckets, functions by bucket, subfunctions by function (as objects)
   client, //
-  operatorDashboard // contains operator dashboard 
+  operatorDashboard, // contains operator dashboard 
+  presentation
 });
 
 export default rootReducer;

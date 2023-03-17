@@ -22,14 +22,14 @@ function RegisterForm() {
   }; // end registerUser
 
   return (
-    <form className="formPanel" onSubmit={registerUser}>
+    <form className="formPanel py-2" onSubmit={registerUser}>
       <h2>Register User</h2>
       {errors.registrationMessage && (
         <h3 className="alert" role="alert">
           {errors.registrationMessage}
         </h3>
       )}
-      <div>
+      <div className="py-2">
         <label htmlFor="username">
           Username:
           <input
@@ -41,7 +41,7 @@ function RegisterForm() {
           />
         </label>
       </div>
-      <div>
+      <div className="py-2">
         <label htmlFor="password">
           Password:
           <input
@@ -53,9 +53,9 @@ function RegisterForm() {
           />
         </label>
       </div>
-      <div>
+      <div className="py-2">
       <label htmlFor="name">
-          Name:
+          Full Name:
           <input
             type="text"
             name="name"
@@ -65,8 +65,8 @@ function RegisterForm() {
           />
         </label>
       </div>
-      <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
+      <div className="py-2">
+        <input className="btn border border-2 rounded" type="submit" name="submit" value="Register" />
       </div>
     </form>
   );

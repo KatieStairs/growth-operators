@@ -23,8 +23,9 @@ import AssessmentForm from '../Assessment/AssessmentForm/AssessmentForm';
 import AssessmentEdit from '../Assessment/AssessmentEdit/AssessmentEdit';
 import AssessmentAnswers from '../Assessment/AssessmentAnswers/AssessmentAnswers';
 import AssessmentReview from '../Assessment/AssessmentForm/AssessmentReview/AssessmentReview';
+import AssessmentReview from '../Assessment/AssessmentReview/AssessmentReview';
+import AssessmentList from '../ClientDeliverables/ClientPresentation/AssessmentList';
 import AssessmentEndInputs from '../Assessment/AssessmentForm/AssessmentSlideInputs';
-
 
 import 'bootstrap';
 import './App.css';
@@ -89,6 +90,13 @@ function App() {
 
           <ProtectedRoute exact path="/dashboard" >
             <Dashboard />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+          exact
+          path="/assessment-list"
+          >
+            <AssessmentList />
           </ProtectedRoute>
 
           <ProtectedRoute exact path="/presentation/">
