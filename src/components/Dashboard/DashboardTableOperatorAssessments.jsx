@@ -36,8 +36,8 @@ function DashboardTableOperatorAssessments({ client }) {
             <td>{client.company_name}</td>
             <td>{new Date(client.engagement_date).toLocaleDateString()}</td>
             <td><button type="button" className="btn btn-primary" onClick={() => handleEditClick(client)}>Edit</button></td>
-            <td><button type="button" className="btn btn-primary" onClick={() => handleClientOverviewClick(client)}>See Client Details</button></td>
-            <td><button type="button" className="btn btn-primary" onClick={() => handleSeeOverviewClick(client)}>See Assessment</button></td>
+            {/* <td><button type="button" className="btn btn-primary" onClick={() => handleClientOverviewClick(client)}>See Client Details</button></td> */}
+            {/* <td><button type="button" className="btn btn-primary" onClick={() => handleSeeOverviewClick(client)}>See Assessment</button></td> */}
         </tr>
         )
         } else if(client.status === 'Not Yet Started'){
@@ -45,9 +45,9 @@ function DashboardTableOperatorAssessments({ client }) {
                 <tr>
                     <td>{client.company_name}</td>
                     <td>{new Date(client.engagement_date).toLocaleDateString()}</td>
-                    <td><button type="button" className="btn btn-primary" onClick={() => handleStartClick(client)}>Start</button></td>
-                    <td><button type="button" className="btn btn-primary" onClick={() => handleClientOverviewClick(client)}>See Client Details</button></td>
-                    <td><button type="button" className="btn btn-primary" onClick={() => handleSeeOverviewClick(client)}>See Assessment</button></td>
+                    <td><button type="button" className="btn btn-primary" onClick={() => handleStartClick(client)}>Start Assessment</button></td>
+                    {/* <td><button type="button" className="btn btn-primary" onClick={() => handleClientOverviewClick(client)}>See Client Details</button></td> */}
+                    {/* <td><button type="button" className="btn btn-primary" onClick={() => handleSeeOverviewClick(client)}>See Assessment</button></td> */}
                 </tr>
                 )
         }
