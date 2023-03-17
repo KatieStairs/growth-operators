@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { useParams, useHistory, Link} from 'react-router-dom';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import Nav from '../../../Nav/Nav'
 import AssessmentReviewRow from './AssessmentReviewRow';
@@ -11,11 +10,6 @@ import AssessmentEditModal from '../../AssessmentEdit/AssessmentEditModal';
 function AssessmentReviewPage ({answers}) {
   const params = useParams();
   const dispatch = useDispatch();
-  const structure = useSelector((store => store.structure))
-  const bucketsArray = structure.bucketsReducer;
-  const assessmentItems = useSelector((store) => store.assessmentItems);
-  // const headlines = assessmentItems.headlinesReducer;
-
   const [headlineInput, setHeadlineInput] = useState(answers.headline_text)
 
   const addNewHeadline = (event) => {

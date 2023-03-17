@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useHistory, Link} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 function AssessmentEditModal ({answer}) {
   const params = useParams();
@@ -14,11 +14,8 @@ function AssessmentEditModal ({answer}) {
   const [findingsInput, setFindingsInput] = useState(answer.findings || '')
   const [impactInput, setImpactInput] = useState(answer.impact || '')
   const [recommendationsInput, setRecommendationsInput] = useState(answer.recommendations || '')
-  
 
-
-  const updateAssessmentAnswers = (event) => {
-    event.preventDefault();
+  const updateAssessmentAnswers = () => {
 
     const updatedAssessmentAnswers = {
       assessment_id: params.assessment_id,
@@ -33,6 +30,7 @@ function AssessmentEditModal ({answer}) {
       recommendations: recommendationsInput
     }
 
+    console.log('updatedAssessmentAnswers', updatedAssessmentAnswers)
     dispatch({
       type: 'SAGA/UPDATE_ASSESSMENT_BY_ID',
       payload: updatedAssessmentAnswers
@@ -104,17 +102,17 @@ function AssessmentEditModal ({answer}) {
                   type="radio" 
                   className="form-check-input" 
                   id={`edit-assessment-modal-${answer.id}-control-tag-input-${tag.id}`} 
-                  value={tagsInput} 
+                  value={tag.id} 
                   placeholder={answer.tag_id}
                   onChange={(evt) => setTagsInput(evt.target.value)}
-                  checked
+                  // checked
                   />
                   :
                   <input 
                     type="radio" 
                     className="form-check-input" 
                     id={`edit-assessment-modal-${answer.id}-control-tag-input-${tag.id}`} 
-                    value={tagsInput} 
+                    value={tag.id} 
                     placeholder={answer.tag_id}
                     onChange={(evt) => setTagsInput(evt.target.value)}
                   />

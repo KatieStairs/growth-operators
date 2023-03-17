@@ -14,7 +14,6 @@ function* getAssessmentAnswersById(action) {
             type: 'SET_ASSESSMENT_ANSWERS_BY_ID',
             payload: response.data
         })
-        console.log(response.data);
     } catch (error) {
             console.log('SAGA/ GET AA by id failed', error)
     }
@@ -86,11 +85,15 @@ function* updateAssessment(action) {
     console.log('Action.payload: ', action.payload)
     // console.log('SAGA/ UPDATE ASSESSMENT', editedAssessment)
     try {
-    yield axios({
+    const response = yield axios({
         method: 'PUT',
         url: `/assessment/${action.payload.assessment_id}`,
         data: editedAssessment
         })
+    // yield put({
+    //     type: 'SET_ASSESSMENT_ANSWERS_BY_ID',
+    //     payload: response.data
+    // })
     } catch (error) {
         console.log('UPDATE ASSESSMENT SAGA ERROR', error)
     }
