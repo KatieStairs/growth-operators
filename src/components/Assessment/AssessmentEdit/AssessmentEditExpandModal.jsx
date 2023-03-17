@@ -2,7 +2,6 @@ import { React, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 function AssessmentEditExpandModal ({answer}) {
-console.log(answer);
   return (
     <>
     <div

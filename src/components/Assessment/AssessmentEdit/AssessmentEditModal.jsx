@@ -15,6 +15,7 @@ function AssessmentEditModal ({answer}) {
   const [recommendationsInput, setRecommendationsInput] = useState(answer.recommendations || '')
   
 
+
   const updateAssessmentAnswers = (event) => {
     event.preventDefault();
 

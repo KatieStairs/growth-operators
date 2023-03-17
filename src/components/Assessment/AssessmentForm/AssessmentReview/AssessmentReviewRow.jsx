@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, useHistory, Link} from 'react-router-dom';
 
-function AssessmentEditRow ({answer}) {
+function AssessmentReviewRow ({answer}) {
   const history = useHistory();
   
   const goToOverviewPage = () => {
@@ -45,4 +45,4 @@ function AssessmentEditRow ({answer}) {
   )
 }
 
-export default AssessmentEditRow;
+export default AssessmentReviewRow;
