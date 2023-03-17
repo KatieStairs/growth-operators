@@ -6,7 +6,8 @@
 -- i. Column 1 // substring_name
 -- ii. Column 3 // function_name
 -- iii. Column 5 // level_rating_criteria
--- 4. Copy, paste, and execute the below code. 
+-- 4. Copy, paste, and execute the below code.
+-- 5. Register a user before executing the final query.
 
 -- Dummy data provided for all tables except "user" and "user_client"
 
@@ -48,17 +49,19 @@ CREATE TABLE "client_assessments" (
     "id" SERIAL PRIMARY KEY,
     "client_id" INTEGER REFERENCES "client" ON DELETE CASCADE,
     "engagement_date" DATE,
-    "status" VARCHAR
+    "status" VARCHAR,
+    "next_steps" VARCHAR,
+    "future_state" VARCHAR
 );
 
 INSERT INTO "client_assessments" 
-("client_id", "engagement_date", "status")
+("client_id", "engagement_date", "status", "next_steps", "future_state")
 VALUES 
-(1, '03-07-2023', 'Edit in Progress'),
-(2, '03-07-2023', 'Edit in Progress'),
-(3, '03-07-2023', 'Edit in Progress'),
-(4, '03-07-2023', 'Edit in Progress'),
-(5, '03-07-2023', 'Edit in Progress');
+(1, '03-07-2023', 'Edit in Progress', 'Careful steppin`!', 'Onwards and upwards!'),
+(2, '03-07-2023', 'Edit in Progress', null, null),
+(3, '03-07-2023', 'Edit in Progress', null, null),
+(4, '03-07-2023', 'Edit in Progress', null, null),
+(5, '03-07-2023', 'Edit in Progress', null, null);
 
 CREATE TABLE "buckets" (
     "id" SERIAL PRIMARY KEY,
@@ -237,15 +240,13 @@ CREATE TABLE "assessment_items" (
 	"findings" VARCHAR,
 	"impact" VARCHAR,
 	"recommendations" VARCHAR,
-	"phase" INTEGER,
-	"next_steps" VARCHAR,
-	"future_state" VARCHAR
+	"phase" INTEGER
 );
 
 INSERT INTO "assessment_items"
 ("assessment_id", "bucket_id", "function_id", "subfunction_id", "level_rating", "findings", "impact", "recommendations", "phase")
 VALUES
-(1,1,1,1,1,'Look what I found!','Deep Impact is a 1998 American science-fiction disaster film directed by Mimi Leder, written by Bruce Joel Rubin and Michael Tolkin, and starring Robert Duvall, Téa Leoni, Elijah Wood, Vanessa Redgrave, Maximilian Schell, and Morgan Freeman','No recommendations at this time.',1,'No next steps.', 'No future state.'),
+(1,1,1,1,1,'Look what I found!','Deep Impact is a 1998 American science-fiction disaster film directed by Mimi Leder, written by Bruce Joel Rubin and Michael Tolkin, and starring Robert Duvall, Téa Leoni, Elijah Wood, Vanessa Redgrave, Maximilian Schell, and Morgan Freeman','No recommendations at this time.',1),
 (2,2,2,2,2,'Look at all these findings','Steven Spielberg served as an executive producer of Deep Impact. It was released by Paramount Pictures in North America and by DreamWorks Pictures internationally on May 8, 1998. The film depicts the attempts to prepare for and destroy a 7-mile (11 km) wide comet set to collide with Earth and cause a mass extinction.','ONLY recommendations at this time.',2),
 (3,3,3,3,3,'So many findings I have found tonight!','Deep Impact was released in the same summer as a similarly themed film, Armageddon, which fared better at the box office, while astronomers described Deep Impact as being more scientifically accurate. Both films were similarly received by critics, with Armageddon scoring 38% and Deep Impact scoring 44% on Rotten Tomatoes.','Too many recommendations at this time. 😔',3),
 (4,4,4,4,4,'Life, uh... finds a way.','Deep Impact grossed over $349 million worldwide on an $80 million production budget. It was the final film by cinematographer Dietrich Lohmann, who died before the films release.','NO',null),
