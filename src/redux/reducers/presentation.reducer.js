@@ -89,7 +89,6 @@ const operatorInputs = (state = [], action) => {
 };
 
 export default combineReducers({
-  assessmentList,
   strengthTags,
   opportunityTags,
   summaryRatings,

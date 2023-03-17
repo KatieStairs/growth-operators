@@ -22,7 +22,7 @@ import AllClients from '../AllClients/AllClients';
 import AssessmentForm from '../Assessment/AssessmentForm/AssessmentForm';
 import AssessmentEdit from '../Assessment/AssessmentEdit/AssessmentEdit';
 import AssessmentAnswers from '../Assessment/AssessmentAnswers/AssessmentAnswers';
-import AssessmentReview from '../Assessment/AssessmentReview/AssessmentReview';
+import AssessmentReview from '../Assessment/AssessmentForm/AssessmentReview/AssessmentReview';
 import AssessmentEndInputs from '../Assessment/AssessmentForm/AssessmentSlideInputs';
 
 import 'bootstrap';

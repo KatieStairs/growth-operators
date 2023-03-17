@@ -97,7 +97,6 @@ function* getPresentationData(action) {
 
 
 function* presentationSaga() {
-    yield takeLatest('SAGA/GET_ASSESSMENT_LIST', getAssessmentList);
     yield takeLatest('SAGA/GET_PRESENTATION_DATA', getPresentationData)
   }
 
