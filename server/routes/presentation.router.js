@@ -6,6 +6,7 @@ router.get('/strengths/:id', (req, res) => {
   const queryText = `
   SELECT
     "buckets"."name" AS "bucket_name",
+    "subfunctions"."id" AS "subfunction_id",
     "subfunctions"."function_name",
     "assessment_items"."level_rating",
     "assessment_items"."findings",
@@ -30,6 +31,7 @@ router.get('/opportunities/:id', (req, res) => {
   const queryText = `
   SELECT
     "buckets"."name" AS "bucket_name",
+    "subfunctions"."id" AS "subfunction_id",
     "subfunctions"."function_name",
     "assessment_items"."level_rating",
     "assessment_items"."findings",
@@ -315,6 +317,8 @@ router.get('/bucket-1/tags/:id', (req, res) => {
       "buckets"."name"
         AS "bucket_name",
       "subfunctions"."function_name",
+      "subfunctions"."id"
+      	AS "subfunction_id",
       "assessment_items"."level_rating",
       "assessment_items"."findings",
       "assessment_items"."impact",
@@ -337,7 +341,7 @@ router.get('/bucket-1/tags/:id', (req, res) => {
   `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows[0]);
+      res.send(response.rows);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /bucket-1/tags GET', error);
@@ -353,6 +357,8 @@ router.get('/bucket-2/tags/:id', (req, res) => {
     "buckets"."name"
       AS "bucket_name",
     "subfunctions"."function_name",
+    "subfunctions"."id"
+      AS "subfunction_id",
     "assessment_items"."level_rating",
     "assessment_items"."findings",
     "assessment_items"."impact",
@@ -375,7 +381,7 @@ router.get('/bucket-2/tags/:id', (req, res) => {
   `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows[0]);
+      res.send(response.rows);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /bucket-2/tags GET', error);
@@ -391,6 +397,8 @@ router.get('/bucket-3/tags/:id', (req, res) => {
       "buckets"."name"
         AS "bucket_name",
       "subfunctions"."function_name",
+      "subfunctions"."id"
+        AS "subfunction_id",
       "assessment_items"."level_rating",
       "assessment_items"."findings",
       "assessment_items"."impact",
@@ -413,7 +421,7 @@ router.get('/bucket-3/tags/:id', (req, res) => {
   `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows[0]);
+      res.send(response.rows);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /bucket-3/tags GET', error);
@@ -429,6 +437,8 @@ router.get('/bucket-4/tags/:id', (req, res) => {
     "buckets"."name"
       AS "bucket_name",
     "subfunctions"."function_name",
+    "subfunctions"."id"
+      AS "subfunction_id",
     "assessment_items"."level_rating",
     "assessment_items"."findings",
     "assessment_items"."impact",
@@ -451,7 +461,7 @@ router.get('/bucket-4/tags/:id', (req, res) => {
   `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows[0]);
+      res.send(response.rows);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /bucket-4/tags GET', error);
@@ -467,6 +477,8 @@ router.get('/bucket-5/tags/:id', (req, res) => {
     "buckets"."name"
       AS "bucket_name",
     "subfunctions"."function_name",
+    "subfunctions"."id"
+      AS "subfunction_id",
     "assessment_items"."level_rating",
     "assessment_items"."findings",
     "assessment_items"."impact",
@@ -489,7 +501,7 @@ router.get('/bucket-5/tags/:id', (req, res) => {
   `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows[0]);
+      res.send(response.rows);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /bucket-5/tags GET', error);
@@ -505,6 +517,8 @@ router.get('/bucket-6/tags/:id', (req, res) => {
     "buckets"."name"
       AS "bucket_name",
     "subfunctions"."function_name",
+    "subfunctions"."id"
+      AS "subfunction_id",
     "assessment_items"."level_rating",
     "assessment_items"."findings",
     "assessment_items"."impact",
@@ -527,7 +541,7 @@ router.get('/bucket-6/tags/:id', (req, res) => {
   `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows[0]);
+      res.send(response.rows);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /bucket-6/tags GET', error);

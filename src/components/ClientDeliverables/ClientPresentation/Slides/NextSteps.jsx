@@ -1,14 +1,16 @@
+import { useSelector } from 'react-redux';
 import Reveal from 'reveal.js';
 import Markdown from 'reveal.js/plugin/markdown/markdown.esm.js';
 
-function NextSteps ({ operatorInputs }) {
+function NextSteps () {
+  const operatorInputs = useSelector(store => store.presentation.operatorInputs)
   return (
     <>
       <section>
-        Next Steps (Operator input fields)
+        {operatorInputs.next_steps}
       </section>
       <section>
-        The Future Is Bright (Operator input fields)
+        {operatorInputs.future_state}
       </section>
     </>
   )
