@@ -82,8 +82,8 @@ function App() {
             <ClientOverview />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path="/client-report">
-            {/* <ClientReport /> */}
+          <ProtectedRoute exact path="/client-report/:assessment_id">
+            <ClientReport />
           </ProtectedRoute>
 
           <ProtectedRoute exact path="/dashboard" >
