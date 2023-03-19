@@ -185,7 +185,7 @@ function AssessmentPage ({functionsArray}) {
         impact: formObject.impactsInput,
         recommendations: formObject.recommendationsInput,
         phase: Number(formObject.phaseInput),
-        tag_id: formObject.tagsInput
+        tag_id: Number(formObject.tagsInput)
       }
 
       dispatch({

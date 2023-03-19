@@ -83,15 +83,14 @@ router.post('/:id', rejectUnauthenticated, (req, res) => {
             "phase",
             "findings", 
             "impact", 
-            "recommendations", 
-            "phase")
+            "recommendations")
         VALUES
-            ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
+            ($1,$2,$3,$4,$5,$6,$7,$8,$9)
         RETURNING "id";`;
     const sqlValues = [
         req.body.assessment_id, req.body.bucket_id, req.body.function_id, 
         req.body.subfunction_id, req.body.level_rating, req.body.phase, req.body.findings, 
-        req.body.impact, req.body.recommendations, req.body.phase
+        req.body.impact, req.body.recommendations
     ];
     pool.query(sqlQuery,sqlValues)
     .then((results) => {
