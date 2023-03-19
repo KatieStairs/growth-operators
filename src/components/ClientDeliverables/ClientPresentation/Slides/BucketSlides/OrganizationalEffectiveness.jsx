@@ -8,7 +8,7 @@ function OrganizationalEffectiveness () {
   const bucketData = useSelector(store => store.presentation.bucketData.bucket1)
   const bucketTags = useSelector(store => store.presentation.bucketTags.bucket1)
 
-  console.log(bucketTags)
+  console.log('Bucket 1 Tags', bucketTags)
 
   const ratings = [
     bucketData.mission_vision_values_rating,
@@ -70,7 +70,7 @@ function OrganizationalEffectiveness () {
             </tr>
           </thead>
           <tbody>
-            {bucketTags.map((tag) => {
+            {[bucketTags].map((tag) => {
               if (tag.tag_id == '1') {
                 return (
                   <tr key={tag.subfunction_id}>
@@ -98,7 +98,7 @@ function OrganizationalEffectiveness () {
             </tr>
           </thead>
           <tbody>
-            {bucketTags.map((tag) => {
+            {[bucketTags].map((tag) => {
               if (tag.tag_id == 2) {
                 return (
                   <tr key={tag.subfunction_id}>

@@ -15,7 +15,7 @@ import OrganizationalEffectiveness from "./Slides/BucketSlides/OrganizationalEff
 import EmployeeEngagement from "./Slides/BucketSlides/EmployeeEngagement";
 import TrainingDevelopment from "./Slides/BucketSlides/TrainingDevelopment";
 import BenefitsCompensation from "./Slides/BucketSlides/BenefitsCompensation";
-import RecruitingStaffing from "./Slides/BucketSlides/OrganizationalEffectiveness";
+import RecruitingStaffing from "./Slides/BucketSlides/RecruitingStaffing";
 import HRISPayrollCompliance from "./Slides/BucketSlides/HRISPayrollCompliance";
 import FocusAreas from "./Slides/FocusAreas";
 import NextSteps from "./Slides/NextSteps";

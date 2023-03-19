@@ -67,7 +67,7 @@ function BenefitsCompensation () {
             </tr>
           </thead>
           <tbody>
-            {bucketTags.map((tag) => {
+            {[bucketTags].map((tag) => {
               if (tag.tag_id == 1) {
                 return (
                   <tr key={tag.subfunction_id}>
@@ -95,7 +95,7 @@ function BenefitsCompensation () {
             </tr>
           </thead>
           <tbody>
-            {bucketTags.map((tag) => {
+            {[bucketTags].map((tag) => {
               if (tag.tag_id == 2) {
                 return (
                   <tr key={tag.subfunction_id}>
