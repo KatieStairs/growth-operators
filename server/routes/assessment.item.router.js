@@ -10,6 +10,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     const sqlText = `
         SELECT
             "client"."company_name",
+            "client_assessments"."status",
             "assessment_items"."id",
             "assessment_items"."bucket_id",
             "buckets"."bucket_index",
@@ -158,8 +159,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     })
 })
 
-/** ---------- PUT ASSESSMENT EDITS BY ASSESSMENT ID---------- **/
-
+/** ---------- PUT ASSESSMENT ANSWER EDITS BY ASSESSMENT ID ---------- **/
 router.put('/:id', rejectUnauthenticated, (req, res) => {
     // const idToUpdate = req.params.id;
     console.log('PUT ASSESSMENT ID, req.body', req.params.id, req.body)
@@ -201,6 +201,22 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
         console.log('Error in put edit assessment db query', error)
         res.sendStatus(500);
       });
+  });
+
+/** ---------- PUT ASSESSMENT STATUS BY ASSESSMENT ID ---------- **/
+router.put('/:id/status', rejectUnauthenticated, (req, res) => {
+    const sqlQuery = `
+    UPDATE "client_assessments"
+      SET "status" = $1
+      WHERE "id" = $2;`;
+    const sqlValues = [req.body.status, req.params.id];
+    pool.query(sqlQuery, sqlValues)
+    .then((response) => {
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.error('Error in PUT /assessment/:id/status:', error);
+    });
   });
 
 module.exports = router;

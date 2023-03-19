@@ -99,6 +99,19 @@ function* updateAssessment(action) {
     }
 }
 
+function* updateAssessmentStatus(action) {
+    try {
+        const response = yield axios({
+            method: 'PUT',
+            url:`/assessment/${action.payload.id}/status`,
+            data: action.payload
+        })
+    }
+    catch (error) {
+        console.log('Error in updateAssessmentStatus: ', error)
+    }
+}
+
 
 
 function* assessmentSaga() {
@@ -109,6 +122,7 @@ function* assessmentSaga() {
     // yield takeEvery('SAGA/POST_ASSESSMENT_TAG_ANSWERS', postAssessmentTagAnswers);
     yield takeEvery('SAGA/POST_HEADLINE_BY_ID', postHeadlineById);
     yield takeEvery('SAGA/UPDATE_ASSESSMENT_BY_ID', updateAssessment);
+    yield takeEvery('SAGA/UPDATE_ASSESSMENT_STATUS_BY_ID', updateAssessmentStatus)
 }
 
 export default assessmentSaga;
