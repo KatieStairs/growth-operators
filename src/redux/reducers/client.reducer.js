@@ -10,7 +10,7 @@ const allClients = (state = {}, action) => {
   }
 };
 
-const clientOverview = (state = {}, action) => {
+const clientOverview = (state = [], action) => {
   switch (action.type) {
     case 'SET_CLIENT_OVERVIEW':
       return action.payload;

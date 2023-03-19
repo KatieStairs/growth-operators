@@ -72,15 +72,20 @@ router.get('/overview', (req, res) => {
   console.log ("This is the client id: ", clientId)
   const sqlQuery =  
   `SELECT 
-  company_name, assessment_items.findings, assessment_items.impact, assessment_items.recommendations,  assessment_items.phase, assessment_items.level_rating, buckets.name AS bucket_name, tags.name AS tag_name
+  assessment_items.id, company_name, assessment_items.findings, assessment_items.impact, assessment_items.recommendations,  assessment_items.phase, assessment_items.level_rating, buckets.name AS bucket_name, tags.name AS tag_name, subfunctions.name AS subfunction_name
   FROM "client"
-  JOIN "client_assessments" ON "client"."id" = "client_assessments"."client_id"
-  JOIN "assessment_items" ON "client_assessments"."id" = "assessment_items"."assessment_id"
-  JOIN "buckets" ON "buckets"."id" = "assessment_items"."bucket_id"
-   JOIN "tags_assessment_items" 
+  JOIN "client_assessments" 
+    ON "client"."id" = "client_assessments"."client_id"
+  JOIN "assessment_items" 
+    ON "client_assessments"."id" = "assessment_items"."assessment_id"
+  JOIN "buckets" 
+    ON "buckets"."id" = "assessment_items"."bucket_id"
+  JOIN "tags_assessment_items" 
     ON "tags_assessment_items"."assessment_item_id" = "assessment_items"."id"
   JOIN "tags" 
     ON "tags"."id" = "tags_assessment_items"."tag_id"
+  JOIN "subfunctions" 
+    ON "subfunctions"."id" = "assessment_items"."subfunction_id"
   WHERE "client"."id" = $1;`
 
   pool.query(sqlQuery, [clientId])

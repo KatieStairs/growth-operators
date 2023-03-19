@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from "react";
 import {useSelector, useDispatch} from 'react-redux';
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import Nav from '../Nav/Nav';
 // importing Chart.js
 import {
@@ -30,20 +30,23 @@ function ClientOverview() {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((store) => store.user);
-  const clientOverview = useSelector((store) => store.client.clientOverview);
+  const clientOverview = useSelector((store) => store.client.clientOverview || []);
 
   useEffect(() => {
     dispatch({
       type: 'SAGA/GET_CLIENT_OVERVIEW',
-      payload: clientObj
+      payload: { clientId: 1 }
     })
   }, [dispatch])
-
+  
   //Data for Radar Chart
-  const chartLabels = clientOverview.map(client => client.bucket_name);
-  console.log('chart labels', chartLabels)
-  const chartLevelRatings = clientOverview.map(client => client.level_rating);
-  console.log('chart data', chartLevelRatings);
+  let chartLabels = [];
+  let chartLevelRatings = [];
+   if (clientOverview.length > 0) {
+    chartLabels = clientOverview.map(client => client.bucket_name);
+    chartLevelRatings = clientOverview.map(client => client.level_rating);
+   }
+ 
 
   
   
@@ -70,72 +73,100 @@ function ClientOverview() {
   console.log("client side overview", clientOverview);
 
 
-  const clientObj = {
-    clientId: 1
-  }
 
 
   return (
     <div className="container-fluid">
-	    <div className="row flex-nowrap">
-          <Nav />
-          <div className="col-1 py-3 ">
-          <button data-bs-toggle="collapse" data-bs-target="#sidebar">Toggle Menu</button>
-          </div>
-          <div className="col py-3">
-            <div class="container-fluid text-center">
-              <div class="row">
-                <div class="col">
-                  <h1>{clientOverview[0].company_name} Summary View</h1>
-                </div>
+    <div className="row flex-nowrap">
+        <Nav />
+        <div className="col-1 py-3 ">
+          <button data-bs-toggle="collapse" data-bs-target="#sidebar" class="btn btn-primary">Toggle Menu</button>
+        </div>
+        <div className="col py-3">
+          <div class="container-fluid text-center">
+            <div class="row">
+              <div class="col">
+                <h1>{clientOverview[0] && clientOverview[0].company_name} Summary View</h1>
               </div>
-              <div class="row">
-                <div class="col-1 background-dark">
-                  <ul class="nav nav-tabs align-items-center flex-column">
-                    <li><a class="nav-link active" data-toggle="tab" data-bs-target="#overview">Overview</a></li>
-                    <li><a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu2">Organizational Effectiveness</a></li>
-                    <li><a class="nav-link" data-toggle="tab" data-bs-target="#menu3">Employee Engagement</a></li>
-                    <li><a class="nav-link" data-toggle="tab" data-bs-target="#menu4">Training & Development</a></li>
-                    <li><a class="nav-link" data-toggle="tab" data-bs-target="#menu5">Benefits & Compensation</a></li>
-                    <li><a class="nav-link" data-toggle="tab" data-bs-target="#menu6">Recruiting & Staffing</a></li>
-                    <li><a class="nav-link" data-toggle="tab" data-bs-target="#menu7">HRIS, Payroll & Compliance</a></li>
-                  </ul>
-                </div>
-                  <div class="tab-content col">
-                    <div id="overview" class="tab-pane active container-fluid text-center">
-                      <div class="row">
-                        <div class="col">
-                          <h2>Overview</h2>
-                          <Radar data ={chartData}/>
-                        </div>
-                        <div class="col">
-                          <h2>To-Dos</h2>
-                            {clientOverview.map((tag) => (
-                              <p>{tag.tag_name}</p>
-                            ))}
-                        </div>
+            </div>
+            <div class="row">
+              <div class="col-1 background-dark">
+                <ul class="nav nav-tabs align-items-center flex-column">
+                  <li><a class="nav-link active" data-bs-toggle="tab" data-bs-target="#overview">Overview</a></li>
+                  {clientOverview.map((bucket) => (
+                    <li key={bucket.id}><a class="nav-link" data-bs-toggle="tab" data-bs-target={`#menu${bucket.id.toString()}`}>{bucket.bucket_name}</a></li>
+                  ))}
+                  {/* <li><a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu2">Organizational Effectiveness</a></li>
+                  <li><a class="nav-link" data-toggle="tab" data-bs-target="#menu3">Employee Engagement</a></li>
+                  <li><a class="nav-link" data-toggle="tab" data-bs-target="#menu4">Training & Development</a></li>
+                  <li><a class="nav-link" data-toggle="tab" data-bs-target="#menu5">Benefits & Compensation</a></li>
+                  <li><a class="nav-link" data-toggle="tab" data-bs-target="#menu6">Recruiting & Staffing</a></li>
+                  <li><a class="nav-link" data-toggle="tab" data-bs-target="#menu7">HRIS, Payroll & Compliance</a></li> */}
+                </ul>
+              </div>
+                <div class="tab-content col">
+                  <div id="overview" class="tab-pane active container-fluid text-center">
+                    <div class="row">
+                      <div class="col">
+                        <h2>Overview</h2>
+                        <Radar data ={chartData}/>
                       </div>
-                    </div>
-                    <div id="menu2" class="tab-pane container-fluid text-center tab">
-                      <div class="row">
-                        <div class="col">
-                          <h2>{clientOverview[0].bucket_name}</h2>
-                          <Radar data ={chartData}/>
-                        </div>
-                        <div class="col">
-                          <h2>To-Dos</h2>
-                            {clientOverview.map((tag) => (
-                              <p>{tag.tag_name}</p>
-                            ))}
-                        </div>
+                      <div class="col">
+                        <h2>To-Dos</h2>
+                          {clientOverview.map((tag) => (
+                            <>
+                             {tag.tag_name === '🏆 Quick Win'  &&
+                              <p>{tag.tag_name} - {tag.subfunction_name}</p>
+                             }
+                             {tag.tag_name === '🔥 Fire Drill'  &&
+                              <p>{tag.tag_name} - {tag.subfunction_name}</p>
+                            }
+                            </>
+                          ))}
                       </div>
                     </div>
                   </div>
+                  {clientOverview.map((bucket) => (
+                     <div id={`menu${bucket.id.toString()}`} class="tab-pane container-fluid text-center">
+                        <div class="row">
+                          <div class="col">
+                            <h2>{bucket.bucket_name}</h2>
+                            <h4>Level Rating: {bucket.level_rating}</h4>
+                            <Radar data ={chartData}/>
+                          </div>
+                          <div class="col">
+                            <h3>Strengths</h3>
+                            {bucket.tag_name === '💪 Strength - Add to Slide' &&
+                              <p>{bucket.subfunction_name}</p>
+                            }          
+                          </div>
+                          <div class="col">
+                            <h3>Opportunities</h3>
+                            {bucket.tag_name === '🔥 Fire Drill' &&
+                              <p>{bucket.subfunction_name}</p>
+                            }
+                          </div>
+                        </div>
+                      </div>
+                  ))}
+                </div>
             </div>
-          </div>	
-      </div>
+            <div class="row justify-content-end">
+              <div class='col-2'>
+                <button class="btn btn-primary">See Assessment</button>
+              </div>
+              <div class='col-2'>
+                <button class="btn btn-primary">Download Report</button>
+              </div>
+              <div class='col-2'>
+                <button class="btn btn-primary">See Presentation</button>
+              </div>
+            </div>
+        </div>  
     </div>
   </div>
+</div>
+
   );
 }
 
