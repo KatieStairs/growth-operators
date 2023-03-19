@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-
 function* getAllClients() {
   try {
     const response = yield axios.get('/api/client/all')
@@ -10,31 +9,27 @@ function* getAllClients() {
       payload: response.data
     })
   } catch (error) {
-    console.error('getAllClients GET request failed', error);
+    console.error('Error in client.saga -> getAllClients: ', error);
   }
 };
 
-function* getClientOverview(action) {
+function* getClientOverview (action) {
   try {
-    const clientId = action.payload;
-    console.log("this is the action payload:", clientId)
-
-    const response = yield  axios({
+    const response = yield axios({
       method:  'GET',
       url: '/api/client/overview',
-      params: clientId
+      params: action.payload
     })
-    
     // yield put({
     //   type: 'SET_CLIENT_OVERVIEW',
     //   payload: response.data
     // })
   } catch (error) {
-    console.error('getAllClients GET request failed', error);
+    console.error('Error in client.saga -> getClientOverview: ', error);
   }
 };
 
-function* updateClientInfo(action) {
+function* updateClientInfoByID (action) {
   const client = action.payload;
   try {
     yield axios.put(`/api/client/${client.id}`, client)
@@ -42,34 +37,33 @@ function* updateClientInfo(action) {
       type: 'GET_ALL_CLIENTS'
     })
   } catch (error) {
-    console.error('updateClientInfo PUT request failed', error);
+    console.error('Error in client.saga -> updateClientInfoByID: ', error);
   }
 };
 
-function* updateClientStatus(action) {
-  console.log('Action.payload in Saga: ', action.payload)
+function* updateClientStatusByID (action) {
   try {
     yield axios.put(`/api/client/${action.payload}/archive`, action.payload)
     yield put({
       type: 'GET_ALL_CLIENTS'
     })
   } catch (error) {
-    console.error('updateClientStatus PUT request failed', error);
+    console.error('Error in client.saga -> updateClientStatusByID: ', error);
   }
 };
 
-function* deleteClient(action) {
+function* deleteClientByID (action) {
   try {
     yield axios.delete(`/api/client/${action.payload}`)
     yield put({
       type: 'GET_ALL_CLIENTS'
     })
   } catch (error) {
-    console.error('deleteClient DELETE request failed', error);
+    console.error('Error in client.saga -> deleteClientByID: ', error);
   }
 };
 
-function* postClient(action) {
+function* postClient (action) {
   try {
     const newCompany = action.payload
     // console.log(action.payload);
@@ -78,17 +72,11 @@ function* postClient(action) {
       url: '/api/client',
       data: newCompany
     })
-      console.log('new client yeild', clientResponse);
-    //   yield axios({
-    //     method: 'POST',
-    //     url: '/client-assessment',
-    //     data: {...newCompany, client_id: clientResponse.id}
-    // })
     yield put({
       type: 'SAGA/GET_OPERATOR_DASHBOARD'
     })
     } catch (error) {
-      console.error('postClient POST request failed', error);
+      console.error('Error in client.saga -> postClient: ', error);
     }
 };
 
@@ -96,8 +84,8 @@ export default function* clientSaga() {
   yield takeLatest('SAGA/GET_ALL_CLIENTS', getAllClients);
   yield takeLatest('SAGA/POST_CLIENT', postClient);
   yield takeLatest('SAGA/GET_CLIENT_OVERVIEW', getClientOverview);
-  yield takeLatest('SAGA/DELETE_CLIENT_BY_ID', deleteClient);
-  yield takeLatest('SAGA/PUT_CLIENT_INFO_BY_ID', updateClientInfo);
-  yield takeLatest('SAGA/PUT_CLIENT_STATUS_BY_ID', updateClientStatus);
+  yield takeLatest('SAGA/DELETE_CLIENT_BY_ID', deleteClientByID);
+  yield takeLatest('SAGA/PUT_CLIENT_INFO_BY_ID', updateClientInfoByID);
+  yield takeLatest('SAGA/PUT_CLIENT_STATUS_BY_ID', updateClientStatusByID);
 };
 

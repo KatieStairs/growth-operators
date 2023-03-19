@@ -8,7 +8,6 @@ const assessmentAnswersById = (state = [], action) => {
     return state;
 }
 
-
 const headlinesReducer = (state = [], action) => {
     switch (action.type) {
       case 'SET_BUCKET_HEADLINES_BY_ASSESSMENT_ID':

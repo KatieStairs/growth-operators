@@ -3,10 +3,8 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const pool = require('../modules/pool');
 const router = express.Router();
 
-
 /** ---------- GET ASSESSMENT BY ASSESSMENT ID ---------- **/
 router.get('/:id', rejectUnauthenticated, (req, res) => {
-    const idOfAssessment = req.params.id;
     const sqlText = `
         SELECT
             "client"."company_name",
@@ -42,20 +40,19 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
             ON "assessment_items"."id" = "tags_assessment_items"."assessment_item_id"
         WHERE "assessment_items"."assessment_id" = $1
         ORDER BY "bucket_index" ASC, "function_index" ASC, "subfunction_index" ASC;`;
-    const sqlValues = [idOfAssessment];
+    const sqlValues = [req.params.id];
     pool.query(sqlText, sqlValues)
         .then((dbRes) => {
             res.send(dbRes.rows)
         })
         .catch((dbErr) => {
-            console.log('Error in Edit Assessment GET', dbErr);
+            console.log('Error in GET /assessment/:id: ', dbErr);
             res.sendStatus(500);
         })
 });
 
-
 /** ---------- GET BUCKET HEADLINES BY ASSESSMENT ID ---------- **/
-router.get('/:id/headlines', rejectUnauthenticated, (req, res) => {
+router.get('/headlines/:id', rejectUnauthenticated, (req, res) => {
     const sqlQuery = `
         SELECT * 
         FROM "buckets_headlines" 
@@ -67,7 +64,7 @@ router.get('/:id/headlines', rejectUnauthenticated, (req, res) => {
             res.send(response.rows);
         })
         .catch((error) => {
-            console.log('Error in Edit Assessment GET', error);
+            console.log('Error in GET /assessment/:id/headlines: ', error);
             res.sendStatus(500);
         })
 });
@@ -119,7 +116,6 @@ router.post('/:id', rejectUnauthenticated, (req, res) => {
 
 /** ---------- POST ASSESSMENT SLIDE INPUTS BY ASSESSMENT ID ---------- **/
 router.post('/slide/:id', rejectUnauthenticated, (req, res) => {
-    console.log('Req.body: ', req.body)
     const sqlQuery = `
         INSERT INTO "assessment_items"
             ("assessment_id", "next_steps", "future_state")
@@ -131,15 +127,15 @@ router.post('/slide/:id', rejectUnauthenticated, (req, res) => {
         res.sendStatus(201);
     })
     .catch((error) => {
-        console.log('Error in POST /assessment/:id: ', error);
+        console.log('Error in POST /assessment/slide/:id: ', error);
         res.sendStatus(500);
     })
 })
 
+
+// Confirm check for duplicates exists; this doesn't overwrite.
 /** ---------- POST HEADLINE --------- **/
-router.post('/', rejectUnauthenticated, (req, res) => {
-    // console.log('***** req.params.id', req.params);
-    // console.log('***** req.body.headline', req.body);
+router.post('/headlines', rejectUnauthenticated, (req, res) => {
     const sqlQuery = `
         INSERT INTO "buckets_headlines"
             ("assessment_id", 
@@ -154,15 +150,13 @@ router.post('/', rejectUnauthenticated, (req, res) => {
         res.sendStatus(201);
     })
     .catch((error) => {
-        console.log('Error in post headline by id', error);
+        console.log('Error in POST /assessment/headlines', error);
         res.sendStatus(500);
     })
 })
 
 /** ---------- PUT ASSESSMENT ANSWER EDITS BY ASSESSMENT ID ---------- **/
 router.put('/:id', rejectUnauthenticated, (req, res) => {
-    // const idToUpdate = req.params.id;
-    console.log('PUT ASSESSMENT ID, req.body', req.params.id, req.body)
     const sqlText = `
       UPDATE "assessment_items"
         SET 
@@ -192,19 +186,18 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
             res.sendStatus(200);
         })
         .catch((error) => {
-            console.log('Error in PUT tags router: ', error)
+            console.log('Error in PUT /assessment/:id (tags): ', error)
             res.sendStatus(500);
         })
-
       })
       .catch((error) => {
-        console.log('Error in put edit assessment db query', error)
+        console.log('Error in PUT /assessment/:id', error)
         res.sendStatus(500);
       });
   });
 
 /** ---------- PUT ASSESSMENT STATUS BY ASSESSMENT ID ---------- **/
-router.put('/:id/status', rejectUnauthenticated, (req, res) => {
+router.put('/status/:id', rejectUnauthenticated, (req, res) => {
     const sqlQuery = `
     UPDATE "client_assessments"
       SET "status" = $1
@@ -215,7 +208,7 @@ router.put('/:id/status', rejectUnauthenticated, (req, res) => {
       res.sendStatus(201);
     })
     .catch((error) => {
-      console.error('Error in PUT /assessment/:id/status:', error);
+      console.error('Error in PUT /assessment/status/:id:', error);
     });
   });
 
