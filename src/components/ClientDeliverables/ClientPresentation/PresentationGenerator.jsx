@@ -11,7 +11,12 @@ import Objectives from './Slides/Objectives';
 import BucketDefinitions from './Slides/BucketDefinitions';
 import HighlightsOfFindings from './Slides/HighlightsOfFindings';
 import ExecutiveSummary from "./Slides/ExecutiveSummary";
-import FindingsByBucket from "./Slides/FindingsByBucket";
+import OrganizationalEffectiveness from "./Slides/BucketSlides/OrganizationalEffectiveness";
+import EmployeeEngagement from "./Slides/BucketSlides/EmployeeEngagement";
+import TrainingDevelopment from "./Slides/BucketSlides/TrainingDevelopment";
+import BenefitsCompensation from "./Slides/BucketSlides/BenefitsCompensation";
+import RecruitingStaffing from "./Slides/BucketSlides/RecruitingStaffing";
+import HRISPayrollCompliance from "./Slides/BucketSlides/HRISPayrollCompliance";
 import FocusAreas from "./Slides/FocusAreas";
 import NextSteps from "./Slides/NextSteps";
 import ThankYou from "./Slides/ThankYou";
@@ -19,8 +24,6 @@ import ThankYou from "./Slides/ThankYou";
 function PresentationGenerator () {
 const dispatch = useDispatch();
 const params = useParams();
-
-  const data = useSelector((store) => store.presentation);
 
   useEffect(() => {
     dispatch({
@@ -36,29 +39,20 @@ const params = useParams();
   return (
     <div className="reveal">
       <div className="slides">
-        <Intro
-        companyName = {data.operatorInputs.company_name}
-        />
+        <Intro />
         <Agenda />
         <Objectives />
         <BucketDefinitions />
-        <ExecutiveSummary
-        summaryRatings = {data.summaryRatings}
-        />
-        <HighlightsOfFindings
-        strengths = {data.strengthTags}
-        opportunities = {data.opportunityTags}
-        />
-        <FindingsByBucket
-        bucketData = {data.bucketData}
-        bucketTags = {data.bucketTags}
-        />
-        <FocusAreas
-        opportunities = {data.opportunityTags}
-        />
-        <NextSteps
-        operatorInputs = {data.operatorInputs}
-        />
+        <ExecutiveSummary />
+        <HighlightsOfFindings />
+        <OrganizationalEffectiveness />
+        <EmployeeEngagement />
+        <TrainingDevelopment />
+        <BenefitsCompensation />
+        <RecruitingStaffing />
+        <HRISPayrollCompliance />
+        <FocusAreas />
+        <NextSteps />
         <ThankYou />
       </div>
     </div>
