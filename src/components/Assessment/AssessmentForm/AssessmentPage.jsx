@@ -222,10 +222,11 @@ function AssessmentPage ({functionsArray}) {
 
 
             <div>
-              <div className="progress" role="progressbar" aria-label="Basic example" aria-valuenow={functionObject.function_index} aria-valuemin="0" aria-valuemax={functionsArray.length} >
-                <div className="progress-bar" style={{"width": ((functionObject.function_index)/(functionsArray.length)).toLocaleString("en", {style: "percent"})}}></div>
+              <div className="progress" role="progressbar" aria-label="Basic example" aria-valuenow={((functionObject.function_index)-1)} aria-valuemin="0" aria-valuemax={functionsArray.length} >
+                <div className="progress-bar" style={{"width": ((functionObject.function_index-1)/(functionsArray.length)).toLocaleString("en", {style: "percent"})}}></div>
               </div>
               <div id="form-page-progress-label" className="list-inline range-labels" > 
+              <div>0</div>
                 {functionsArray.map((functionListItem) => {
                   return (
                     <div className="list-inline-item"  key={functionListItem.function_index}>{functionListItem.function_index}</div>
