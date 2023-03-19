@@ -1,31 +1,8 @@
 const express = require('express');
-
-const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-router.get('/assessments/:id', rejectUnauthenticated, (req, res) => {
-    const queryText = `
-    SELECT
-      "client_assessments"."id",
-      "client"."company_name",
-      "client_assessments"."engagement_date",
-      "client_assessments"."status"
-    FROM "client_assessments"
-    JOIN "client" ON "client_assessments"."client_id" = "client"."id"
-    WHERE "client_assessments"."client_id" = $1;
-      `;
-    pool.query(queryText, [req.params.id])
-      .then((response) => {
-        res.send(response.rows);
-      })
-      .catch((error) => {
-        console.error('Error completing presentation.router /assessments GET', error);
-        res.sendStatus(500);
-      });
-  });
-
-router.get('/strengths/:id', rejectUnauthenticated, (req, res) => {
+router.get('/strengths/:id', (req, res) => {
   const queryText = `
   SELECT
     "buckets"."name" AS "bucket_name",
@@ -41,7 +18,7 @@ router.get('/strengths/:id', rejectUnauthenticated, (req, res) => {
     `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows);
+      res.send(response.rows[0]);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /strengths GET', error);
@@ -49,7 +26,7 @@ router.get('/strengths/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.get('/opportunities/:id', rejectUnauthenticated, (req, res) => {
+router.get('/opportunities/:id', (req, res) => {
   const queryText = `
   SELECT
     "buckets"."name" AS "bucket_name",
@@ -66,7 +43,7 @@ router.get('/opportunities/:id', rejectUnauthenticated, (req, res) => {
     `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows);
+      res.send(response.rows[0]);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /opportunities GET', error);
@@ -74,7 +51,7 @@ router.get('/opportunities/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.get('/summary-ratings/:id', rejectUnauthenticated, (req, res) => {
+router.get('/summary-ratings/:id', (req, res) => {
   const queryText = `
   SELECT
     SUM("level_rating") FILTER (WHERE "bucket_id" = 1) AS "organizational_effectiveness_rating",
@@ -88,7 +65,7 @@ router.get('/summary-ratings/:id', rejectUnauthenticated, (req, res) => {
   `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows);
+      res.send(response.rows[0]);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /summary-ratings GET', error);
@@ -96,7 +73,7 @@ router.get('/summary-ratings/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.get('/bucket-1/data/:id', rejectUnauthenticated, (req, res) => {
+router.get('/bucket-1/data/:id', (req, res) => {
   const queryText = `
   SELECT
     "buckets_headlines"."headline_text",
@@ -121,7 +98,7 @@ router.get('/bucket-1/data/:id', rejectUnauthenticated, (req, res) => {
   `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows);
+      res.send(response.rows[0]);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /bucket-1/data GET', error);
@@ -129,7 +106,7 @@ router.get('/bucket-1/data/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.get('/bucket-2/data/:id', rejectUnauthenticated, (req, res) => {
+router.get('/bucket-2/data/:id', (req, res) => {
   const queryText = `
   SELECT
     "buckets_headlines"."headline_text",
@@ -160,13 +137,13 @@ router.get('/bucket-2/data/:id', rejectUnauthenticated, (req, res) => {
   FROM "assessment_items"
   JOIN "buckets_headlines"
     ON "assessment_items"."bucket_id" = "buckets_headlines"."bucket_id"
-  WHERE "assessment_items"."assessment_id" = 1
+  WHERE "assessment_items"."assessment_id" = $1
     AND "assessment_items"."bucket_id" = 2
   GROUP BY "buckets_headlines"."headline_text";
   `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows);
+      res.send(response.rows[0]);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /bucket-2/data GET', error);
@@ -174,7 +151,7 @@ router.get('/bucket-2/data/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.get('/bucket-3/data/:id', rejectUnauthenticated, (req, res) => {
+router.get('/bucket-3/data/:id', (req, res) => {
   const queryText = `
   SELECT
     "buckets_headlines"."headline_text",
@@ -196,13 +173,13 @@ router.get('/bucket-3/data/:id', rejectUnauthenticated, (req, res) => {
   FROM "assessment_items"
   JOIN "buckets_headlines"
     ON "assessment_items"."bucket_id" = "buckets_headlines"."bucket_id"
-  WHERE "assessment_items"."assessment_id" = 1
+  WHERE "assessment_items"."assessment_id" = $1
     AND "assessment_items"."bucket_id" = 3
   GROUP BY "buckets_headlines"."headline_text";
   `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows);
+      res.send(response.rows[0]);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /bucket-3/data GET', error);
@@ -210,7 +187,7 @@ router.get('/bucket-3/data/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.get('/bucket-4/data/:id', rejectUnauthenticated, (req, res) => {
+router.get('/bucket-4/data/:id', (req, res) => {
   const queryText = `
   SELECT
     "buckets_headlines"."headline_text",
@@ -235,13 +212,13 @@ router.get('/bucket-4/data/:id', rejectUnauthenticated, (req, res) => {
   FROM "assessment_items"
   JOIN "buckets_headlines"
     ON "assessment_items"."bucket_id" = "buckets_headlines"."bucket_id"
-  WHERE "assessment_items"."assessment_id" = 1
+  WHERE "assessment_items"."assessment_id" = $1
     AND "assessment_items"."bucket_id" = 4
   GROUP BY "buckets_headlines"."headline_text";
   `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows);
+      res.send(response.rows[0]);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /bucket-4/data GET', error);
@@ -249,7 +226,7 @@ router.get('/bucket-4/data/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.get('/bucket-5/data/:id', rejectUnauthenticated, (req, res) => {
+router.get('/bucket-5/data/:id', (req, res) => {
   const queryText = `
   SELECT
     "buckets_headlines"."headline_text",
@@ -265,13 +242,13 @@ router.get('/bucket-5/data/:id', rejectUnauthenticated, (req, res) => {
   FROM "assessment_items"
   JOIN "buckets_headlines"
     ON "assessment_items"."bucket_id" = "buckets_headlines"."bucket_id"
-  WHERE "assessment_items"."assessment_id" = 1
+  WHERE "assessment_items"."assessment_id" = $1
     AND "assessment_items"."bucket_id" = 5
   GROUP BY "buckets_headlines"."headline_text";
   `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows);
+      res.send(response.rows[0]);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /bucket-5/data GET', error);
@@ -279,7 +256,7 @@ router.get('/bucket-5/data/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.get('/bucket-6/data/:id', rejectUnauthenticated, (req, res) => {
+router.get('/bucket-6/data/:id', (req, res) => {
   const queryText = `
   SELECT
     "buckets_headlines"."headline_text",
@@ -316,13 +293,13 @@ router.get('/bucket-6/data/:id', rejectUnauthenticated, (req, res) => {
   FROM "assessment_items"
   JOIN "buckets_headlines"
     ON "assessment_items"."bucket_id" = "buckets_headlines"."bucket_id"
-  WHERE "assessment_items"."assessment_id" = 1
+  WHERE "assessment_items"."assessment_id" = $1
     AND "assessment_items"."bucket_id" = 6
   GROUP BY "buckets_headlines"."headline_text";
   `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows);
+      res.send(response.rows[0]);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /bucket-6/data GET', error);
@@ -330,7 +307,7 @@ router.get('/bucket-6/data/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.get('/bucket-1/tags/:id', rejectUnauthenticated, (req, res) => {
+router.get('/bucket-1/tags/:id', (req, res) => {
   const queryText = `
   SELECT
     "tags"."id"
@@ -360,7 +337,7 @@ router.get('/bucket-1/tags/:id', rejectUnauthenticated, (req, res) => {
   `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows);
+      res.send(response.rows[0]);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /bucket-1/tags GET', error);
@@ -368,7 +345,7 @@ router.get('/bucket-1/tags/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.get('/bucket-2/tags/:id', rejectUnauthenticated, (req, res) => {
+router.get('/bucket-2/tags/:id', (req, res) => {
   const queryText = `
   SELECT
     "tags"."id"
@@ -398,7 +375,7 @@ router.get('/bucket-2/tags/:id', rejectUnauthenticated, (req, res) => {
   `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows);
+      res.send(response.rows[0]);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /bucket-2/tags GET', error);
@@ -406,7 +383,7 @@ router.get('/bucket-2/tags/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.get('/bucket-3/tags/:id', rejectUnauthenticated, (req, res) => {
+router.get('/bucket-3/tags/:id', (req, res) => {
   const queryText = `
     SELECT
       "tags"."id"
@@ -436,7 +413,7 @@ router.get('/bucket-3/tags/:id', rejectUnauthenticated, (req, res) => {
   `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows);
+      res.send(response.rows[0]);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /bucket-3/tags GET', error);
@@ -444,7 +421,7 @@ router.get('/bucket-3/tags/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.get('/bucket-4/tags/:id', rejectUnauthenticated, (req, res) => {
+router.get('/bucket-4/tags/:id', (req, res) => {
   const queryText = `
   SELECT
     "tags"."id"
@@ -474,7 +451,7 @@ router.get('/bucket-4/tags/:id', rejectUnauthenticated, (req, res) => {
   `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows);
+      res.send(response.rows[0]);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /bucket-4/tags GET', error);
@@ -482,7 +459,7 @@ router.get('/bucket-4/tags/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.get('/bucket-5/tags/:id', rejectUnauthenticated, (req, res) => {
+router.get('/bucket-5/tags/:id', (req, res) => {
   const queryText = `
   SELECT
     "tags"."id"
@@ -512,7 +489,7 @@ router.get('/bucket-5/tags/:id', rejectUnauthenticated, (req, res) => {
   `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows);
+      res.send(response.rows[0]);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /bucket-5/tags GET', error);
@@ -520,7 +497,7 @@ router.get('/bucket-5/tags/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.get('/bucket-6/tags/:id', rejectUnauthenticated, (req, res) => {
+router.get('/bucket-6/tags/:id', (req, res) => {
   const queryText = `
   SELECT
     "tags"."id"
@@ -550,24 +527,27 @@ router.get('/bucket-6/tags/:id', rejectUnauthenticated, (req, res) => {
   `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows);
+      res.send(response.rows[0]);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /bucket-6/tags GET', error);
       res.sendStatus(500);
     });
 
-    router.get('/operator-inputs/:id', rejectUnauthenticated, (req, res) => {
+    router.get('/operator-inputs/:id', (req, res) => {
       const queryText = `
       SELECT
-        "next_steps",
-        "future_state"
+        "client_assessments"."next_steps",
+        "client_assessments"."future_state",
+        "client"."company_name"
         FROM "client_assessments"
-        WHERE "id" = $1;
+      JOIN "client"
+        ON "client_assessments"."client_id" = "client"."id"
+      WHERE "client_assessments"."id" = $1;
         `;
       pool.query(queryText, [req.params.id])
         .then((response) => {
-          res.send(response.rows);
+          res.send(response.rows[0]);
         })
         .catch((error) => {
           console.error('Error completing presentation.router /operator-inputs GET', error);
