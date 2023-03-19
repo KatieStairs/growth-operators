@@ -26,33 +26,13 @@ function Dashboard() {
     <>
     <div className="container mt-3">
       <h1>nextLEVEL - Operator Dashboard</h1>
-
-        <h2>Welcome, {user.username}!</h2>
-        {/* <hr></hr>
-        <div className="col-auto g-3">
-          <Link to="/all-clients">
-            <button className="btn btn-link">All Clients</button>
-          </Link>//
-          <Link to="/assessment-edit/2">
-            <button className="btn btn-link">Edit (All Answers)</button>
-          </Link>//
-          <Link to="/assessment-form/2/2/5">
-            <button className="btn btn-link">Assessment Form</button>
-          </Link>//
-          <Link to="/assessment-review/2/2">
-            <button className="btn btn-link">Review Assessment Submission</button>
-          </Link>//
-          <Link to="/assessment-form/2/final-slide-inputs">
-            <button className="btn btn-link">Assessment Form (End)</button>
-          </Link>//
-          <Link to="/presentation">
-            <button className="btn btn-link">Presentation</button>
-          </Link>
-        </div> */}
-        <hr></hr>
-          <div className="grid">
-            <div className="grid-col grid-col_6 mt-3 mb-3">
-              <h3>In Progress Assessments</h3>
+      <h2>Welcome, {user.username}!</h2>
+      <hr></hr>
+      <div className="grid">
+        <div className="grid-col grid-col_7 mt-3 mb-3">
+          <div className="container shadow min-vh-auto py-2 mt-3">
+            <h3>In Progress Assessments</h3>
+            <div className="table-responsive">
               <table className="table">
                 <thead>
                   <tr>
@@ -68,14 +48,22 @@ function Dashboard() {
                 </tbody>
               </table>
             </div>
-            <div className="mt-3 mb-3">
-            <CreateNewClientModal />
+          </div>
+        </div>
+        <div className="grid-col grid-col_4 mt-5 mx-auto align-middle text-center">
+          <div className="container shadow min-vh-auto py-5">
+          <CreateNewClientModal />
             <Link to="/all-clients">
-              <button className="btn btn-primary">See All Clients</button>
+              <button className="btn btn-outline-success mx-auto">See All Clients</button>
             </Link>
-            </div>
-            <div className="grid-col grid-col_10 mt-3 mb-3 g-3">
-              <h3>Active Assessments</h3>
+          </div>
+        </div>
+      </div>
+      <div className="grid">
+        <div className="grid-col grid-col_12 mt-3 mb-3">
+          <div className="container shadow min-vh-auto py-2 mt-3">
+            <h3>Active Assessments</h3>
+            <div className="table-responsive">
               <table className="table">
                 <thead>
                   <tr>
@@ -93,17 +81,25 @@ function Dashboard() {
                   })}
                 </tbody>
               </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+            <div className="mt-3 mb-3">
+
+            </div>
+
+              
+              
               {/* just putting this here for now */}
               
 
               
-            </div>
+
             <div className="grid-col_12">
             <LogOutButton />
             </div>
-            
-          </div>
-
     </div>
     </>
   );
