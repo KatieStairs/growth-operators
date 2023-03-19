@@ -7,14 +7,38 @@ import AssessmentFindings from './AssessmentFindings'
 import AssessmentPhases from './AssessmentPhases'
 
 function ClientReport () {
+  document.title = 'Client Report'
+  const params = useParams();
+  const dispatch = useDispatch();
+  const assessmentItems = useSelector((store) => store.assessmentItems);
+  const answers = assessmentItems.assessmentAnswersById;
+
+  // The dispatches need to have payload: params.assessment_id, 
+  // or something else that works not payload: 1
+  useEffect(() => {
+    dispatch({type: 'SAGA/GET_ASSESSMENT_ANSWERS_BY_ID', payload: 1})
+    dispatch({type: 'SAGA/FETCH_ALL_TAGS', payload: 1})
+  }, [])
+
+  useEffect(() => {
+    if (answers) {
+      console.log('Answers: ', answers)
+    }
+  }, [answers]);
+
+  if(!answers) {
+    return null;
+  } else {
 
   return (
     <>
-    <h1>This is the client report</h1>
-    <AssessmentFindings />
-    <AssessmentPhases />
+    {answers.map((answer) => {
+      return <AssessmentFindings answer={answer} key={answer.id}/>
+    })}
+    {/* <AssessmentPhases /> */}
     </>
   )
+}
 }
 
 export default ClientReport;
