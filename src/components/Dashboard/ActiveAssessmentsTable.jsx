@@ -28,7 +28,7 @@ function ActiveAssessmentsTable({ client }) {
             <td>{client.company_name}</td>
             <td>{client.status}</td>
             <td>{new Date(client.engagement_date).toLocaleDateString()}</td>
-            <td><button type="button" className="btn btn-primary" onClick={() => handleEditClick(client)}>Review Answers</button></td>
+            <td><button type="button" className="btn btn-primary" onClick={() => handleEditClick(client)}>Review Assessment</button></td>
             <td><button type="button" className="btn btn-primary" onClick={() => handleClientOverviewClick(client)}>Overview</button></td>
             <td><button type="button" className="btn btn-primary" onClick={() => handlePresentationClick(client)}>Presentation</button></td>
         </tr>

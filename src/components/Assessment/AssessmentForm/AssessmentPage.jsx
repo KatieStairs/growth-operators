@@ -96,7 +96,7 @@ function AssessmentPage ({functionsArray}) {
     }
   }
 
-  const saveToDatabase = () => { // handles formArray, dispatches to database
+  const saveAnswersToDatabase = () => { // handles formArray, dispatches to database
     if (formArray.length >= 1) { // only runs the following logic if formArray has enough objects in it
       let formArrayToggle;
       for (const formObject of formArray) {
@@ -124,34 +124,19 @@ function AssessmentPage ({functionsArray}) {
         }
       }
 
-        if (formArrayToggle === false) { // only runs if no matching subfunctionID found above
-          let newFormObject = {
-            subfunctionID: allInputFields.subfunctionID,
-            levelRatingInput: allInputFields.levelRatingInput,
-            findingsInput: allInputFields.findingsInput,
-            impactsInput: allInputFields.impactsInput,
-            recommendationsInput: allInputFields.recommendationsInput,
-            phaseInput: allInputFields.phaseInput,
-            tagsInput: allInputFields.tagsInput,
-          }; 
-          formArray.push(newFormObject);
-          clearInputFields();
-        }
-        // else { // Fairly certain this was an accidental extra; commenting out, may remove after testing.
-        //   let newFormObject = {
-        //     subfunctionID: allInputFields.subfunctionID,
-        //     levelRatingInput: allInputFields.levelRatingInput,
-        //     findingsInput: allInputFields.findingsInput,
-        //     impactsInput: allInputFields.impactsInput,
-        //     recommendationsInput: allInputFields.recommendationsInput,
-        //     phaseInput: allInputFields.phaseInput,
-        //     tagsInput: allInputFields.tagsInput,
-        //   }; 
-
-        //   formArray.push(newFormObject);
-        //   clearInputFields();
-        // }
-
+      if (formArrayToggle === false) { // only runs if no matching subfunctionID found above
+        let newFormObject = {
+          subfunctionID: allInputFields.subfunctionID,
+          levelRatingInput: allInputFields.levelRatingInput,
+          findingsInput: allInputFields.findingsInput,
+          impactsInput: allInputFields.impactsInput,
+          recommendationsInput: allInputFields.recommendationsInput,
+          phaseInput: allInputFields.phaseInput,
+          tagsInput: allInputFields.tagsInput,
+        }; 
+        formArray.push(newFormObject);
+        clearInputFields();
+      }
     } 
     else { // runs if formArray is empty
       let newFormObject = {
@@ -166,13 +151,6 @@ function AssessmentPage ({functionsArray}) {
       formArray.push(newFormObject);
       clearInputFields();
     }
-
-    // let assessmentSave = {
-    //   formArray: formArray,
-    //   assessmentID: params.assessment_id,
-    //   bucket_id: params.bucket_id,
-    //   function_id: params.function_id
-    // }
 
     for (const formObject of formArray){
       let assessmentSave = {
@@ -192,21 +170,23 @@ function AssessmentPage ({functionsArray}) {
         type: 'SAGA/POST_ASSESSMENT_ANSWERS',
         payload: assessmentSave
       })
-
-      // for (const tag_id of formObject.tagsInput) {
-      //   dispatch({
-      //     type: 'SAGA/POST_ASSESSMENT_TAG_ANSWERS',
-      //     payload: tag_id
-      //   })
-      }
     }
+  }
   
+  const updateAssessmentStatus = () => {
+    const statusUpdateData = {status: 'Edit in Progress', id: params.assessment_id}
+    dispatch({type: 'SAGA/UPDATE_ASSESSMENT_STATUS_BY_ID', payload: statusUpdateData})
+  };
+
   const handleSaveForLater = () => {
-    saveToDatabase();
+    saveAnswersToDatabase();
+    updateAssessmentStatus();
+
   }
 
   const handleContinue = () => {
-    saveToDatabase();
+    saveAnswersToDatabase();
+    updateAssessmentStatus();
   }
   
   const evalLocation = () => { // evaluates current url params, conditionally returns newRoute
