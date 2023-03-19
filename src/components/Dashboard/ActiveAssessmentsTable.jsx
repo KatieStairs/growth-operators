@@ -16,10 +16,15 @@ function ActiveAssessmentsTable({ client }) {
         let clientId = client.client_id;
         history.push(`/client-overview/${clientId}`)
     }
-    // this will take the operator to see the assessment answers
+    // this will take the operator to see the assessment's presentation
     const handlePresentationClick = (client) => {
         let assessmentId = client.assessment_id;
         history.push(`/presentation/${assessmentId}`)
+    }
+    // this will take the operator to see the assessment's report
+    const handleReportClick = (client) => {
+        let assessmentId = client.assessment_id;
+        history.push(`/client-report/${assessmentId}`)
     }
 
     if(client.status === 'Active'){
@@ -28,9 +33,10 @@ function ActiveAssessmentsTable({ client }) {
             <td>{client.company_name}</td>
             <td>{client.status}</td>
             <td>{new Date(client.engagement_date).toLocaleDateString()}</td>
-            <td><button type="button" className="btn btn-primary" onClick={() => handleEditClick(client)}>Review Assessment</button></td>
-            <td><button type="button" className="btn btn-primary" onClick={() => handleClientOverviewClick(client)}>Overview</button></td>
-            <td><button type="button" className="btn btn-primary" onClick={() => handlePresentationClick(client)}>Presentation</button></td>
+            <td><button type="button" className="btn btn-outline-primary" onClick={() => handleEditClick(client)}>Review Assessment</button></td>
+            <td><button type="button" className="btn btn-outline-primary" onClick={() => handleClientOverviewClick(client)}>See Overview</button></td>
+            <td><button type="button" className="btn btn-outline-primary" onClick={() => handlePresentationClick(client)}>See Presentation</button></td>
+            <td><button type="button" className="btn btn-outline-primary" onClick={() => handleReportClick(client)}>See Report</button></td>
         </tr>
         )
         } 

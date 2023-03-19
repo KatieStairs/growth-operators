@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link, useLocation } from "react-router-dom";
 import './Dashboard.css';
+// import logo from '../../images/GO_Badge_Spot_Color';
 
 // this is the Operator Dashboard
 // CUSTOM COMPONENTS
@@ -21,13 +22,23 @@ function Dashboard() {
         type: 'SAGA/GET_OPERATOR_DASHBOARD'
     })
 }, []);
- 
+
+
+
   return (
     <>
     <div className="container mt-3">
-      <h1>nextLEVEL - Operator Dashboard</h1>
-      <h2>Welcome, {user.username}!</h2>
-      <hr></hr>
+      <div className="grid">
+        <div className="grid-col grid-col_2">
+          <img src={require('../../images/GO_Badge_Spot_Color.png')} className="img-thumbnail"/>
+        </div>
+        <div className="grid-col grid-col_9 mt-5 ms-2">
+          <h1>nextLEVEL - Operator Dashboard</h1>
+          <h2>Welcome, {user.username}!</h2>
+          <hr></hr>
+        </div>
+      </div>
+
       <div className="grid">
         <div className="grid-col grid-col_7 mt-3 mb-3">
           <div className="container shadow min-vh-auto py-2 mt-3">
@@ -50,7 +61,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="grid-col grid-col_4 mt-5 mx-auto align-middle text-center">
+        <div className="grid-col grid-col_4 mt-5 ms-auto text-center">
           <div className="container shadow min-vh-auto py-5">
           <CreateNewClientModal />
             <Link to="/all-clients">
@@ -70,9 +81,14 @@ function Dashboard() {
                     <th>Client Name</th>                    
                     <th>Status</th>
                     <th>Engagement Start</th>
-                    <th>Assessment</th>
+                    {/* <th>Assessment</th>
                     <th>Client Overview</th> 
                     <th>Presentation</th>
+                    <th>Report</th> */}
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
