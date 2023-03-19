@@ -2,7 +2,10 @@ function AssessmentFindings({ answer }) {
 
   return(
     <>
-    <h1>{answer.bucket_name}</h1>
+    <div className="container gx-1 py-2">
+    <h1>{answer.company_name}</h1>
+    <h2>{answer.bucket_name}</h2>
+    </div>
     <div className="container">
       <div className="row">
       <h3>{answer.bucket_index}.{answer.function_index} {answer.function_name}</h3>
