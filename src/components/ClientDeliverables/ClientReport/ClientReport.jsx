@@ -35,7 +35,9 @@ function ClientReport () {
     {answers.map((answer) => {
       return <AssessmentFindings answer={answer} key={answer.id}/>
     })}
-    {/* <AssessmentPhases /> */}
+    {answers.map((answer) => {
+      return <AssessmentPhases answer={answer} key={answer.id}/>
+    })}
     </>
   )
 }
