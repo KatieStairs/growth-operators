@@ -49,12 +49,13 @@ router.get('/buckets', rejectUnauthenticated, (req, res) => {
 
 /** ---------- GET FUNCTIONS BY BUCKET ID ---------- **/
 router.get('/buckets/:id/functions', rejectUnauthenticated, (req, res) => {
-  // console.log('Req.params: ', req.params);
+  console.log('Req.params: ', req.params);
   const sqlQuery =`
   SELECT 
     "functions"."id", 
     "functions"."name", 
     "functions"."function_index",
+    "buckets"."id" AS "bucket_id",
     "buckets"."name" AS "bucket_name"
   FROM "functions"
   JOIN "buckets"

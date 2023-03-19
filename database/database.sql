@@ -6,7 +6,8 @@
 -- i. Column 1 // substring_name
 -- ii. Column 3 // function_name
 -- iii. Column 5 // level_rating_criteria
--- 4. Copy, paste, and execute the below code. 
+-- 4. Copy, paste, and execute the below code.
+-- 5. Register a user before executing the final query.
 
 -- Dummy data provided for all tables except "user" and "user_client"
 
@@ -48,17 +49,19 @@ CREATE TABLE "client_assessments" (
     "id" SERIAL PRIMARY KEY,
     "client_id" INTEGER REFERENCES "client" ON DELETE CASCADE,
     "engagement_date" DATE,
-    "status" VARCHAR
+    "status" VARCHAR,
+    "next_steps" VARCHAR,
+    "future_state" VARCHAR
 );
 
 INSERT INTO "client_assessments" 
-("client_id", "engagement_date", "status")
+("client_id", "engagement_date", "status", "next_steps", "future_state")
 VALUES 
-(1, '03-07-2023', 'Edit in Progress'),
-(2, '03-07-2023', 'Edit in Progress'),
-(3, '03-07-2023', 'Edit in Progress'),
-(4, '03-07-2023', 'Edit in Progress'),
-(5, '03-07-2023', 'Edit in Progress');
+(1, '03-07-2023', 'Edit in Progress', 'Careful steppin`!', 'Onwards and upwards!'),
+(2, '03-07-2023', 'Edit in Progress', null, null),
+(3, '03-07-2023', 'Edit in Progress', null, null),
+(4, '03-07-2023', 'Edit in Progress', null, null),
+(5, '03-07-2023', 'Edit in Progress', null, null);
 
 CREATE TABLE "buckets" (
     "id" SERIAL PRIMARY KEY,

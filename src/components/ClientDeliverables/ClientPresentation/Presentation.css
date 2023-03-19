@@ -1,2 +1,7 @@
 @import 'reveal.js/dist/reveal.css';
-@import 'reveal.js/dist/theme/moon.css';
+@import 'reveal.js/dist/theme/simple.css';
+
+.assessments-table {
+  max-width: 80vw;
+  margin: auto;
+}
