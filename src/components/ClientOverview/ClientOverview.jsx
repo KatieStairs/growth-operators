@@ -161,13 +161,13 @@ function ClientOverview() {
             </div>
             <div class="row justify-content-end">
               <div class='col-2'>
-                <a class="btn btn-primary" href={`/assessment-edit/${clientOverview[0].assessment_id}`}>See Assessment</a>
+                <a class="btn btn-primary" href={clientOverview[0] && `/assessment-edit/${clientOverview[0].assessment_id}`}>See Assessment</a>
               </div>
               <div class='col-2'>
-                <a class="btn btn-primary" href={`/client-report/${clientOverview[0].assessment_id}`}>Download Report</a>
+                <a class="btn btn-primary" href={ clientOverview[0] && `/client-report/${clientOverview[0].assessment_id}`}>Download Report</a>
               </div>
               <div class='col-2'>
-                <a class="btn btn-primary" href={`/presentation/${clientOverview[0].assessment_id}`}>See Presentation</a>
+                <a class="btn btn-primary" href={clientOverview[0] && `/presentation/${clientOverview[0].assessment_id}`}>See Presentation</a>
               </div>
             </div>
         </div>  
