@@ -14,26 +14,6 @@ function* getAllClients() {
   }
 };
 
-function* getClientOverview(action) {
-  try {
-    const clientId = action.payload;
-    console.log("this is the action payload:", clientId)
-
-    const response = yield  axios({
-      method:  'GET',
-      url: '/api/client/overview',
-      params: clientId
-    })
-    
-    // yield put({
-    //   type: 'SET_CLIENT_OVERVIEW',
-    //   payload: response.data
-    // })
-  } catch (error) {
-    console.error('getAllClients GET request failed', error);
-  }
-};
-
 function* updateClientInfo(action) {
   const client = action.payload;
   try {
@@ -92,6 +72,29 @@ function* postClient(action) {
     }
 };
 
+
+function* getClientOverview(action) {
+  try {
+    const clientId = action.payload;
+    console.log("this is the action payload:", clientId)
+
+    const response = yield  axios({
+      method:  'GET',
+      url: '/api/client/overview',
+      params: clientId
+    })
+    
+    console.log("getclientoverview response", response.data)
+
+    yield put({
+      type: 'SET_CLIENT_OVERVIEW',
+      payload: response.data
+    })
+  } catch (error) {
+    console.error('getAllClients GET request failed', error);
+  }
+};
+
 export default function* clientSaga() {
   yield takeLatest('SAGA/GET_ALL_CLIENTS', getAllClients);
   yield takeLatest('SAGA/POST_CLIENT', postClient);
@@ -100,4 +103,5 @@ export default function* clientSaga() {
   yield takeLatest('SAGA/PUT_CLIENT_INFO_BY_ID', updateClientInfo);
   yield takeLatest('SAGA/PUT_CLIENT_STATUS_BY_ID', updateClientStatus);
 };
+
 
