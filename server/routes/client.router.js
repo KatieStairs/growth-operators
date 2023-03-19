@@ -72,7 +72,7 @@ router.get('/overview', (req, res) => {
   console.log ("This is the client id: ", clientId)
   const sqlQuery =  
   `SELECT 
-  assessment_items.id, company_name, assessment_items.findings, assessment_items.impact, assessment_items.recommendations,  assessment_items.phase, assessment_items.level_rating, buckets.name AS bucket_name, tags.name AS tag_name, subfunctions.name AS subfunction_name
+  assessment_items.id, assessment_items.assessment_id, company_name, assessment_items.findings, assessment_items.impact, assessment_items.recommendations,  assessment_items.phase, assessment_items.level_rating, buckets.name AS bucket_name, tags.name AS tag_name, subfunctions.name AS subfunction_name
   FROM "client"
   JOIN "client_assessments" 
     ON "client"."id" = "client_assessments"."client_id"

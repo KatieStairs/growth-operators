@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {useSelector, useDispatch} from 'react-redux';
 import { useHistory, useParams } from "react-router-dom";
 import Nav from '../Nav/Nav';
@@ -29,16 +29,18 @@ ChartJS.register(
 function ClientOverview() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const user = useSelector((store) => store.user);
+  const params = useParams();
   const clientOverview = useSelector((store) => store.client.clientOverview || []);
 
   useEffect(() => {
     dispatch({
       type: 'SAGA/GET_CLIENT_OVERVIEW',
-      payload: { clientId: 1 }
+      payload: { clientId: params.client_id }
     })
   }, [dispatch])
-  
+
+
+
   //Data for Radar Chart
   let chartLabels = [];
   let chartLevelRatings = [];
@@ -94,7 +96,7 @@ function ClientOverview() {
                 <ul class="nav nav-tabs align-items-center flex-column">
                   <li><a class="nav-link active" data-bs-toggle="tab" data-bs-target="#overview">Overview</a></li>
                   {clientOverview.map((bucket) => (
-                    <li key={bucket.id}><a class="nav-link" data-bs-toggle="tab" data-bs-target={`#menu${bucket.id.toString()}`}>{bucket.bucket_name}</a></li>
+                      <li key={bucket.id}><a class="nav-link" data-bs-toggle="tab" data-bs-target={`#menu${bucket.id.toString()}`}>{bucket.bucket_name}</a></li>  
                   ))}
                   {/* <li><a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu2">Organizational Effectiveness</a></li>
                   <li><a class="nav-link" data-toggle="tab" data-bs-target="#menu3">Employee Engagement</a></li>
@@ -115,12 +117,14 @@ function ClientOverview() {
                         <h2>To-Dos</h2>
                           {clientOverview.map((tag) => (
                             <>
-                             {tag.tag_name === '🏆 Quick Win'  &&
-                              <p>{tag.tag_name} - {tag.subfunction_name}</p>
-                             }
-                             {tag.tag_name === '🔥 Fire Drill'  &&
-                              <p>{tag.tag_name} - {tag.subfunction_name}</p>
-                            }
+                            <ul>
+                              {tag.tag_name === '🏆 Quick Win'  &&
+                                <li>{tag.tag_name} - {tag.subfunction_name}</li>
+                              }
+                              {tag.tag_name === '🔥 Fire Drill'  &&
+                                <li>{tag.tag_name} - {tag.subfunction_name}</li>
+                              }
+                            </ul>
                             </>
                           ))}
                       </div>
@@ -136,15 +140,19 @@ function ClientOverview() {
                           </div>
                           <div class="col">
                             <h3>Strengths</h3>
-                            {bucket.tag_name === '💪 Strength - Add to Slide' &&
-                              <p>{bucket.subfunction_name}</p>
-                            }          
+                            <ul>
+                              {bucket.tag_name === '💪 Strength - Add to Slide' &&
+                                <li>{bucket.subfunction_name}</li>
+                              }
+                            </ul>          
                           </div>
                           <div class="col">
                             <h3>Opportunities</h3>
-                            {bucket.tag_name === '🔥 Fire Drill' &&
-                              <p>{bucket.subfunction_name}</p>
+                            <ul>
+                            {bucket.tag_name === '✍️ Opportunity - Add to Slide' &&
+                              <li>{bucket.subfunction_name}</li>
                             }
+                            </ul>
                           </div>
                         </div>
                       </div>
@@ -153,13 +161,13 @@ function ClientOverview() {
             </div>
             <div class="row justify-content-end">
               <div class='col-2'>
-                <button class="btn btn-primary">See Assessment</button>
+                <a class="btn btn-primary" href={`/assessment-edit/${clientOverview[0].assessment_id}`}>See Assessment</a>
               </div>
               <div class='col-2'>
-                <button class="btn btn-primary">Download Report</button>
+                <a class="btn btn-primary" href={`/client-report/${clientOverview[0].assessment_id}`}>Download Report</a>
               </div>
               <div class='col-2'>
-                <button class="btn btn-primary">See Presentation</button>
+                <a class="btn btn-primary" href={`/presentation/${clientOverview[0].assessment_id}`}>See Presentation</a>
               </div>
             </div>
         </div>  
