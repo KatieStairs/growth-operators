@@ -75,19 +75,33 @@ router.get('/overview', (req, res) => {
   console.log("hello you are in client overview route in server!", req.query);
   const clientId = parseInt(req.query.clientId);
   console.log ("This is the client id: ", clientId)
-  // const sqlQuery = `
-  // SELECT * FROM "client"
-  // ORDER BY "company_name" ASC;
-  // `;
-  // pool.query(sqlQuery)
-  // .then((response) => {
-  //   console.log(response.rows);
-  //   res.send(response.rows);
-  // })
-  // .catch((error) => {
-  //   console.error('Error in GET /client/all: ', error);
-  //   res.sendStatus(500);
-  // })
+  const sqlQuery =  
+  `SELECT 
+  assessment_items.id, assessment_items.assessment_id, company_name, assessment_items.findings, assessment_items.impact, assessment_items.recommendations,  assessment_items.phase, assessment_items.level_rating, buckets.name AS bucket_name, tags.name AS tag_name, subfunctions.name AS subfunction_name
+  FROM "client"
+  JOIN "client_assessments" 
+    ON "client"."id" = "client_assessments"."client_id"
+  JOIN "assessment_items" 
+    ON "client_assessments"."id" = "assessment_items"."assessment_id"
+  JOIN "buckets" 
+    ON "buckets"."id" = "assessment_items"."bucket_id"
+  JOIN "tags_assessment_items" 
+    ON "tags_assessment_items"."assessment_item_id" = "assessment_items"."id"
+  JOIN "tags" 
+    ON "tags"."id" = "tags_assessment_items"."tag_id"
+  JOIN "subfunctions" 
+    ON "subfunctions"."id" = "assessment_items"."subfunction_id"
+  WHERE "client"."id" = $1;`
+
+  pool.query(sqlQuery, [clientId])
+  .then((response) => {
+    console.log('client overview', response.rows);
+    res.send(response.rows);
+  })
+  .catch((error) => {
+    console.error('Error in GET /client/all: ', error);
+    res.sendStatus(500);
+  })
 });
 
 /** ---------- POST NEW CLIENT ---------- **/

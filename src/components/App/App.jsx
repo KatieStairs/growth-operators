@@ -5,7 +5,6 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-
 import { useDispatch, useSelector } from 'react-redux';
 
 import Nav from '../Nav/Nav';
@@ -21,7 +20,6 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import AllClients from '../AllClients/AllClients';
 import AssessmentForm from '../Assessment/AssessmentForm/AssessmentForm';
 import AssessmentEdit from '../Assessment/AssessmentEdit/AssessmentEdit';
-import AssessmentAnswers from '../Assessment/AssessmentAnswers/AssessmentAnswers';
 import AssessmentReview from '../Assessment/AssessmentForm/AssessmentReview/AssessmentReview';
 import AssessmentEndInputs from '../Assessment/AssessmentForm/AssessmentSlideInputs';
 
@@ -35,7 +33,6 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
-    // dispatch({ type: 'SAGA/GET_ALL_CLIENTS' });
   }, [dispatch]);
 
   return (
@@ -55,13 +52,9 @@ function App() {
             <AllClients />
           </ProtectedRoute>
 
-          {/* <ProtectedRoute exact path="/assessment-answers/:id">
-            <AssessmentAnswers />
-          </ProtectedRoute> */}
-
-          {/* // Two components here - one for review & edit all, one for review & edit by bucket (what's shown following the assessment form)
-          // R&E All -- conditional rendering based only on assessment id, found by navigating from dashboard 'edit' button
-          // R&E Bucket -- conditional rendering based on assessment_id, bucket_id, found at the end of bucket in assessment form */}
+          {/* // Two components here - one for edit all, one for review by bucket (what's shown following the assessment form)
+          // Edit -- conditional rendering based only on assessment id, found by navigating from dashboard 'edit' button
+          // Review -- conditional rendering based on assessment_id, bucket_id, found at the end of bucket in assessment form */}
           <ProtectedRoute exact path="/assessment-edit/:assessment_id">
             <AssessmentEdit />
           </ProtectedRoute>
@@ -82,8 +75,8 @@ function App() {
             <ClientOverview />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path="/client-report">
-            {/* <ClientReport /> */}
+          <ProtectedRoute exact path="/client-report/:assessment_id">
+            <ClientReport />
           </ProtectedRoute>
 
           <ProtectedRoute exact path="/dashboard" >

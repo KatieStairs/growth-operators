@@ -5,7 +5,8 @@ import { Link} from 'react-router-dom';
 import AllClientsRow from './AllClientsRow';
 import AllClientsEditModal from './AllClientsEditModal';
 import AllClientsDeleteModal from './AllClientsDeleteModal';
-import AllClientsDetailsModal from './AllClientsDetailsModal';
+import AllClientsDetailsModal from './AllClientsEditStatusModal';
+import AllClientsEditStatusModal from './AllClientsEditStatusModal';
 
 function AllClients() {
   document.title = 'All Clients & Assessments';
@@ -43,9 +44,8 @@ function AllClients() {
             <th scope="col">Engagement Start</th>
             <th scope="col">Status</th>
             <th scope="col">Operators</th>
-            <th scope="col">See Contact Details</th>
+            <th scope="col">Company Contact</th>
             <th scope="col">Edit Contact Details</th>
-            <th scope="col">Archive</th>
             <th scope="col">Delete</th>
           </tr>
         </thead>
@@ -66,6 +66,9 @@ function AllClients() {
       })}
       {clients.map((client) => {
         return <AllClientsDetailsModal key={client.assessment_id} client={client}/>
+      })}
+      {clients.map((client) => {
+        return <AllClientsEditStatusModal key={client.assessment_id} client={client}/>
       })}
     </div>
     <div className="container">

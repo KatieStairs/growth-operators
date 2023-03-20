@@ -8,17 +8,14 @@ function* getOperatorDashboard() {
             method: 'GET',
             url: '/api/client/dashboard'
         })
-        // console.log('get client dashboard info,', client_dashboard)
         yield put({
             type: 'SET_OPERATOR_DASHBOARD',
             payload: operator_dashboard.data
         }) 
-        // console.log('client dashboard SAGA', operator_dashboard.data)
     } catch (error) {
-        console.log('SAGA / GET operator dashboard fail', error);
+        console.log('Error in operator.saga -> getOperatorDashboard: ', error);
     }
 }
-
 
 
 function* operatorSaga() {
