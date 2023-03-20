@@ -7,7 +7,6 @@ const router = express.Router();
 /** ---------- GET DASHBOARD INFO BY USER ID ---------- **/
 router.get('/dashboard', rejectUnauthenticated, (req, res) => {
     const userId = req.user.id;
-    // console.log('in GET by client_id', userId)
     const sqlText = `
     SELECT 
     	"client_assessments"."id" AS "assessment_id",
@@ -20,7 +19,8 @@ router.get('/dashboard', rejectUnauthenticated, (req, res) => {
     JOIN "user_client" ON "client"."id" = "user_client"."client_id"
     JOIN "user" ON "user"."id" = "user_client"."user_id"
     JOIN "client_assessments" ON "client_assessments"."client_id" = "client"."id"
-    WHERE "user"."id"= $1;
+    WHERE "user"."id"= $1
+    ORDER BY "company_name" ASC;
     `
     const sqlValues = [userId];
     pool.query(sqlText, sqlValues)
