@@ -171,12 +171,12 @@ function ClientOverview() {
                         <h2>To-Dos</h2>
                           {clientOverview.map((tag) => (
                             <>
-                            <ul>
+                            <ul class="list-group">
                               {tag.tag_name === '🏆 Quick Win'  &&
-                                <li>{tag.tag_name} - {tag.subfunction_name}</li>
+                                <li class="list-group-item">{tag.tag_name} - {tag.subfunction_name}</li>
                               }
                               {tag.tag_name === '🔥 Fire Drill'  &&
-                                <li>{tag.tag_name} - {tag.subfunction_name}</li>
+                                <li class="list-group-item">{tag.tag_name} - {tag.subfunction_name}</li>
                               }
                             </ul>
                             </>
@@ -194,17 +194,17 @@ function ClientOverview() {
                           </div>
                           <div class="col">
                             <h3>Strengths</h3>
-                            <ul>
+                            <ul class="list-group">
                               {bucket.tag_name === '💪 Strength - Add to Slide' &&
-                                <li>{bucket.subfunction_name}</li>
+                                <li class="list-group-item">{bucket.subfunction_name}</li>
                               }
                             </ul>          
                           </div>
                           <div class="col">
                             <h3>Opportunities</h3>
-                            <ul>
+                            <ul class="list-group">
                             {bucket.tag_name === '✍️ Opportunity - Add to Slide' &&
-                              <li>{bucket.subfunction_name}</li>
+                              <li class="list-group-item">{bucket.subfunction_name}</li>
                             }
                             </ul>
                           </div>
@@ -220,17 +220,17 @@ function ClientOverview() {
                           </div>
                           <div class="col">
                             <h3>Strengths</h3>
-                            <ul>
+                            <ul class="list-group">
                               {orgEffStrengths.map((strength) => (
-                                <li>{strength}</li>
+                                <li class="list-group-item">{strength}</li>
                               ))}
                             </ul>          
                           </div>
                           <div class="col">
                             <h3>Opportunities</h3>
-                            <ul>
+                            <ul class="list-group">
                             {orgEffOpps.map((opp) => (
-                                <li>{opp}</li>
+                                <li class="list-group-item">{opp}</li>
                               ))}
                             </ul>
                           </div>
@@ -245,17 +245,17 @@ function ClientOverview() {
                           </div>
                           <div class="col">
                             <h3>Strengths</h3>
-                            <ul>
+                            <ul class="list-group">
                               {empEngStrengths.map((strength) => (
-                                <li>{strength}</li>
+                                <li class="list-group-item">{strength}</li>
                               ))}
                             </ul>          
                           </div>
                           <div class="col">
                             <h3>Opportunities</h3>
-                            <ul>
+                            <ul class="list-group">
                             {empEngOpps.map((opp) => (
-                                <li>{opp}</li>
+                                <li class="list-group-item">{opp}</li>
                               ))}
                             </ul>
                           </div>
@@ -270,17 +270,17 @@ function ClientOverview() {
                           </div>
                           <div class="col">
                             <h3>Strengths</h3>
-                            <ul>
+                            <ul class="list-group">
                               {trainingStrengths.map((strength) => (
-                                <li>{strength}</li>
+                                <li class="list-group-item">{strength}</li>
                               ))}
                             </ul>          
                           </div>
                           <div class="col">
                             <h3>Opportunities</h3>
-                            <ul>
+                            <ul class="list-group">
                             {trainingOpps.map((opp) => (
-                                <li>{opp}</li>
+                                <li class="list-group-item">{opp}</li>
                               ))}
                             </ul>
                           </div>
@@ -295,17 +295,17 @@ function ClientOverview() {
                           </div>
                           <div class="col">
                             <h3>Strengths</h3>
-                            <ul>
+                            <ul class="list-group">
                               {benefitsStrengths.map((strength) => (
-                                <li>{strength}</li>
+                                <li class="list-group-item">{strength}</li>
                               ))}
                             </ul>          
                           </div>
                           <div class="col">
                             <h3>Opportunities</h3>
-                            <ul>
+                            <ul class="list-group">
                             {benefitsOpps.map((opp) => (
-                                <li>{opp}</li>
+                                <li class="list-group-item">{opp}</li>
                               ))}
                             </ul>
                           </div>
@@ -320,17 +320,17 @@ function ClientOverview() {
                           </div>
                           <div class="col">
                             <h3>Strengths</h3>
-                            <ul>
+                            <ul class="list-group">
                               {recruitingStrengths.map((strength) => (
-                                <li>{strength}</li>
+                                <li class="list-group-item">{strength}</li>
                               ))}
                             </ul>          
                           </div>
                           <div class="col">
                             <h3>Opportunities</h3>
-                            <ul>
+                            <ul class="list-group">
                             {recruitingOpps.map((opp) => (
-                                <li>{opp}</li>
+                                <li class="list-group-item">{opp}</li>
                               ))}
                             </ul>
                           </div>
@@ -345,17 +345,17 @@ function ClientOverview() {
                           </div>
                           <div class="col">
                             <h3>Strengths</h3>
-                            <ul>
+                            <ul class="list-group">
                               {hrisStrengths.map((strength) => (
-                                <li>{strength}</li>
+                                <li class="list-group-item">{strength}</li>
                               ))}
                             </ul>          
                           </div>
                           <div class="col">
                             <h3>Opportunities</h3>
-                            <ul>
+                            <ul class="list-group">
                             {hrisOpps.map((opp) => (
-                                <li>{opp}</li>
+                                <li class="list-group-item">{opp}</li>
                               ))}
                             </ul>
                           </div>
