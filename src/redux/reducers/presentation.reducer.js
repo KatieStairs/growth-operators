@@ -28,12 +28,12 @@ const summaryRatings = (state = [], action) => {
 };
 
 const bucketData = (state = {
-  bucket1: {},
-  bucket2: {},
-  bucket3: {},
-  bucket4: {},
-  bucket5: {},
-  bucket6: {}
+  bucket1: [],
+  bucket2: [],
+  bucket3: [],
+  bucket4: [],
+  bucket5: [],
+  bucket6: []
 }, action) => {
   switch (action.type) {
   case 'SET_PRESENTATION_BUCKET_1_DATA':
@@ -54,12 +54,12 @@ const bucketData = (state = {
 };
 
 const bucketTags = (state = {
-  bucket1: {},
-  bucket2: {},
-  bucket3: {},
-  bucket4: {},
-  bucket5: {},
-  bucket6: {}
+  bucket1: [],
+  bucket2: [],
+  bucket3: [],
+  bucket4: [],
+  bucket5: [],
+  bucket6: []
 }, action) => {
   switch (action.type) {
   case 'SET_PRESENTATION_BUCKET_1_TAGS':

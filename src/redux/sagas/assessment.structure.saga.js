@@ -9,7 +9,7 @@ function* fetchTags () {
       payload: response.data 
     })
   } catch (error) {
-    console.error('Error in fetchTags ', error)
+    console.log('Error in fetchTags: ', error)
   }
 }
 
@@ -21,7 +21,7 @@ function* fetchBuckets () {
       payload: response.data 
     })
   } catch (error) {
-    console.error('Error in fetchBuckets ', error)
+    console.log('Error in fetchBuckets: ', error)
   }
 }
 
@@ -33,12 +33,11 @@ function* fetchFunctionsByBucket (action) {
       payload: response.data 
     })
   } catch (error) {
-    console.error('Error in fetchFunctionsByBucket ', error)
+    console.log('Error in fetchFunctionsByBucket: ', error)
   }
 }
 
 function* fetchSubfunctionsByFunction (action) {
-  console.log('In fetchSubfunctionsByFunction');
   try {
     const response = yield axios.get(`/structure/functions/${action.payload}/subfunctions`)
     yield put({
@@ -46,7 +45,7 @@ function* fetchSubfunctionsByFunction (action) {
       payload: response.data 
     })
   } catch (error) {
-    console.error('Error in fetchSubfunctionsByFunction ', error)
+    console.log('Error in fetchSubfunctionsByFunction: ', error)
   }
 }
 

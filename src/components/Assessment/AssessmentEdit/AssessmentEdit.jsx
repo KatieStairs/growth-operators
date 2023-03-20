@@ -8,6 +8,7 @@ import Nav from '../../Nav/Nav'
 import AssessmentEditRow from './AssessmentEditRow';
 import AssessmentEditExpandModal from './AssessmentEditExpandModal';
 import AssessmentEditModal from './AssessmentEditModal';
+import AssessmentEditStatusModal from './AssessmentEditStatusModal'
 
 function AssessmentEdit() {
   document.title = 'All Answers - Assessment Form';
@@ -15,18 +16,23 @@ function AssessmentEdit() {
   const dispatch = useDispatch();
   const assessmentItems = useSelector((store) => store.assessmentItems);
   const answers = assessmentItems.assessmentAnswersById;
+  const firstAnswer = answers[0];
   // const [headlineInput, setHeadlineInput] = useState(answers.headline_text)
 
   useEffect(() => {
     dispatch({type: 'SAGA/GET_ASSESSMENT_ANSWERS_BY_ID', payload: params.assessment_id})
     dispatch({type: 'SAGA/FETCH_ALL_TAGS', payload: params.assessemnt_id})
+
   }, [])
 
   useEffect(() => {
     if (answers) {
       console.log('Answers: ', answers)
+      console.log('Params: ', params)
     }
   }, [answers]);
+
+
 
   // const addNewHeadline = (event) => {
   //   const newHeadline = {
@@ -49,14 +55,20 @@ function AssessmentEdit() {
           {/* <Nav /> */}
 
             {/* <button data-bs-toggle="collapse" data-bs-target="#sidebar">Toggle Menu</button> */}
-              <div className="container g-3 mt-3">
-                <h1> [Placeholder Company] // Assessment Form</h1>
+              <div className="container g-3 my-3">
+                <h1> {answers[0]?.company_name} // Assessment Form</h1>
                 <h2>Review All Answers </h2>
+                <hr></hr>
               </div>
-              {/* <h1>{answers[0].company_name} // Assessment Form</h1> */}
+              <div className="container g-3 mb-3">
+                  <strong>Current Status: </strong>
+                  {answers[0]?.status} →
+                  <AssessmentEditStatusModal firstAnswer={firstAnswer}/>
+                <hr></hr>
+              </div>
               <div className="col py-3 px-4">
-              <div className="mb-5 mt-5 g-3">
-              <div className="container shadow min-vh-auto py-2 mt-3">
+              <div className="mb-3 g-3">
+              <div className="container shadow min-vh-auto py-2">
                 <div className="table-responsive">
                   <table className="table table-striped table-hover">
                     <thead>
