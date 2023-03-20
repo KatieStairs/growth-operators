@@ -2,8 +2,9 @@
 @import 'reveal.js/dist/theme/simple.css';
 
 .bucket-chart {
-  display: inline;
-  width: 35vw;
+  position: absolute;
+  display: flex;
+  width: 40vw;
   justify-content: left;
 }
 
@@ -16,7 +17,6 @@
 } */
 
 .bucket-tables {
-  display: inline;
-  width: 60vw;
-  justify-content: right;
+  display: flex;
+  font-size: small;
 }

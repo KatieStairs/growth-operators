@@ -36,6 +36,7 @@ function OrganizationalEffectiveness () {
   };
 
   const options = {
+    maintainAspectRatio: false,
     scales: {
       r: {
         angleLines: {
@@ -58,7 +59,13 @@ function OrganizationalEffectiveness () {
         <h3>Organizational Effectiveness</h3>
         {bucketData.headline_text}
         <div className="container">
-        <div className="bucket-tables">
+        <div className="row">
+        <div className="col-4">
+          {<Radar data={data} options={options}/>}
+        </div>
+        </div>
+        <div className="row">
+        <div className="col">
           <h4>Quick Fixes</h4>
           <table className="table table-hover table-striped">
             <thead>
@@ -86,7 +93,9 @@ function OrganizationalEffectiveness () {
               })}
             </tbody>
           </table>
-
+          </div>
+          <div className="row">
+          <div className="col">
           <h4>Fire Drills</h4>
           <table className="table table-hover table-striped">
             <thead>
@@ -114,9 +123,8 @@ function OrganizationalEffectiveness () {
               })}
             </tbody>
           </table>
-        </div>
-        <div className="bucket-chart">
-          {<Radar data={data} options={options}/>}
+          </div>
+          </div>
         </div>
         </div>
       </section>
