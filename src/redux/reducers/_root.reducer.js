@@ -5,6 +5,7 @@ import client from './client.reducer'
 import assessmentItems from './assessment.item.reducer';
 import structure from './assessment.structure.reducer';
 import operatorDashboard from './operator.reducer';
+import clientOverview from './client.reducer'
 import presentation from './presentation.reducer';
 
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   structure, // contains buckets, functions by bucket, subfunctions by function (as objects)
   client, // contains all clients
   operatorDashboard, // contains operator dashboard 
+  clientOverview, // contains client overview data
   presentation
 });
 

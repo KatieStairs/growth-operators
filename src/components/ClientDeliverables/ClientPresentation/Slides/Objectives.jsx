@@ -5,10 +5,12 @@ function Objectives () {
   return (
     <section>
       <h2>Objectives of this Assessment:</h2>
-      <p>1. Assess your current HR practices compared to HR industry best practices</p>
-      <p>2. Develop and share actionable recommendations</p>
-      <p>3. Prioritize potential work to address top areas of concern</p>
-      <p>4. Provide insights into potential HR capabilities for the future</p>
+      <ol>
+      <li>Assess your current HR practices compared to HR industry best practices</li>
+      <li>Develop and share actionable recommendations</li>
+      <li>Prioritize potential work to address top areas of concern</li>
+      <li>Provide insights into potential HR capabilities for the future</li>
+      </ol>
     </section>
   )
 };
