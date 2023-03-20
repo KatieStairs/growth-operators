@@ -7,13 +7,14 @@ function RegisterPage() {
   const history = useHistory();
 
   return (
-    <div>
+    <div className="text-center border border-2 rounded w-50 m-auto mt-5 bg-light">
       <RegisterForm />
 
       <center>
         <button
           type="button"
-          className="btn btn_asLink"
+          className="btn border border-2 rounded mb-2"
+          // className="btn btn_asLink"
           onClick={() => {
             history.push('/login');
           }}

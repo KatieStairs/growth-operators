@@ -5,6 +5,7 @@ import { useParams, useRouteMatch, Route, Switch, Link, BrowserRouter, useLocati
 import AssessmentPage from "./AssessmentPage";
 
 function AssessmentForm () {
+  document.title = 'Assessment Form';
   const dispatch = useDispatch();
   const params = useParams();
   const structure = useSelector((store => store.structure))

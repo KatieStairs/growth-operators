@@ -26,6 +26,18 @@ function* updateClientInfo(action) {
   }
 };
 
+function* updateClientStatus(action) {
+  console.log('Action.payload in Saga: ', action.payload)
+  try {
+    yield axios.put(`/api/client/${action.payload}/archive`, action.payload)
+    yield put({
+      type: 'GET_ALL_CLIENTS'
+    })
+  } catch (error) {
+    console.error('updateClientStatus PUT request failed', error);
+  }
+};
+
 function* deleteClient(action) {
   try {
     yield axios.delete(`/api/client/${action.payload}`)
@@ -40,7 +52,7 @@ function* deleteClient(action) {
 function* postClient(action) {
   try {
     const newCompany = action.payload
-    console.log(action.payload);
+    // console.log(action.payload);
     const clientResponse = yield axios({
       method: 'POST',
       url: '/api/client',
@@ -89,6 +101,11 @@ export default function* clientSaga() {
   yield takeLatest('SAGA/DELETE_CLIENT_BY_ID', deleteClient);
   yield takeLatest('SAGA/POST_CLIENT', postClient);
   yield takeLatest('SAGA/GET_CLIENT_OVERVIEW', getClientOverview);
+  yield takeLatest('SAGA/POST_CLIENT', postClient);
+  yield takeLatest('SAGA/GET_CLIENT_OVERVIEW', getClientOverview);
+  yield takeLatest('SAGA/DELETE_CLIENT_BY_ID', deleteClient);
+  yield takeLatest('SAGA/PUT_CLIENT_INFO_BY_ID', updateClientInfo);
+  yield takeLatest('SAGA/PUT_CLIENT_STATUS_BY_ID', updateClientStatus);
 };
 
 
