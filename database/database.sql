@@ -58,8 +58,8 @@ INSERT INTO "client_assessments"
 ("client_id", "engagement_date", "status", "next_steps", "future_state")
 VALUES 
 (1, '03-07-2023', 'Edit in Progress', 'Careful steppin`!', 'Onwards and upwards!'),
-(2, '03-07-2023', 'Edit in Progress', null, null),
-(3, '03-07-2023', 'Edit in Progress', null, null),
+(2, '03-07-2023', 'Active', null, null),
+(3, '03-07-2023', 'Archived', null, null),
 (4, '03-07-2023', 'Edit in Progress', null, null),
 (5, '03-07-2023', 'Edit in Progress', null, null);
 
@@ -206,13 +206,24 @@ ALTER TABLE "subfunctions"
 ADD "level_criteria_weak" VARCHAR;
 
 UPDATE "subfunctions"
-SET "level_criteria_strong" = SPLIT_PART("level_rating_criteria", 'Adequate', 1);
+SET "level_criteria_strong" = 
+	SPLIT_PART("level_rating_criteria", 'Adequate', 1);
 
 UPDATE "subfunctions"
-SET "level_criteria_adequate" = CONCAT('Adequate', SPLIT_PART("level_rating_criteria", 'Adequate', 2));
+SET "level_criteria_adequate" = 
+	CONCAT('Adequate', 
+		SPLIT_PART("level_rating_criteria", 'Adequate', 2)
+	);
 
 UPDATE "subfunctions"
-SET "level_criteria_weak" = CONCAT('Weak', SPLIT_PART("level_rating_criteria", 'Weak', 2));
+SET "level_criteria_adequate" = 
+	SPLIT_PART("level_criteria_adequate", 'Weakness', 1);
+
+UPDATE "subfunctions"
+SET "level_criteria_weak" = 
+	CONCAT('Weak', 
+		SPLIT_PART("level_rating_criteria", 'Weak', 2)
+	);
 
 CREATE TABLE "buckets_headlines" (
 	"id" SERIAL PRIMARY KEY,

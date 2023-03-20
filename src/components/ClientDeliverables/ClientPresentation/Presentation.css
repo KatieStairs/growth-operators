@@ -1,7 +1,27 @@
 @import 'reveal.js/dist/reveal.css';
 @import 'reveal.js/dist/theme/simple.css';
 
-.assessments-table {
-  max-width: 80vw;
-  margin: auto;
+.bucket-chart {
+  display: inline;
+  width: 35vw;
+  justify-content: left;
+}
+
+/* .bucket-fire-drills {
+
+}
+
+.bucket-quick-fixes {
+
+} */
+
+.bucket-tables {
+  display: inline;
+  width: 60vw;
+  justify-content: right;
+}
+
+.chart-size {
+  height: 128px;
+  width: 128px;
 }

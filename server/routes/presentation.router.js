@@ -96,6 +96,7 @@ router.get('/bucket-1/data/:id', (req, res) => {
     ON "assessment_items"."bucket_id" = "buckets_headlines"."bucket_id"
   WHERE "assessment_items"."assessment_id" = $1
     AND "assessment_items"."bucket_id" = 1
+    AND "buckets_headlines"."assessment_id" = $1
   GROUP BY "buckets_headlines"."headline_text";
   `;
   pool.query(queryText, [req.params.id])
@@ -141,6 +142,7 @@ router.get('/bucket-2/data/:id', (req, res) => {
     ON "assessment_items"."bucket_id" = "buckets_headlines"."bucket_id"
   WHERE "assessment_items"."assessment_id" = $1
     AND "assessment_items"."bucket_id" = 2
+    AND "buckets_headlines"."assessment_id" = $1
   GROUP BY "buckets_headlines"."headline_text";
   `;
   pool.query(queryText, [req.params.id])
@@ -177,6 +179,7 @@ router.get('/bucket-3/data/:id', (req, res) => {
     ON "assessment_items"."bucket_id" = "buckets_headlines"."bucket_id"
   WHERE "assessment_items"."assessment_id" = $1
     AND "assessment_items"."bucket_id" = 3
+    AND "buckets_headlines"."assessment_id" = $1
   GROUP BY "buckets_headlines"."headline_text";
   `;
   pool.query(queryText, [req.params.id])
@@ -216,6 +219,7 @@ router.get('/bucket-4/data/:id', (req, res) => {
     ON "assessment_items"."bucket_id" = "buckets_headlines"."bucket_id"
   WHERE "assessment_items"."assessment_id" = $1
     AND "assessment_items"."bucket_id" = 4
+    AND "buckets_headlines"."assessment_id" = $1
   GROUP BY "buckets_headlines"."headline_text";
   `;
   pool.query(queryText, [req.params.id])
@@ -246,6 +250,7 @@ router.get('/bucket-5/data/:id', (req, res) => {
     ON "assessment_items"."bucket_id" = "buckets_headlines"."bucket_id"
   WHERE "assessment_items"."assessment_id" = $1
     AND "assessment_items"."bucket_id" = 5
+    AND "buckets_headlines"."assessment_id" = $1
   GROUP BY "buckets_headlines"."headline_text";
   `;
   pool.query(queryText, [req.params.id])
@@ -297,6 +302,7 @@ router.get('/bucket-6/data/:id', (req, res) => {
     ON "assessment_items"."bucket_id" = "buckets_headlines"."bucket_id"
   WHERE "assessment_items"."assessment_id" = $1
     AND "assessment_items"."bucket_id" = 6
+    AND "buckets_headlines"."assessment_id" = $1
   GROUP BY "buckets_headlines"."headline_text";
   `;
   pool.query(queryText, [req.params.id])

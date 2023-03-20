@@ -42,6 +42,7 @@ function EmployeeEngagement () {
   };
 
   const options = {
+    maintainAspectRatio: false,
     scales: {
       r: {
         angleLines: {
@@ -59,7 +60,7 @@ function EmployeeEngagement () {
       <h3>Employee Engagement</h3>
       {bucketData.headline_text}
 
-      {/* <h4>Quick Fixes</h4>
+      <h4>Quick Fixes</h4>
         <table className="table table-hover table-striped">
           <thead>
             <tr>
@@ -71,7 +72,7 @@ function EmployeeEngagement () {
             </tr>
           </thead>
           <tbody>
-            {[bucketTags].map((tag) => {
+            {bucketTags.map((tag) => {
               if (tag.tag_id == 1) {
                 return (
                   <tr key={tag.subfunction_id}>
@@ -99,7 +100,7 @@ function EmployeeEngagement () {
             </tr>
           </thead>
           <tbody>
-            {[bucketTags].map((tag) => {
+            {bucketTags.map((tag) => {
               if (tag.tag_id == 2) {
                 return (
                   <tr key={tag.subfunction_id}>
@@ -113,9 +114,10 @@ function EmployeeEngagement () {
               }
             })}
           </tbody>
-        </table> */}
-
-      {<Radar data={data} options={options}/>}
+        </table>
+        <div style={{ position: "relative", marginTop: 25, width: "30vw"}}>
+          {<Radar data={data} options={options}  marginLeft={256} width={10} height={10}/>}
+        </div>
     </section>
   )
 };
