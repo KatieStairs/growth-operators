@@ -100,3 +100,8 @@ font-size: 25px;
   color: #001e61;
   font-size: 35px;
 }
+
+.chart-size {
+  height: 128px;
+  width: 128px;
+}
