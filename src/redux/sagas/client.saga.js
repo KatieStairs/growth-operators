@@ -19,7 +19,7 @@ function* updateClientInfo(action) {
   try {
     yield axios.put(`/api/client/${client.id}`, client)
     yield put({
-      type: 'GET_ALL_CLIENTS'
+      type: 'SAGA/GET_ALL_CLIENTS'
     })
   } catch (error) {
     console.error('updateClientInfo PUT request failed', error);
@@ -31,18 +31,19 @@ function* updateClientStatus(action) {
   try {
     yield axios.put(`/api/client/${action.payload}/archive`, action.payload)
     yield put({
-      type: 'GET_ALL_CLIENTS'
+      type: 'SAGA/GET_ALL_CLIENTS'
     })
   } catch (error) {
     console.error('updateClientStatus PUT request failed', error);
   }
 };
 
+
 function* deleteClient(action) {
   try {
     yield axios.delete(`/api/client/${action.payload}`)
     yield put({
-      type: 'GET_ALL_CLIENTS'
+      type: 'SAGA/GET_ALL_CLIENTS'
     })
   } catch (error) {
     console.error('deleteClient DELETE request failed', error);
@@ -97,15 +98,10 @@ function* getClientOverview(action) {
 
 export default function* clientSaga() {
   yield takeLatest('SAGA/GET_ALL_CLIENTS', getAllClients);
-  yield takeLatest('SAGA/PUT_CLIENT_INFO_BY_ID', updateClientInfo);
-  yield takeLatest('SAGA/DELETE_CLIENT_BY_ID', deleteClient);
-  yield takeLatest('SAGA/POST_CLIENT', postClient);
   yield takeLatest('SAGA/GET_CLIENT_OVERVIEW', getClientOverview);
   yield takeLatest('SAGA/POST_CLIENT', postClient);
-  yield takeLatest('SAGA/GET_CLIENT_OVERVIEW', getClientOverview);
-  yield takeLatest('SAGA/DELETE_CLIENT_BY_ID', deleteClient);
-  yield takeLatest('SAGA/PUT_CLIENT_INFO_BY_ID', updateClientInfo);
   yield takeLatest('SAGA/PUT_CLIENT_STATUS_BY_ID', updateClientStatus);
+  yield takeLatest('SAGA/PUT_CLIENT_INFO_BY_ID', updateClientInfo);
+  yield takeLatest('SAGA/DELETE_CLIENT_BY_ID', deleteClient);
+  yield takeLatest('SAGA/POST_CLIENT', postClient);
 };
-
-

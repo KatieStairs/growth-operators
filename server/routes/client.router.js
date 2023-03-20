@@ -102,13 +102,10 @@ router.get('/overview', (req, res) => {
 });
 
 /** ---------- POST NEW CLIENT ---------- **/
-// added rejectUnauthenticated, -adam
 // POST to create new client AND new client assessment AND user_client!
 router.post('/', rejectUnauthenticated, (req, res) => {
   const userId = req.user.id;
   const newCompany = req.body;
-  // console.log('in client router, newCompany:', newCompany);
-  // console.log('in client router, userID:', userId);
   const queryText = `
   INSERT INTO "client" 
   ("company_name", "contact_name", "contact_email")
@@ -172,26 +169,7 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
   });
 });
 
-/** ---------- PUT CLIENT STATUS (ARCHIVE) ---------- **/
-router.put('/:id/archive', rejectUnauthenticated, (req, res) => {
-  const sqlQuery = `
-  UPDATE "client_assessments"
-    SET "status" = $1
-    WHERE "client_id" = $2;`;
-  const sqlValues = ['Archived', req.params.id];
-  pool.query(sqlQuery, sqlValues)
-  .then((response) => {
-    res.sendStatus(201);
-  })
-  .catch((error) => {
-    console.error('Error in PUT /client/:id:', error);
-  });
-});
-
-
-
 /** ---------- DELETE CLIENT ---------- **/
-// added rejectUnauthenticated, -adam
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
   console.log('Req.body: ', req.body)
   console.log('Req.params: ', req.params)
@@ -199,7 +177,7 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
   DELETE FROM "client"
     WHERE "id" = $1
   `;
-  pool.query(sqlQuery, [req.body.id])
+  pool.query(sqlQuery, [req.params.id])
   .then((response) => {
     res.sendStatus(205);
   })
