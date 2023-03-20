@@ -16,35 +16,29 @@ function AllClientsRow({ client }) {
     <tr key={client.id}>
       <th scope="row">{client.company_name}</th>
       <td>{client.engagement_date.substring(0, 10)}</td>
-      <td>{client.status}</td>
-      <td>{client.operators}</td>
       <td>
-        <button
+      <button
         type="button"
-        className="btn btn-primary"
+        className="btn btn-link"
         data-bs-toggle="modal"
-        data-bs-target={`#detailsModal${client.id}`}
-        >See Contact Details</button>
+        data-bs-target={`#editStatusModal${client.id}`}
+        >{client.status}</button>
+        </td>
+      <td>{client.operators}</td>
+      <td>{client.contact_name}
       </td>
       <td>
         <button
         type="button"
-        className="btn btn-primary"
+        className="btn btn-outline-primary"
         data-bs-toggle="modal"
         data-bs-target={`#editModal${client.id}`}
         >Edit Contact Details</button>
       </td>
       <td>
-        {client.status !== 'Archived'
-        ? <button type="button" className="btn btn-primary" onClick={handleArchive}>Archive</button>
-        // onClick={() => history.push(`/client-overview/${client.id}`)}
-        : <button type="button" className="btn btn-primary" disabled >Archive</button>
-        }
-      </td>
-      <td>
         <button
         type="button"
-        className="btn btn-primary"
+        className="btn btn-outline-primary"
         data-bs-toggle="modal"
         data-bs-target={`#delete${client.id}ConfirmModal`}
         >Delete</button>

@@ -1,14 +1,5 @@
 import { combineReducers } from 'redux';
 
-const assessmentList = (state = [], action) => {
-  switch (action.type) {
-  case 'SET_ASSESSMENT_LIST':
-    return action.payload;
-  default:
-    return state;
-  };
-};
-
 const strengthTags = (state = [], action) => {
   switch (action.type) {
   case 'SET_PRESENTATION_STRENGTH_DATA':
@@ -98,7 +89,6 @@ const operatorInputs = (state = [], action) => {
 };
 
 export default combineReducers({
-  assessmentList,
   strengthTags,
   opportunityTags,
   summaryRatings,

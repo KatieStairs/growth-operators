@@ -5,6 +5,7 @@ import client from './client.reducer'
 import assessmentItems from './assessment.item.reducer';
 import structure from './assessment.structure.reducer';
 import operatorDashboard from './operator.reducer';
+import clientOverview from './client.reducer'
 import presentation from './presentation.reducer';
 
 const rootReducer = combineReducers({
@@ -12,8 +13,9 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   assessmentItems, // contains assessments by assessment_id, bucket headlines by assessment_id
   structure, // contains buckets, functions by bucket, subfunctions by function (as objects)
-  client, //
+  client, // contains all clients
   operatorDashboard, // contains operator dashboard 
+  clientOverview, // contains client overview data
   presentation
 });
 

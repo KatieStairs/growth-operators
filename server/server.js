@@ -27,17 +27,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /* Routes */
-
 app.use('/api/user', userRouter);
 app.use('/api/client', clientRouter);
 app.use('/structure', assessmentStructureRouter);
 app.use('/assessment', assessmentItemRouter);
-app.use('/assessment-item', assessmentItemRouter);
 app.use('/client-assessment', clientAssessmentRouter);
 app.use('/presentation', presentationRouter)
-// app.use('/assessment-edit', assessmentItemRouter);
-
-
 
 // Serve static files
 app.use(express.static('build'));

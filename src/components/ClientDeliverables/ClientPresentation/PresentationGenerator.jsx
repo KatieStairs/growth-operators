@@ -1,5 +1,6 @@
 import { React, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from "react-router-dom";
 import Reveal from 'reveal.js/dist/reveal.esm.js';
 
 import './Presentation.css';
@@ -10,19 +11,30 @@ import Objectives from './Slides/Objectives';
 import BucketDefinitions from './Slides/BucketDefinitions';
 import HighlightsOfFindings from './Slides/HighlightsOfFindings';
 import ExecutiveSummary from "./Slides/ExecutiveSummary";
-import FindingsByBucket from "./Slides/FindingsByBucket";
+import OrganizationalEffectiveness from "./Slides/BucketSlides/OrganizationalEffectiveness";
+import EmployeeEngagement from "./Slides/BucketSlides/EmployeeEngagement";
+import TrainingDevelopment from "./Slides/BucketSlides/TrainingDevelopment";
+import BenefitsCompensation from "./Slides/BucketSlides/BenefitsCompensation";
+import RecruitingStaffing from "./Slides/BucketSlides/RecruitingStaffing";
+import HRISPayrollCompliance from "./Slides/BucketSlides/HRISPayrollCompliance";
 import FocusAreas from "./Slides/FocusAreas";
 import NextSteps from "./Slides/NextSteps";
 import ThankYou from "./Slides/ThankYou";
 
 function PresentationGenerator () {
-  const presentationData = useSelector((store) => store.presentation);
+const dispatch = useDispatch();
+const params = useParams();
 
   useEffect(() => {
+    dispatch({
+      type: 'SAGA/GET_PRESENTATION_DATA',
+      payload: params.assessment_id
+    });
     let deck = new Reveal({
     })
     deck.initialize();
   }, []);
+
 
   return (
     <div className="reveal">
@@ -30,10 +42,15 @@ function PresentationGenerator () {
         <Intro />
         <Agenda />
         <Objectives />
-        <BucketDefinitions/>
+        <BucketDefinitions />
         <ExecutiveSummary />
         <HighlightsOfFindings />
-        <FindingsByBucket />
+        <OrganizationalEffectiveness />
+        <EmployeeEngagement />
+        <TrainingDevelopment />
+        <BenefitsCompensation />
+        <RecruitingStaffing />
+        <HRISPayrollCompliance />
         <FocusAreas />
         <NextSteps />
         <ThankYou />
