@@ -28,12 +28,18 @@ function CreateNewClientModal() {
         });
         clearNewClientForm();
     }
+    const handleFormInputClick = () =>{
+        // console.log('clicked input dummy data for create new client');
+        setCompanyNameInput('Prime Digital Academy');
+        setContactPersonInput('Matthew Black');
+        setEmailInput('Matt@Prime.com');
+    }
     const clearNewClientForm = () => {
         setCompanyNameInput('');
         setContactPersonInput('');
         setEmailInput('');
         setDateInput('');
-      }
+    }
 
     return(
     <div className="mb-3">
@@ -51,7 +57,7 @@ function CreateNewClientModal() {
             <div className="modal-body">
             <div className="mb-3">
                 <label htmlFor="create-client-company-name-input" className="form-label">
-                    <h5>Company Name</h5>
+                    <h5 onClick={() => handleFormInputClick()}>Company Name</h5>
                 </label>
                 <input
                 type='text'
