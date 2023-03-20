@@ -20,3 +20,8 @@
   width: 60vw;
   justify-content: right;
 }
+
+.chart-size {
+  height: 128px;
+  width: 128px;
+}
