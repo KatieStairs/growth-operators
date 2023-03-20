@@ -46,6 +46,7 @@ function HRISPayrollCompliance () {
   };
 
   const options = {
+    maintainAspectRatio: false,
     scales: {
       r: {
         angleLines: {
@@ -75,7 +76,7 @@ function HRISPayrollCompliance () {
             </tr>
           </thead>
           <tbody>
-            {[bucketTags].map((tag) => {
+            {bucketTags.map((tag) => {
               if (tag.tag_id == 1) {
                 return (
                   <tr key={tag.subfunction_id}>
@@ -103,7 +104,7 @@ function HRISPayrollCompliance () {
             </tr>
           </thead>
           <tbody>
-            {[bucketTags].map((tag) => {
+            {bucketTags.map((tag) => {
               if (tag.tag_id == 2) {
                 return (
                   <tr>
@@ -119,7 +120,9 @@ function HRISPayrollCompliance () {
           </tbody>
         </table> */}
 
-      {<Radar data={data} options={options}/>}
+        <div style={{ position: "relative", marginTop: 25, width: "30vw"}}>
+          {<Radar data={data} options={options}  marginLeft={256} width={10} height={10}/>}
+        </div>
     </section>
   )
 };
