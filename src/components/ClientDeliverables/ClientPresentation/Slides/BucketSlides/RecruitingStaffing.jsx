@@ -49,7 +49,7 @@ function RecruitingStaffing () {
       <h3>Recruiting & Staffing</h3>
       {bucketData.headline_text}
 
-      {/* <h4>Quick Fixes</h4>
+      <h4>Quick Fixes</h4>
         <table className="table table-hover table-striped">
           <thead>
             <tr>
@@ -61,7 +61,7 @@ function RecruitingStaffing () {
             </tr>
           </thead>
           <tbody>
-            {[bucketTags].map((tag) => {
+            {bucketTags.map((tag) => {
               if (tag.tag_id == 1) {
                 return (
                   <tr key={tag.subfunction_id}>
@@ -89,7 +89,7 @@ function RecruitingStaffing () {
             </tr>
           </thead>
           <tbody>
-            {[bucketTags].map((tag) => {
+            {bucketTags.map((tag) => {
               if (tag.tag_id == 2) {
                 return (
                   <tr key={tag.subfunction_id}>
@@ -103,7 +103,7 @@ function RecruitingStaffing () {
               }
             })}
           </tbody>
-        </table> */}
+        </table>
 
       {<Radar data={data} options={options}/>}
     </section>

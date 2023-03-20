@@ -31,6 +31,7 @@ const params = useParams();
       payload: params.assessment_id
     });
     let deck = new Reveal({
+      disableLayout: true,
     })
     deck.initialize();
   }, []);

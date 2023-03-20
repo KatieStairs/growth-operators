@@ -55,7 +55,7 @@ function BenefitsCompensation () {
       <h3>Benefits & Compensation</h3>
       {bucketData.headline_text}
 
-      {/* <h4>Quick Fixes</h4>
+      <h4>Quick Fixes</h4>
         <table className="table table-hover table-striped">
           <thead>
             <tr>
@@ -67,7 +67,7 @@ function BenefitsCompensation () {
             </tr>
           </thead>
           <tbody>
-            {[bucketTags].map((tag) => {
+            {bucketTags.map((tag) => {
               if (tag.tag_id == 1) {
                 return (
                   <tr key={tag.subfunction_id}>
@@ -95,7 +95,7 @@ function BenefitsCompensation () {
             </tr>
           </thead>
           <tbody>
-            {[bucketTags].map((tag) => {
+            {bucketTags.map((tag) => {
               if (tag.tag_id == 2) {
                 return (
                   <tr key={tag.subfunction_id}>
@@ -109,7 +109,7 @@ function BenefitsCompensation () {
               }
             })}
           </tbody>
-        </table> */}
+        </table>
 
       {<Radar data={data} options={options}/>}
     </section>
