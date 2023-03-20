@@ -39,19 +39,6 @@ function ClientOverview() {
     })
   }, [dispatch])
 
-
-
-  //Data for Radar Chart
-  let chartLabels = [];
-  let chartLevelRatings = [];
-   if (clientOverview.length > 0) {
-    chartLabels = clientOverview.map(client => client.bucket_name);
-    chartLevelRatings = clientOverview.map(client => client.level_rating);
-   }
-
-   //
-   
-
   // function to get level rating average for each bucket
   function getLevelRatingAverage (search, criteria, value){
     const levelRatingsAverages = [];
@@ -63,10 +50,17 @@ function ClientOverview() {
     });
 
     const sum = levelRatingsAverages.reduce((a, b) => a + b, 0);
-    
-    return sum / levelRatingsAverages.length
+    const average = sum / levelRatingsAverages.length
+
+    if (isNaN(average)) {
+      return '?'
+    } else {
+      return average
+    }
+  
   }
 
+  // Level rating average of each bucket
   const orgEffLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "Organizational Effectiveness" );
   const empEngLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "Employee Engagement" );
   const trainingLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "Training & Development" );
@@ -74,9 +68,7 @@ function ClientOverview() {
   const recruitingLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "Recruiting & Staffing" );
   const hrisLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "HRIS, Payroll & Compliance" );
 
-  console.log("answere here", getLevelRatingAverage("level_rating", "bucket_name", "HRIS, Payroll & Compliance" ))
-  
-  
+  // Chart data nd configuration  
   const chartData = {
     labels: ["Organizational Effectiveness", "Employee Engagement", "Training & Development", "Benefits & Compensation", "Recruiting & Staffing", "HRIS, Payroll & Compliance"],
     datasets: [
@@ -101,6 +93,39 @@ function ClientOverview() {
       }
     }
   };
+
+  function findValueInBucket (search, criteria1, criteria2, value1, value2){
+    const findings = [];
+
+    clientOverview.forEach(function(x) {
+      if (x[criteria1] === value1 & x[criteria2] === value2) {
+        findings.push(x[search]);
+      }
+    });
+
+    return findings
+  }
+
+  const orgEffStrengths = findValueInBucket("subfunction_name", "bucket_name", "tag_name", "Organizational Effectiveness", "💪 Strength - Add to Slide");
+  const orgEffOpps = findValueInBucket("subfunction_name", "bucket_name", "tag_name", "Organizational Effectiveness", "✍️ Opportunity - Add to Slide");
+
+  const empEngStrengths = findValueInBucket("subfunction_name", "bucket_name", "tag_name", "Employee Engagement", "💪 Strength - Add to Slide");
+  const empEngOpps = findValueInBucket("subfunction_name", "bucket_name", "tag_name", "Employee Engagement", "✍️ Opportunity - Add to Slide");
+  
+  const trainingStrengths = findValueInBucket("subfunction_name", "bucket_name", "tag_name", "Training & Development", "💪 Strength - Add to Slide");
+  const trainingOpps = findValueInBucket("subfunction_name", "bucket_name", "tag_name", "Training & Development", "✍️ Opportunity - Add to Slide");
+  
+  const benefitsStrengths = findValueInBucket("subfunction_name", "bucket_name", "tag_name", "Benefits & Compensation", "💪 Strength - Add to Slide");
+  const benefitsOpps = findValueInBucket("subfunction_name", "bucket_name", "tag_name","Benefits & Compensation", "✍️ Opportunity - Add to Slide");
+  
+  const recruitingStrengths = findValueInBucket("subfunction_name", "bucket_name", "tag_name", "Recruiting & Staffing", "💪 Strength - Add to Slide");
+  const recruitingOpps = findValueInBucket("subfunction_name", "bucket_name", "tag_name", "Recruiting & Staffing", "✍️ Opportunity - Add to Slide");
+  
+  const hrisStrengths = findValueInBucket("subfunction_name", "bucket_name", "tag_name", "HRIS, Payroll & Compliance", "💪 Strength - Add to Slide");
+  const hrisOpps = findValueInBucket("subfunction_name", "bucket_name", "tag_name", "HRIS, Payroll & Compliance", "✍️ Opportunity - Add to Slide");
+  
+
+  console.log("rating:", trainingLevelRating);
 
   console.log("client side overview", clientOverview);
 
@@ -128,11 +153,11 @@ function ClientOverview() {
                       <li key={bucket.id}><a class="nav-link" data-bs-toggle="tab" data-bs-target={`#menu${bucket.id.toString()}`}>{bucket.bucket_name}</a></li>  
                   ))} */}
                   <li><a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu2">Organizational Effectiveness</a></li>
-                  <li><a class="nav-link" data-toggle="tab" data-bs-target="#menu3">Employee Engagement</a></li>
-                  <li><a class="nav-link" data-toggle="tab" data-bs-target="#menu4">Training & Development</a></li>
-                  <li><a class="nav-link" data-toggle="tab" data-bs-target="#menu5">Benefits & Compensation</a></li>
-                  <li><a class="nav-link" data-toggle="tab" data-bs-target="#menu6">Recruiting & Staffing</a></li>
-                  <li><a class="nav-link" data-toggle="tab" data-bs-target="#menu7">HRIS, Payroll & Compliance</a></li>
+                  <li><a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu3">Employee Engagement</a></li>
+                  <li><a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu4">Training & Development</a></li>
+                  <li><a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu5">Benefits & Compensation</a></li>
+                  <li><a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu6">Recruiting & Staffing</a></li>
+                  <li><a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu7">HRIS, Payroll & Compliance</a></li>
                 </ul>
               </div>
                 <div class="tab-content col">
@@ -190,23 +215,148 @@ function ClientOverview() {
                         <div class="row">
                           <div class="col">
                             <h2>Organizational Effectivness</h2>
-                            <h4>Level Rating: </h4>
-                            <Radar data ={chartData}/>
+                            <h4>Level Rating: {orgEffLevelRating}</h4>
+                            <Radar data ={chartData} options={options} />
                           </div>
                           <div class="col">
                             <h3>Strengths</h3>
                             <ul>
-                              {/* {bucket.tag_name === '💪 Strength - Add to Slide' &&
-                                <li>{bucket.subfunction_name}</li>
-                              } */}
+                              {orgEffStrengths.map((strength) => (
+                                <li>{strength}</li>
+                              ))}
                             </ul>          
                           </div>
                           <div class="col">
                             <h3>Opportunities</h3>
                             <ul>
-                            {/* {bucket.tag_name === '✍️ Opportunity - Add to Slide' &&
-                              <li>{bucket.subfunction_name}</li>
-                            } */}
+                            {orgEffOpps.map((opp) => (
+                                <li>{opp}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="menu3" class="tab-pane container-fluid text-center">
+                        <div class="row">
+                          <div class="col">
+                            <h2>Employee Engagement</h2>
+                            <h4>Level Rating: {empEngLevelRating}</h4>
+                            <Radar data ={chartData} options={options} />
+                          </div>
+                          <div class="col">
+                            <h3>Strengths</h3>
+                            <ul>
+                              {empEngStrengths.map((strength) => (
+                                <li>{strength}</li>
+                              ))}
+                            </ul>          
+                          </div>
+                          <div class="col">
+                            <h3>Opportunities</h3>
+                            <ul>
+                            {empEngOpps.map((opp) => (
+                                <li>{opp}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="menu4" class="tab-pane container-fluid text-center">
+                        <div class="row">
+                          <div class="col">
+                            <h2>Training & Development</h2>
+                            <h4>Level Rating: {trainingLevelRating}</h4>
+                            <Radar data ={chartData} options={options} />
+                          </div>
+                          <div class="col">
+                            <h3>Strengths</h3>
+                            <ul>
+                              {trainingStrengths.map((strength) => (
+                                <li>{strength}</li>
+                              ))}
+                            </ul>          
+                          </div>
+                          <div class="col">
+                            <h3>Opportunities</h3>
+                            <ul>
+                            {trainingOpps.map((opp) => (
+                                <li>{opp}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="menu5" class="tab-pane container-fluid text-center">
+                        <div class="row">
+                          <div class="col">
+                            <h2>Benefits & Compensation</h2>
+                            <h4>Level Rating: {benefitsLevelRating}</h4>
+                            <Radar data ={chartData} options={options} />
+                          </div>
+                          <div class="col">
+                            <h3>Strengths</h3>
+                            <ul>
+                              {benefitsStrengths.map((strength) => (
+                                <li>{strength}</li>
+                              ))}
+                            </ul>          
+                          </div>
+                          <div class="col">
+                            <h3>Opportunities</h3>
+                            <ul>
+                            {benefitsOpps.map((opp) => (
+                                <li>{opp}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="menu6" class="tab-pane container-fluid text-center">
+                        <div class="row">
+                          <div class="col">
+                            <h2>Recruiting & Staffing</h2>
+                            <h4>Level Rating: {recruitingLevelRating}</h4>
+                            <Radar data ={chartData} options={options} />
+                          </div>
+                          <div class="col">
+                            <h3>Strengths</h3>
+                            <ul>
+                              {recruitingStrengths.map((strength) => (
+                                <li>{strength}</li>
+                              ))}
+                            </ul>          
+                          </div>
+                          <div class="col">
+                            <h3>Opportunities</h3>
+                            <ul>
+                            {recruitingOpps.map((opp) => (
+                                <li>{opp}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="menu7" class="tab-pane container-fluid text-center">
+                        <div class="row">
+                          <div class="col">
+                            <h2>HRIS, Payroll & Compliance</h2>
+                            <h4>Level Rating: {hrisLevelRating}</h4>
+                            <Radar data ={chartData} options={options} />
+                          </div>
+                          <div class="col">
+                            <h3>Strengths</h3>
+                            <ul>
+                              {hrisStrengths.map((strength) => (
+                                <li>{strength}</li>
+                              ))}
+                            </ul>          
+                          </div>
+                          <div class="col">
+                            <h3>Opportunities</h3>
+                            <ul>
+                            {hrisOpps.map((opp) => (
+                                <li>{opp}</li>
+                              ))}
                             </ul>
                           </div>
                         </div>
@@ -215,13 +365,13 @@ function ClientOverview() {
             </div>
             <div class="row justify-content-end">
               <div class='col-2'>
-                <a class="btn btn-primary" href={clientOverview[0] && `/assessment-edit/${clientOverview[0].assessment_id}`}>See Assessment</a>
+                <a class="btn btn-primary" href={clientOverview[0] && `#/assessment-edit/${clientOverview[0].assessment_id}`}>See Assessment</a>
               </div>
               <div class='col-2'>
-                <a class="btn btn-primary" href={ clientOverview[0] && `/client-report/${clientOverview[0].assessment_id}`}>Download Report</a>
+                <a class="btn btn-primary" href={ clientOverview[0] && `#/client-report/${clientOverview[0].assessment_id}`}>Download Report</a>
               </div>
               <div class='col-2'>
-                <a class="btn btn-primary" href={clientOverview[0] && `/presentation/${clientOverview[0].assessment_id}`}>See Presentation</a>
+                <a class="btn btn-primary" href={clientOverview[0] && `#/presentation/${clientOverview[0].assessment_id}`}>See Presentation</a>
               </div>
             </div>
         </div>  
