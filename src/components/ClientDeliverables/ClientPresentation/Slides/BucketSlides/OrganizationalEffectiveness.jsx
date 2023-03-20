@@ -57,65 +57,68 @@ function OrganizationalEffectiveness () {
       <section>
         <h3>Organizational Effectiveness</h3>
         {bucketData.headline_text}
+        <div className="container">
+        <div className="bucket-tables">
+          <h4>Quick Fixes</h4>
+          <table className="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Subfunction</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Findings</th>
+                <th scope="col">Impact</th>
+                <th scope="col">Recommendations</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bucketTags.map((tag) => {
+                if (tag.tag_id == '1') {
+                  return (
+                    <tr key={tag.subfunction_id}>
+                      <th scope="row">{tag.function_name}</th>
+                      <td>{tag.level_rating}</td>
+                      <td>{tag.findings}</td>
+                      <td>{tag.impact}</td>
+                      <td>{tag.recommendations}</td>
+                    </tr>
+                  )
+                } else {return}
+              })}
+            </tbody>
+          </table>
 
-        <h4>Quick Fixes</h4>
-        <table className="table table-hover table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Subfunction</th>
-              <th scope="col">Rating</th>
-              <th scope="col">Findings</th>
-              <th scope="col">Impact</th>
-              <th scope="col">Recommendations</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[bucketTags].map((tag) => {
-              if (tag.tag_id == '1') {
-                return (
-                  <tr key={tag.subfunction_id}>
-                    <th scope="row">{tag.function_name}</th>
-                    <td>{tag.level_rating}</td>
-                    <td>{tag.findings}</td>
-                    <td>{tag.impact}</td>
-                    <td>{tag.recommendations}</td>
-                  </tr>
-                )
-              } else {return}
-            })}
-          </tbody>
-        </table>
-
-        {/* <h4>Fire Drills</h4>
-        <table className="table table-hover table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Subfunction</th>
-              <th scope="col">Rating</th>
-              <th scope="col">Findings</th>
-              <th scope="col">Impact</th>
-              <th scope="col">Recommendations</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[bucketTags].map((tag) => {
-              if (tag.tag_id == 2) {
-                return (
-                  <tr key={tag.subfunction_id}>
-                    <th scope="row">{tag.function_name}</th>
-                    <td>{tag.level_rating}</td>
-                    <td>{tag.findings}</td>
-                    <td>{tag.impact}</td>
-                    <td>{tag.recommendations}</td>
-                  </tr>
-                )
-              }
-            })}
-          </tbody>
-        </table> */}
-
-        {<Radar data={data} options={options}/>}
-        
+          <h4>Fire Drills</h4>
+          <table className="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Subfunction</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Findings</th>
+                <th scope="col">Impact</th>
+                <th scope="col">Recommendations</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bucketTags.map((tag) => {
+                if (tag.tag_id == 2) {
+                  return (
+                    <tr key={tag.subfunction_id}>
+                      <th scope="row">{tag.function_name}</th>
+                      <td>{tag.level_rating}</td>
+                      <td>{tag.findings}</td>
+                      <td>{tag.impact}</td>
+                      <td>{tag.recommendations}</td>
+                    </tr>
+                  )
+                }
+              })}
+            </tbody>
+          </table>
+        </div>
+        <div className="bucket-chart">
+          {<Radar data={data} options={options}/>}
+        </div>
+        </div>
       </section>
       </>
   )
