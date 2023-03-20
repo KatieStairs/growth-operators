@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './AssessmentEdit.css'
-import Nav from '../../Nav/Nav'
 import AssessmentEditRow from './AssessmentEditRow';
 import AssessmentEditExpandModal from './AssessmentEditExpandModal';
 import AssessmentEditModal from './AssessmentEditModal';
@@ -28,11 +27,8 @@ function AssessmentEdit() {
   useEffect(() => {
     if (answers) {
       console.log('Answers: ', answers)
-      console.log('Params: ', params)
     }
   }, [answers]);
-
-
 
   // const addNewHeadline = (event) => {
   //   const newHeadline = {
@@ -43,7 +39,6 @@ function AssessmentEdit() {
   //   dispatch({type: 'SAGA/POST_HEADLINE_BY_ID', payload: newHeadline})
   // }
 
-
   if(!answers) {
     return null;
   } else {
@@ -52,22 +47,19 @@ function AssessmentEdit() {
     <>
       <div className="container-fluid mb-4">
         <div className="container-fluid">
-          {/* <Nav /> */}
-
-            {/* <button data-bs-toggle="collapse" data-bs-target="#sidebar">Toggle Menu</button> */}
-              <div className="container g-3 my-3">
-                <h1> {answers[0]?.company_name} // Assessment Form</h1>
-                <h2>Review All Answers </h2>
-                <hr></hr>
-              </div>
-              <div className="container g-3 mb-3">
-                  <strong>Current Status: </strong>
-                  {answers[0]?.status} →
-                  <AssessmentEditStatusModal firstAnswer={firstAnswer}/>
-                <hr></hr>
-              </div>
-              <div className="col py-3 px-4">
-              <div className="mb-3 g-3">
+          <div className="container g-3 my-3">
+            <h1> {answers[0]?.company_name} // Assessment Form</h1>
+            <h2>Review All Answers </h2>
+            <hr></hr>
+          </div>
+          <div className="container g-3 mb-3">
+              <strong>Current Status: </strong>
+              {answers[0]?.status} →
+              <AssessmentEditStatusModal firstAnswer={firstAnswer}/>
+            <hr></hr>
+          </div>
+          <div className="col py-3 px-4">
+            <div className="mb-3 g-3">
               <div className="container shadow min-vh-auto py-2">
                 <div className="table-responsive">
                   <table className="table table-striped table-hover">
@@ -80,7 +72,6 @@ function AssessmentEdit() {
                         <th scope="col">Level</th>
                         <th scope="col">Tag</th>
                         <th scope="col"></th>
-                        {/* <th scope="col"></th> */}
                         <th scope="col"></th>
                       </tr>
                     </thead>
@@ -98,22 +89,20 @@ function AssessmentEdit() {
                     return <AssessmentEditModal answer={answer} key={answer.id} />
                   })}
                 </div>
-                </div>
               </div>
             </div>
-            </div>
-            <div className="container">
-              <div className="row">
-                <div className="col-md-12">
-                  <Link to='/dashboard'>
-                    <button type="submit" className="float-end btn btn-primary">Return to Dashboard</button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
+          </div>
         </div>
-
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <Link to='/dashboard'>
+                <button type="submit" className="float-end btn btn-primary">Return to Dashboard</button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   )}
 }

@@ -1,5 +1,4 @@
-import { React, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react'; 
 
 function AssessmentEditExpandModal ({answer}) {
   return (
@@ -27,6 +26,10 @@ function AssessmentEditExpandModal ({answer}) {
               </button>
           </div>
           <div className="modal-body">
+            <div>
+              <h5>Phase</h5>
+              <p>{answer.phase}</p>
+            </div>
             <div>
               <h5>Findings</h5>
               <p>{answer.findings}</p>

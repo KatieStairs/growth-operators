@@ -18,7 +18,7 @@ function* updateClientInfoByID (action) {
   try {
     yield axios.put(`/api/client/${client.id}`, client)
     yield put({
-      type: 'GET_ALL_CLIENTS'
+      type: 'SAGA/GET_ALL_CLIENTS'
     })
   } catch (error) {
     console.error('Error in client.saga -> updateClientInfoByID: ', error);
@@ -29,7 +29,7 @@ function* updateClientStatusByID (action) {
   try {
     yield axios.put(`/api/client/${action.payload}/archive`, action.payload)
     yield put({
-      type: 'GET_ALL_CLIENTS'
+      type: 'SAGA/GET_ALL_CLIENTS'
     })
   } catch (error) {
     console.error('Error in client.saga -> updateClientStatusByID: ', error);
@@ -37,10 +37,11 @@ function* updateClientStatusByID (action) {
 };
 
 function* deleteClientByID (action) {
+  console.log('Action.payload: ', action.payload)
   try {
     yield axios.delete(`/api/client/${action.payload}`)
     yield put({
-      type: 'GET_ALL_CLIENTS'
+      type: 'SAGA/GET_ALL_CLIENTS'
     })
   } catch (error) {
     console.error('Error in client.saga -> deleteClientByID: ', error);

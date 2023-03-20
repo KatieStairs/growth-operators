@@ -7,7 +7,7 @@ function AllClientsEditStatusModal({ client }) {
 
   const updateAssessmentStatus = () => {
     const statusUpdateData = {status: statusInput, id: client.assessment_id}
-    dispatch({type: 'SAGA/UPDATE_ASSESSMENT_STATUS_BY_ID', payload: statusUpdateData})
+    dispatch({type: 'SAGA/UPDATE_AC_ASSESSMENT_STATUS_BY_ID', payload: statusUpdateData});
   };
 
   return (

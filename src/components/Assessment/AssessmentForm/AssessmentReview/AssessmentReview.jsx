@@ -2,8 +2,6 @@ import React from 'react';
 import { useParams, useHistory, Link} from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import Nav from '../../../Nav/Nav'
 import AssessmentReviewPage from './AssessmentReviewPage';
 
 function AssessmentReview() {
