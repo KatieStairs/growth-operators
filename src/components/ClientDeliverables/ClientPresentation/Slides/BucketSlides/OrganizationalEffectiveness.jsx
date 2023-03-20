@@ -70,7 +70,7 @@ function OrganizationalEffectiveness () {
             </tr>
           </thead>
           <tbody>
-            {[bucketTags].map((tag) => {
+            {bucketTags.map((tag) => {
               if (tag.tag_id == '1') {
                 return (
                   <tr key={tag.subfunction_id}>
@@ -86,7 +86,7 @@ function OrganizationalEffectiveness () {
           </tbody>
         </table>
 
-        {/* <h4>Fire Drills</h4>
+        <h4>Fire Drills</h4>
         <table className="table table-hover table-striped">
           <thead>
             <tr>
@@ -98,7 +98,7 @@ function OrganizationalEffectiveness () {
             </tr>
           </thead>
           <tbody>
-            {[bucketTags].map((tag) => {
+            {bucketTags.map((tag) => {
               if (tag.tag_id == 2) {
                 return (
                   <tr key={tag.subfunction_id}>
@@ -112,7 +112,7 @@ function OrganizationalEffectiveness () {
               }
             })}
           </tbody>
-        </table> */}
+        </table>
 
         {<Radar data={data} options={options}/>}
         
