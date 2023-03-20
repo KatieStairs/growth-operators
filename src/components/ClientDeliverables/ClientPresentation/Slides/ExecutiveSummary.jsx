@@ -3,6 +3,7 @@ import Reveal from 'reveal.js';
 import Markdown from 'reveal.js/plugin/markdown/markdown.esm.js';
 import Chart from 'chart.js/auto';
 import { Radar } from 'react-chartjs-2';
+import '../Presentation.css';
 
 function ExecutiveSummary () {
   const summaryRatings = useSelector((store) => store.presentation.summaryRatings);
@@ -36,6 +37,7 @@ function ExecutiveSummary () {
   };
 
   const options = {
+    maintainAspectRatio: false,
     scales: {
       r: {
         angleLines: {
@@ -48,9 +50,13 @@ function ExecutiveSummary () {
   };
 
   return (
-    <section>
-      <Radar data={data} options={options}/>
-    </section>
+
+    <section className='bucket-chart'>
+      <div style={{ position: "relative", margin: "auto", width: "80vw"}}>
+      <Radar data={data} options={options} width={50} height={50}/>
+      </div>
+    </section> 
+
   )
 };
 
