@@ -96,7 +96,7 @@ function AssessmentPage ({functionsArray}) {
     }
   }
 
-  const saveToDatabase = () => { // handles formArray, dispatches to database
+  const saveAnswersToDatabase = () => { // handles formArray, dispatches to database
     if (formArray.length >= 1) { // only runs the following logic if formArray has enough objects in it
       let formArrayToggle;
       for (const formObject of formArray) {
@@ -124,34 +124,19 @@ function AssessmentPage ({functionsArray}) {
         }
       }
 
-        if (formArrayToggle === false) { // only runs if no matching subfunctionID found above
-          let newFormObject = {
-            subfunctionID: allInputFields.subfunctionID,
-            levelRatingInput: allInputFields.levelRatingInput,
-            findingsInput: allInputFields.findingsInput,
-            impactsInput: allInputFields.impactsInput,
-            recommendationsInput: allInputFields.recommendationsInput,
-            phaseInput: allInputFields.phaseInput,
-            tagsInput: allInputFields.tagsInput,
-          }; 
-          formArray.push(newFormObject);
-          clearInputFields();
-        }
-        // else { // Fairly certain this was an accidental extra; commenting out, may remove after testing.
-        //   let newFormObject = {
-        //     subfunctionID: allInputFields.subfunctionID,
-        //     levelRatingInput: allInputFields.levelRatingInput,
-        //     findingsInput: allInputFields.findingsInput,
-        //     impactsInput: allInputFields.impactsInput,
-        //     recommendationsInput: allInputFields.recommendationsInput,
-        //     phaseInput: allInputFields.phaseInput,
-        //     tagsInput: allInputFields.tagsInput,
-        //   }; 
-
-        //   formArray.push(newFormObject);
-        //   clearInputFields();
-        // }
-
+      if (formArrayToggle === false) { // only runs if no matching subfunctionID found above
+        let newFormObject = {
+          subfunctionID: allInputFields.subfunctionID,
+          levelRatingInput: allInputFields.levelRatingInput,
+          findingsInput: allInputFields.findingsInput,
+          impactsInput: allInputFields.impactsInput,
+          recommendationsInput: allInputFields.recommendationsInput,
+          phaseInput: allInputFields.phaseInput,
+          tagsInput: allInputFields.tagsInput,
+        }; 
+        formArray.push(newFormObject);
+        clearInputFields();
+      }
     } 
     else { // runs if formArray is empty
       let newFormObject = {
@@ -167,13 +152,6 @@ function AssessmentPage ({functionsArray}) {
       clearInputFields();
     }
 
-    // let assessmentSave = {
-    //   formArray: formArray,
-    //   assessmentID: params.assessment_id,
-    //   bucket_id: params.bucket_id,
-    //   function_id: params.function_id
-    // }
-
     for (const formObject of formArray){
       let assessmentSave = {
         assessment_id: Number(params.assessment_id),
@@ -185,28 +163,30 @@ function AssessmentPage ({functionsArray}) {
         impact: formObject.impactsInput,
         recommendations: formObject.recommendationsInput,
         phase: Number(formObject.phaseInput),
-        tag_id: formObject.tagsInput
+        tag_id: Number(formObject.tagsInput)
       }
 
       dispatch({
         type: 'SAGA/POST_ASSESSMENT_ANSWERS',
         payload: assessmentSave
       })
-
-      // for (const tag_id of formObject.tagsInput) {
-      //   dispatch({
-      //     type: 'SAGA/POST_ASSESSMENT_TAG_ANSWERS',
-      //     payload: tag_id
-      //   })
-      }
     }
+  }
   
+  const updateAssessmentStatus = () => {
+    const statusUpdateData = {status: 'Edit in Progress', id: params.assessment_id}
+    dispatch({type: 'SAGA/UPDATE_ASSESSMENT_STATUS_BY_ID', payload: statusUpdateData})
+  };
+
   const handleSaveForLater = () => {
-    saveToDatabase();
+    saveAnswersToDatabase();
+    updateAssessmentStatus();
+
   }
 
   const handleContinue = () => {
-    saveToDatabase();
+    saveAnswersToDatabase();
+    updateAssessmentStatus();
   }
   
   const evalLocation = () => { // evaluates current url params, conditionally returns newRoute
@@ -242,10 +222,11 @@ function AssessmentPage ({functionsArray}) {
 
 
             <div>
-              <div className="progress" role="progressbar" aria-label="Basic example" aria-valuenow={functionObject.function_index} aria-valuemin="0" aria-valuemax={functionsArray.length} >
-                <div className="progress-bar" style={{"width": ((functionObject.function_index)/(functionsArray.length)).toLocaleString("en", {style: "percent"})}}></div>
+              <div className="progress" role="progressbar" aria-label="Basic example" aria-valuenow={((functionObject.function_index)-1)} aria-valuemin="0" aria-valuemax={functionsArray.length} >
+                <div className="progress-bar" style={{"width": ((functionObject.function_index-1)/(functionsArray.length)).toLocaleString("en", {style: "percent"})}}></div>
               </div>
               <div id="form-page-progress-label" className="list-inline range-labels" > 
+              <div>0</div>
                 {functionsArray.map((functionListItem) => {
                   return (
                     <div className="list-inline-item"  key={functionListItem.function_index}>{functionListItem.function_index}</div>

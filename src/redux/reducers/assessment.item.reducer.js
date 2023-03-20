@@ -4,10 +4,13 @@ import { combineReducers } from 'redux';
 const assessmentAnswersById = (state = [], action) => {
     if (action.type === 'SET_ASSESSMENT_ANSWERS_BY_ID') {
         return action.payload;
+        // returns company_name, status, assessment_item_id (as 'id'), bucket_id,
+        // bucket_index, bucket_name, function_id, function_index, function_name, 
+        // subfunction_id, subfunction_index, subfunction_name, level_rating, 
+        // findings, impact, recommendations, phase, tag_id
     }     
     return state;
 }
-
 
 const headlinesReducer = (state = [], action) => {
     switch (action.type) {
