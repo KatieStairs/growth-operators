@@ -13,22 +13,6 @@ function* getAllClients() {
   }
 };
 
-function* getClientOverview (action) {
-  try {
-    const response = yield axios({
-      method:  'GET',
-      url: '/api/client/overview',
-      params: action.payload
-    })
-    // yield put({
-    //   type: 'SET_CLIENT_OVERVIEW',
-    //   payload: response.data
-    // })
-  } catch (error) {
-    console.error('Error in client.saga -> getClientOverview: ', error);
-  }
-};
-
 function* updateClientInfoByID (action) {
   const client = action.payload;
   try {
