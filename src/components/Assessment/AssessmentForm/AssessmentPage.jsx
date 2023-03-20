@@ -226,7 +226,7 @@ function AssessmentPage ({functionsArray}) {
                 <div className="progress-bar" style={{"width": ((functionObject.function_index-1)/(functionsArray.length)).toLocaleString("en", {style: "percent"})}}></div>
               </div>
               <div id="form-page-progress-label" className="list-inline range-labels" > 
-              <div>0</div>
+              <div className="list-inline-item"  >0</div>
                 {functionsArray.map((functionListItem) => {
                   return (
                     <div className="list-inline-item"  key={functionListItem.function_index}>{functionListItem.function_index}</div>
