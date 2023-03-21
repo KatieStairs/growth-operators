@@ -5,7 +5,8 @@ import SlideHeader from './SlideHeader';
 function ThankYou () {
   return (
     <section>
-      <SlideHeader title={'Thank you!'} />
+      <SlideHeader />
+      <h1>Thank You!</h1>
     </section>
   )
 };
