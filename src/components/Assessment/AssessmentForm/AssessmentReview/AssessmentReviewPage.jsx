@@ -13,7 +13,7 @@ function AssessmentReviewPage ({answers}) {
   const [headlineInput, setHeadlineInput] = useState(answers.headline_text)
 
   const addNewHeadline = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     dispatch({
       type: 'SAGA/POST_HEADLINE_BY_ID',
       payload: {
@@ -32,6 +32,7 @@ function AssessmentReviewPage ({answers}) {
             {/* <button data-bs-toggle="collapse" data-bs-target="#sidebar">Toggle Menu</button> */}
             <div className="col py-3 px-4">
               <div className="mb-5 mt-5 g-3 input-group">
+                <p></p>
                 <span className="input-group-text" id="inputGroup-sizing-default">Headline</span>
                 <input 
                   type="text" 
@@ -40,7 +41,7 @@ function AssessmentReviewPage ({answers}) {
                   // placeholder={answers.headline_text}
                   onChange={(event) => setHeadlineInput(event.target.value)}
                 />
-                <button type="submit" className="float-end btn btn-primary" onClick={(event) => addNewHeadline(event)}>Submit</button>
+                <button className="float-end btn btn-primary" onClick={(event) => addNewHeadline(event)}>Submit</button>
               </div>
               <div className="container shadow min-vh-auto py-2 mt-3">
                 <div className="table-responsive">
