@@ -10,7 +10,7 @@ function ESMethodologyDef () {
       <SlideHeader title={title} />
         <div>
           <p className="page-sub-heading">
-            <strong>Growth Operators</strong> Assessment Methodology: Key Functional Areas
+            <strong>Assessment Methodology:</strong> Key Functional Areas
           </p>
           <p className="bucket-definitions">
             {/* Growth Operators was engaged by the company to perform a review of six key functional areas.<br/><br/> */}

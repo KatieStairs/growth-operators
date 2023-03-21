@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 const strengthTags = (state = [], action) => {
   switch (action.type) {
   case 'SET_PRESENTATION_STRENGTH_DATA':
+    console.log('Action.payload: ', action.payload)
     return action.payload;
   default:
     return state;

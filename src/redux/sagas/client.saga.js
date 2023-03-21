@@ -103,5 +103,3 @@ export default function* clientSaga() {
   yield takeLatest('SAGA/PUT_CLIENT_STATUS_BY_ID', updateClientStatus);
   yield takeLatest('SAGA/PUT_CLIENT_INFO_BY_ID', updateClientInfo);
   yield takeLatest('SAGA/DELETE_CLIENT_BY_ID', deleteClient);
-  // yield takeLatest('SAGA/POST_CLIENT', postClient);
-};
