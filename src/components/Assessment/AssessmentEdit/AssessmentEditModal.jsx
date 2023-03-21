@@ -9,14 +9,13 @@ function AssessmentEditModal ({answer}) {
   const tags = structure.tagsReducer;
 
   const [levelRatingInput, setLevelRatingInput] = useState(answer.level_rating || '')
-  const [tagsInput, setTagsInput] = useState(answer.tags || '')
+  const [tagsInput, setTagsInput] = useState(answer.tags || null)
   const [phaseInput, setPhaseInput] = useState(answer.phase || '')
   const [findingsInput, setFindingsInput] = useState(answer.findings || '')
   const [impactInput, setImpactInput] = useState(answer.impact || '')
   const [recommendationsInput, setRecommendationsInput] = useState(answer.recommendations || '')
 
   const updateAssessmentAnswers = () => {
-
     const updatedAssessmentAnswers = {
       assessment_id: params.assessment_id,
       bucket_id: answer.bucket_id,
@@ -24,13 +23,12 @@ function AssessmentEditModal ({answer}) {
       subfunction_id: answer.subfunction_id,
       level_rating: Number(levelRatingInput),
       phase: Number(phaseInput),
-      tags_id: Number(tagsInput),
+      tags_id: tagsInput,
       findings: findingsInput,
       impact: impactInput,
       recommendations: recommendationsInput
     }
 
-    console.log('updatedAssessmentAnswers', updatedAssessmentAnswers)
     dispatch({
       type: 'SAGA/UPDATE_ASSESSMENT_BY_ID',
       payload: updatedAssessmentAnswers
@@ -70,6 +68,33 @@ function AssessmentEditModal ({answer}) {
                 onChange={(evt) => setLevelRatingInput(evt.target.value)}
               />
             </div>
+
+            <div className="mb-3">
+              <hr></hr>
+              <label
+                htmlFor={`edit-assessment-modal-${answer.id}-control-tag-input`} 
+                className="form-label"
+              >
+                <h5>Tags</h5>
+              </label>
+              {tags.map((tag) => {
+                return (
+                <div key={tag.id} className="g-3">
+                  <input 
+                    type="radio" 
+                    className="form-check-input" 
+                    id={`edit-assessment-modal-${answer.id}-control-tag-input-${tag.id}`} 
+                    value={tag.id} 
+                    placeholder={answer.tag_id}
+                    onChange={(evt) => setTagsInput(Number(evt.target.value))}
+                  />
+                  <label htmlFor={`edit-assessment-modal-${answer.id}-control-tag-input-${tag.id}`} className="form-check-label"> {tag.name}</label>
+                </div>
+                )
+              })}
+            </div>
+            
+            <hr></hr>
             <div className="mb-3">
               <label
               htmlFor={`edit-assessment-modal-${answer.id}-control-phase-input`}
@@ -84,43 +109,6 @@ function AssessmentEditModal ({answer}) {
                 placeholder={answer.phase}
                 onChange={(evt) => setPhaseInput(evt.target.value)}
               />
-            </div>
-            <div className="mb-3">
-              <hr></hr>
-              <label
-                htmlFor={`edit-assessment-modal-${answer.id}-control-tag-input`} 
-                className="form-label"
-              >
-                <h5>Tags</h5>
-              </label>
-              {tags.map((tag) => {
-                return (
-                <div key={tag.id} className="g-3">
-                  {tag.id === answer.tag_id
-                  ?
-                  <input 
-                  type="radio" 
-                  className="form-check-input" 
-                  id={`edit-assessment-modal-${answer.id}-control-tag-input-${tag.id}`} 
-                  value={tag.id} 
-                  placeholder={answer.tag_id}
-                  onChange={(evt) => setTagsInput(evt.target.value)}
-                  // checked
-                  />
-                  :
-                  <input 
-                    type="radio" 
-                    className="form-check-input" 
-                    id={`edit-assessment-modal-${answer.id}-control-tag-input-${tag.id}`} 
-                    value={tag.id} 
-                    placeholder={answer.tag_id}
-                    onChange={(evt) => setTagsInput(evt.target.value)}
-                  />
-                  }
-                  <label htmlFor={`edit-assessment-modal-${answer.id}-control-tag-input-${tag.id}`} className="form-check-label"> {tag.name}</label>
-                </div>
-                )
-              })}
             </div>
             <hr></hr>
             <div>
@@ -138,7 +126,7 @@ function AssessmentEditModal ({answer}) {
                 onChange={(evt) => setFindingsInput(evt.target.value)} 
               />
             </div>
-            <br></br>
+            <hr></hr>
             <div>
               <label
                 htmlFor={`edit-assessment-modal-${answer.id}-control-impact-input`}
@@ -154,7 +142,7 @@ function AssessmentEditModal ({answer}) {
                 onChange={(evt) => setImpactInput(evt.target.value)} 
               />
             </div>
-            <br></br>
+            <hr></hr>
             <div>
             <label
                 htmlFor={`edit-assessment-modal-${answer.id}-control-recommendations-input`}

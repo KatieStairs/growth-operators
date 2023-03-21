@@ -1,17 +1,6 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 function AllClientsRow({ client }) {
-  const dispatch = useDispatch();
-  const history = useHistory();
-
-  const handleArchive= () => {
-    dispatch({
-      type: 'SAGA/PUT_CLIENT_STATUS_BY_ID',
-      payload: client.id});
-  }
-  
   return (
     <tr key={client.id}>
       <th scope="row">{client.company_name}</th>
