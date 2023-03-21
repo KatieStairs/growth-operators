@@ -20,7 +20,6 @@ router.get('/strengths/:id', (req, res) => {
     `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      console.log('Response: ', response.rows)
       res.send(response.rows);
     })
     .catch((error) => {
@@ -60,12 +59,36 @@ router.get('/opportunities/:id', (req, res) => {
 router.get('/summary-ratings/:id', (req, res) => {
   const queryText = `
   SELECT
-    SUM("level_rating") FILTER (WHERE "bucket_id" = 1) AS "organizational_effectiveness_rating",
-    SUM("level_rating") FILTER (WHERE "bucket_id" = 2) AS "employee_engagement_rating",
-    SUM("level_rating") FILTER (WHERE "bucket_id" = 3) AS "training_development_rating",
-    SUM("level_rating") FILTER (WHERE "bucket_id" = 4) AS "benefits_compensation_rating",
-    SUM("level_rating") FILTER (WHERE "bucket_id" = 5) AS "recruiting_staffing_rating",
-    SUM("level_rating") FILTER (WHERE "bucket_id" = 6) AS "hris_payroll_compliance_rating"
+    AVG("level_rating")
+      FILTER(
+        WHERE "bucket_id" = 1
+        AND "level_rating" > 0)
+          AS "organizational_effectiveness_rating",
+    AVG("level_rating")
+      FILTER(
+        WHERE "bucket_id" = 2
+        AND "level_rating" > 0)
+          AS "employee_engagement_rating",
+    AVG("level_rating")
+    FILTER(
+      WHERE "bucket_id" = 3
+      AND "level_rating" > 0)
+        AS "training_development_rating",
+    AVG("level_rating")
+      FILTER(
+        WHERE "bucket_id" = 4
+        AND "level_rating" > 0)
+          AS "benefits_compensation_rating",
+    AVG("level_rating")
+    FILTER(
+      WHERE "bucket_id" = 5
+      AND "level_rating" > 0)
+        AS "recruiting_staffing_rating",
+    AVG("level_rating")
+    FILTER(
+      WHERE "bucket_id" = 6
+      AND "level_rating" > 0)
+        AS "hris_payroll_compliance_rating"
   FROM "assessment_items"
   WHERE "assessment_id" = $1;
   `;
