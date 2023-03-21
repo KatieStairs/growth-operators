@@ -1,6 +1,10 @@
 @import 'reveal.js/dist/reveal.css';
 @import 'reveal.js/dist/theme/simple.css';
 
+/* * {
+  border: 1px solid red;
+} */
+
 .bucket-chart {
   position: absolute;
   display: flex;
@@ -24,6 +28,82 @@
   display: inline;
   width: 60vw;
   justify-content: right;
+}
+
+.slide-header-logo {
+  float: right;
+  height: 5rem;
+  overflow: auto;
+  padding-right: 1rem;
+}
+
+.header-divider {
+  display: block;
+  clear: right;
+  border: 2px solid #001e61;
+}
+
+.header-h1 h3 {
+  display: inline-block;
+  color: #001e61;
+  text-align: left;
+  vertical-align: text-bottom;
+  font-size: 0.75em!;
+  font-weight: bold;
+  padding-left: 2rem;
+  font-family: 'Roboto', sans-serif!;
+}
+
+.header-div, .header-title-div, .header-logo-div {
+  display: flex;
+  vertical-align: middle;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content-hr {
+  width: 50%;
+  text-align: center;
+}
+
+.header-title-div {
+  align-items: center;
+  color: #001e61;
+  font-size: 0.75em!;
+  padding-left: 2rem;
+}
+
+.bucket-definitions, .static-methodology-content {
+  font-family: Roboto, sans-serif!;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  text-align: left;
+  line-height: 1;
+}
+
+.bucket-definitions {
+  padding-top: 2rem;
+  font-size: 25px;
+  /* font-size: 25px; */
+}
+
+.static-methodology-content {
+  padding-top: 1rem;
+}
+
+.content-p {
+padding: 2rem;
+font-size: 25px;
+}
+
+.page-sub-heading {
+  padding-top: 1.5rem;
+  padding-left: 2rem;
+  text-align: left;
+  font-family: 'Roboto', sans-serif!;
+  color: #001e61;
+  font-size: 35px;
 }
 
 .chart-size {

@@ -1,15 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 function AssessmentEditRow ({answer}) {
-  const history = useHistory();
   const structure = useSelector((store => store.structure))
   const tags = structure.tagsReducer;
-  
-  const goToOverviewPage = () => {
-    history.push(`/client-overview/${answer.client_id}`)
-  }
   
   return (
     <>
@@ -34,13 +28,6 @@ function AssessmentEditRow ({answer}) {
             data-bs-target={`#expanded-assessment-modal-${answer.id}`} 
           >Expand</button>
       </td>
-      {/* <td>
-        <button 
-          type="button" 
-          className="btn btn-primary"
-          onClick={goToOverviewPage}
-        >Overview</button>
-      </td> */}
       <td>
         <button 
           type="button" 

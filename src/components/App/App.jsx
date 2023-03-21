@@ -39,6 +39,7 @@ function App() {
     <Router>
       <div>
         {/* <Nav /> */}
+        {/* <Nav /> */}
         <Switch>
           <Redirect exact from="/" to="/login" />
 
@@ -52,9 +53,13 @@ function App() {
             <AllClients />
           </ProtectedRoute>
 
-          {/* // Two components here - one for edit all, one for review by bucket (what's shown following the assessment form)
-          // Edit -- conditional rendering based only on assessment id, found by navigating from dashboard 'edit' button
-          // Review -- conditional rendering based on assessment_id, bucket_id, found at the end of bucket in assessment form */}
+          {/* <ProtectedRoute exact path="/assessment-answers/:id">
+            <AssessmentAnswers />
+          </ProtectedRoute> */}
+
+          {/* // Two components here - one for review & edit all, one for review & edit by bucket (what's shown following the assessment form)
+          // R&E All -- conditional rendering based only on assessment id, found by navigating from dashboard 'edit' button
+          // R&E Bucket -- conditional rendering based on assessment_id, bucket_id, found at the end of bucket in assessment form */}
           <ProtectedRoute exact path="/assessment-edit/:assessment_id">
             <AssessmentEdit />
           </ProtectedRoute>

@@ -9,7 +9,6 @@ function AllClientsDeleteModal({ client }) {
       type: "SAGA/DELETE_CLIENT_BY_ID",
       payload: client.id
     });
-    setTimeout(function(){window.location.reload();},100);
   };
 
   return (

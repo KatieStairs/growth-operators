@@ -79,21 +79,43 @@ function* updateAssessmentAnswersByID (action) {
             url: `/assessment/${action.payload.assessment_id}`,
             data: action.payload
         })
-    yield put({
-        type: 'SET_ASSESSMENT_ANSWERS_BY_ID',
-        payload: response.data
-    })
+        yield put({
+            type: 'SAGA/GET_ASSESSMENT_ANSWERS_BY_ID',
+            payload: response.data
+        })
     } catch (error) {
         console.log('Error in assessment.saga -> updateAssessmentAnswersByID: ', error)
     }
 }
 
-function* updateAssessmentStatusByID (action) {
+function* updateAllClientAssessmentStatusByID (action) {
+    console.log('SAGA Payload: ', action.payload);
     try {
         const response = yield axios({
             method: 'PUT',
             url:`/assessment/status/${action.payload.id}`,
             data: action.payload
+        })
+        yield put({
+            type: 'SAGA/GET_ALL_CLIENTS'
+          })
+    }
+    catch (error) {
+        console.log('Error in assessment.saga -> updateAssessmentStatusByID: ', error)
+    }
+}
+
+function* updateReviewAssessmentStatusByID (action) {
+    console.log('SAGA Payload: ', action.payload);
+    try {
+        const response = yield axios({
+            method: 'PUT',
+            url:`/assessment/status/${action.payload.id}`,
+            data: action.payload
+        })
+        yield put({
+            type: 'SAGA/GET_ASSESSMENT_ANSWERS_BY_ID',
+            payload: response.data
         })
     }
     catch (error) {
@@ -108,7 +130,8 @@ function* assessmentSaga() {
     yield takeEvery('SAGA/POST_ASSESSMENT_SLIDE_INPUTS', postAssessmentSlideInputsByID)
     yield takeEvery('SAGA/POST_HEADLINE_BY_ID', postBucketHeadlineByID);
     yield takeEvery('SAGA/UPDATE_ASSESSMENT_BY_ID', updateAssessmentAnswersByID);
-    yield takeEvery('SAGA/UPDATE_ASSESSMENT_STATUS_BY_ID', updateAssessmentStatusByID)
+    yield takeEvery('SAGA/UPDATE_R_ASSESSMENT_STATUS_BY_ID', updateReviewAssessmentStatusByID);
+    yield takeEvery('SAGA/UPDATE_AC_ASSESSMENT_STATUS_BY_ID', updateAllClientAssessmentStatusByID);
 }
 
 export default assessmentSaga;

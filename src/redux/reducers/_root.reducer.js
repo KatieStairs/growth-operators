@@ -13,9 +13,9 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   assessmentItems, // contains assessments by assessment_id, bucket headlines by assessment_id
   structure, // contains buckets, functions by bucket, subfunctions by function (as objects)
-  client, // contains all clients
+  client, //
   operatorDashboard, // contains operator dashboard 
-  clientOverview, // contains client overview data
+  clientOverview,// contains client overview data
   presentation
 });
 
