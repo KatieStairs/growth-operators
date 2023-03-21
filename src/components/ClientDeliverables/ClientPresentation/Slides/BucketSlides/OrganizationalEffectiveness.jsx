@@ -59,13 +59,7 @@ function OrganizationalEffectiveness () {
         <h3>Organizational Effectiveness</h3>
         {bucketData.headline_text}
         <div className="container">
-        <div className="row">
-        <div className="col-4">
-          {<Radar data={data} options={options}/>}
-        </div>
-        </div>
-        <div className="row">
-        <div className="col-8">
+        <div className="bucket-tables">
           <h4>Quick Fixes</h4>
           <table className="table table-hover table-striped">
             <thead>
@@ -93,9 +87,7 @@ function OrganizationalEffectiveness () {
               })}
             </tbody>
           </table>
-          </div>
-          <div className="row">
-          <>div className="col">
+
           <h4>Fire Drills</h4>
           <table className="table table-hover table-striped">
             <thead>
@@ -123,8 +115,9 @@ function OrganizationalEffectiveness () {
               })}
             </tbody>
           </table>
-          
-          </>
+        </div>
+        <div style={{ position: "relative", marginTop: 25, width: "30vw"}}>
+          {<Radar data={data} options={options}  marginLeft={256} width={10} height={10}/>}
         </div>
         </div>
       </section>
