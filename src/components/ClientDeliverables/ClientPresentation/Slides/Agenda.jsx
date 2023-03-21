@@ -17,16 +17,16 @@ function Agenda () {
 
       
       <ol>
-        <li>Objectives</li>
-        <li>Methodology Overview & Definitions</li>
+        <li>Objectives & Methodology Overview</li>
+        <li>Methodology Defintions: Key Functional Areas</li>
         <li>Highlights of Findings</li>
         {/* <ul>
           <li>Top Strengths</li>
           <li>Top Opportunities</li>
         </ul>
         <li>Findings by Topic</li> */}
-        <li>Key Initial Focus Areas & Recommendations</li>
-        <li>Next Steps</li>
+        <li>Key Focus Areas & Recommendations</li>
+        <li>Next Steps & Future State</li>
       </ol>
       </div>
       </div>

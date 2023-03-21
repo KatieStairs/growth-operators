@@ -42,7 +42,7 @@ const params = useParams();
       <div className="slides">
         <Intro />
         <Agenda />
-        <Objectives />
+        {/* <Objectives /> */}
         <ESMethodologyDef />
         <ESMethodologyStatic />
         <ExecutiveSummary />
@@ -53,7 +53,7 @@ const params = useParams();
         {/* <BenefitsCompensation /> */}
         {/* <RecruitingStaffing /> */}
         {/* <HRISPayrollCompliance /> */}
-        <FocusAreas />
+        {/* <FocusAreas /> */}
         <NextSteps />
         <ThankYou />
       </div>

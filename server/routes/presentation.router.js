@@ -20,6 +20,7 @@ router.get('/strengths/:id', (req, res) => {
     `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
+      console.log('Response: ', response.rows)
       res.send(response.rows);
     })
     .catch((error) => {
