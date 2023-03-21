@@ -6,9 +6,8 @@
 } */
 
 .bucket-chart {
-  position: absolute;
-  display: flex;
-  width: 40vw;
+  display: inline;
+  width: 35vw;
   justify-content: left;
 }
 
@@ -105,5 +104,4 @@ font-size: 25px;
 .chart-size {
   height: 128px;
   width: 128px;
->>>>>>> main
 }
