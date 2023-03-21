@@ -1,18 +1,23 @@
 import { useSelector } from 'react-redux';
 import Reveal from 'reveal.js';
 import Markdown from 'reveal.js/plugin/markdown/markdown.esm.js';
+import SlideHeader from './SlideHeader';
 
 function HighlightsOfFindings () {
   const strengths = useSelector(store => store.presentation.strengthTags)
   const opportunities = useSelector(store => store.presentation.opportunityTags)
+  const title = 'Highlights of Findings'
+  // I commented out the first section as it seems redundant
   return (
     <>
-      <section>
+      {/* <section>
+        <SlideHeader title={title} />
         <h1>Highlights of Findings</h1>
-      </section>
+      </section> */}
 
       <section>
-        <h2>Top Strengths</h2>
+        <SlideHeader title={title} />
+        <h3>Top Strengths</h3>
         <table>
           <thead>
           <tr>
@@ -37,7 +42,8 @@ function HighlightsOfFindings () {
       </section>
 
       <section>
-      <h2>Top Opportunities</h2>
+      <SlideHeader title={title} />
+      <h3>Top Opportunities</h3>
         <table>
           <thead>
           <tr>

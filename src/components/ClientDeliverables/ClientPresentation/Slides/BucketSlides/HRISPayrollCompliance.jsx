@@ -3,6 +3,7 @@ import Reveal from 'reveal.js';
 import Markdown from 'reveal.js/plugin/markdown/markdown.esm.js';
 import Chart from 'chart.js/auto';
 import { Radar } from 'react-chartjs-2';
+import SlideHeader from '../SlideHeader';
 
 function HRISPayrollCompliance () {
   const bucketData = useSelector(store => store.presentation.bucketData.bucket6)
@@ -61,7 +62,8 @@ function HRISPayrollCompliance () {
 
   return (
     <section>
-      <h3>HRIS, Payroll & Compliance</h3>
+      <SlideHeader title={'Payroll & Compliance'} />
+      {/* <h3>HRIS, Payroll & Compliance</h3> */}
       {bucketData.headline_text}
 
       {/* <h4>Quick Fixes</h4>

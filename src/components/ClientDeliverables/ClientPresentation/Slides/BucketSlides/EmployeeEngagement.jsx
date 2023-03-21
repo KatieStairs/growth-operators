@@ -3,6 +3,7 @@ import Reveal from 'reveal.js';
 import Markdown from 'reveal.js/plugin/markdown/markdown.esm.js';
 import Chart from 'chart.js/auto';
 import { Radar } from 'react-chartjs-2';
+import SlideHeader from '../SlideHeader';
 
 function EmployeeEngagement () {
   const bucketData = useSelector(store => store.presentation.bucketData.bucket2)
@@ -57,7 +58,8 @@ function EmployeeEngagement () {
 
   return (
     <section>
-      <h3>Employee Engagement</h3>
+      <SlideHeader title={'Employee Engagement'} />
+      {/* <h3>Employee Engagement</h3> */}
       {bucketData.headline_text}
 
       <h4>Quick Fixes</h4>

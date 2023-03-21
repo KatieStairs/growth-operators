@@ -3,6 +3,7 @@ import Reveal from 'reveal.js';
 import Markdown from 'reveal.js/plugin/markdown/markdown.esm.js';
 import Chart from 'chart.js/auto';
 import { Radar } from 'react-chartjs-2';
+import SlideHeader from '../SlideHeader';
 
 function OrganizationalEffectiveness () {
   const bucketData = useSelector(store => store.presentation.bucketData.bucket1)
@@ -52,11 +53,19 @@ function OrganizationalEffectiveness () {
   return (
     <>
       <section>
-        <h1>Findings by Topic</h1>
+        {/* <h1>Findings by Topic</h1> */}
+        <SlideHeader title={'Findings by Topic'} />
+        <h4>Organizational Effectiveness</h4>
+        <h4>Employee Engagement</h4>
+        <h4>Training & Development</h4>
+        <h4>Benefits & Compensation</h4>
+        <h4>Recruiting & Staffing</h4>
+        <h4>Payroll & Compliance</h4>
       </section>
 
       <section>
-        <h3>Organizational Effectiveness</h3>
+      <SlideHeader title={'Organizational Effectiveness'} />
+        {/* <h3>Organizational Effectiveness</h3> */}
         {bucketData.headline_text}
         <div className="container">
         <div className="bucket-tables">

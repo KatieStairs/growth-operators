@@ -1,11 +1,13 @@
 import { useSelector } from 'react-redux';
 import Reveal from 'reveal.js';
 import Markdown from 'reveal.js/plugin/markdown/markdown.esm.js';
+import SlideHeader from './SlideHeader';
 
 function FocusAreas () {
   const opportunities = useSelector(store => store.presentation.opportunityTags)
   return (
     <section>
+      <SlideHeader title={'Focus Areas'} />
       <table className="table table-hover table-striped">
         <thead>
         <tr>

@@ -3,6 +3,7 @@ import Reveal from 'reveal.js';
 import Markdown from 'reveal.js/plugin/markdown/markdown.esm.js';
 import Chart from 'chart.js/auto';
 import { Radar } from 'react-chartjs-2';
+import SlideHeader from '../SlideHeader';
 
 function BenefitsCompensation () {
   const bucketData = useSelector(store => store.presentation.bucketData.bucket4)
@@ -53,7 +54,8 @@ function BenefitsCompensation () {
 
   return (
     <section>
-      <h3>Benefits & Compensation</h3>
+      <SlideHeader title={'Benefits & Compensation'} />
+      {/* <h3>Benefits & Compensation</h3> */}
       {bucketData.headline_text}
 
       <h4>Quick Fixes</h4>
