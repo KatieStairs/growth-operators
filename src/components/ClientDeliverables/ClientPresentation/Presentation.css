@@ -21,10 +21,6 @@
 } */
 
 .bucket-tables {
-<<<<<<< HEAD
-  display: flex;
-  font-size: small;
-=======
   display: inline;
   width: 60vw;
   justify-content: right;
