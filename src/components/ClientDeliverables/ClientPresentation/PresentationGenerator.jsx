@@ -47,12 +47,12 @@ const params = useParams();
         <ESMethodologyStatic />
         <ExecutiveSummary />
         <HighlightsOfFindings />
-        <OrganizationalEffectiveness />
-        <EmployeeEngagement />
-        <TrainingDevelopment />
-        <BenefitsCompensation />
-        <RecruitingStaffing />
-        <HRISPayrollCompliance />
+        {/* <OrganizationalEffectiveness /> */}
+        {/* <EmployeeEngagement /> */}
+        {/* <TrainingDevelopment /> */}
+        {/* <BenefitsCompensation /> */}
+        {/* <RecruitingStaffing /> */}
+        {/* <HRISPayrollCompliance /> */}
         <FocusAreas />
         <NextSteps />
         <ThankYou />

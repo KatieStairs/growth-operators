@@ -20,7 +20,7 @@ router.get('/strengths/:id', (req, res) => {
     `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows[0]);
+      res.send(response.rows);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /strengths GET', error);
@@ -47,7 +47,7 @@ router.get('/opportunities/:id', (req, res) => {
     `;
   pool.query(queryText, [req.params.id])
     .then((response) => {
-      res.send(response.rows[0]);
+      res.send(response.rows);
     })
     .catch((error) => {
       console.error('Error completing presentation.router /opportunities GET', error);

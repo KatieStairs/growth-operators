@@ -55,26 +55,36 @@
   padding-left: 2rem;
 }
 
-.bucket-definitions, .static-methodology-content {
+.bucket-definitions, .static-methodology-content, .agenda-list, .objectives-list {
   font-family: Roboto, sans-serif!;
   padding-left: 2rem;
   padding-right: 2rem;
   text-align: left;
-  line-height: 1;
+  line-height: 1.3;
 }
 
 .bucket-definitions {
-  padding-top: 2rem;
+  padding-top: 1rem;
   font-size: 25px;
-  /* font-size: 25px; */
+}
+
+.agenda-list {
+  font-size: 30px;
 }
 
 .static-methodology-content {
-  padding-top: 1rem;
+  /* padding-top: 1rem; */
+}
+
+.objectives-list {
+  font-size: 25px;
+  padding-bottom: 2rem;
+  padding-top: 0.75rem;
 }
 
 .content-p {
-padding: 2rem;
+padding-left: 3rem;
+padding-right: 2rem;
 font-size: 25px;
 }
 
