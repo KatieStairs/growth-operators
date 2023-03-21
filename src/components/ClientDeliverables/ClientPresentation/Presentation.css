@@ -1,22 +1,14 @@
 @import 'reveal.js/dist/reveal.css';
 @import 'reveal.js/dist/theme/simple.css';
 
-/* * {
-  border: 1px solid red;
-} */
 
-.bucket-chart {
-  width: 35vw;
-  justify-content: left;
+.bucket-chart{
+  width: 29vw;
+  float: right;
 }
 
-.bucket-container {
-  display: flex;
-}
-
-.bucket-tables {
-  width: 60vw;
-  justify-content: right;
+.bucket-table {
+  font-size: medium;
 }
 
 .slide-header-logo {

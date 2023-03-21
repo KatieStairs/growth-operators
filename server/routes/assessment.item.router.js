@@ -71,6 +71,8 @@ router.get('/headlines/:id', rejectUnauthenticated, (req, res) => {
 
 /** ---------- POST ASSESSMENT ANSWERS BY ASSESSMENT ID ---------- **/
 router.post('/:id', rejectUnauthenticated, (req, res) => {
+    console.log('POST /assessment/:id Req.body: ', req.body)
+    console.log('POST /assessment/:id Req.params: ', req.params)
     const sqlQuery = `
         INSERT INTO "assessment_items"
             ("assessment_id", 
@@ -97,7 +99,7 @@ router.post('/:id', rejectUnauthenticated, (req, res) => {
         INSERT INTO "tags_assessment_items"
             ("assessment_item_id", "tag_id")
         VALUES
-            ($1, $2)`;
+            ($1, $2);`;
         const sqlTagValues = [newAssessmentItemID, req.body.tag_id]
         pool.query(sqlTagQuery, sqlTagValues)
         .then((results) => {
@@ -136,6 +138,7 @@ router.post('/slide/:id', rejectUnauthenticated, (req, res) => {
 // Confirm check for duplicates exists; this doesn't overwrite.
 /** ---------- POST HEADLINE --------- **/
 router.post('/headlines', rejectUnauthenticated, (req, res) => {
+    console.log('POST /assessment/headlines Req.body: ', req.body)
     const sqlQuery = `
         INSERT INTO "buckets_headlines"
             ("assessment_id", 
