@@ -32,6 +32,16 @@ function ClientOverview() {
   const params = useParams();
   const clientOverview = useSelector((store) => store.client.clientOverview || []);
 
+  const summaryRatings = useSelector((store) => store.presentation.summaryRatings);
+  const ratings = [
+    summaryRatings.organizational_effectiveness_rating,
+    summaryRatings.employee_engagement_rating,
+    summaryRatings.training_development_rating,
+    summaryRatings.benefits_compensation_rating,
+    summaryRatings.recruiting_staffing_rating,
+    summaryRatings.hris_payroll_compliance_rating
+  ];
+
   useEffect(() => {
     dispatch({
       type: 'SAGA/GET_CLIENT_OVERVIEW',
@@ -61,12 +71,12 @@ function ClientOverview() {
   }
 
   // Level rating average of each bucket
-  const orgEffLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "Organizational Effectiveness" );
-  const empEngLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "Employee Engagement" );
-  const trainingLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "Training & Development" );
-  const benefitsLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "Benefits & Compensation" );
-  const recruitingLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "Recruiting & Staffing" );
-  const hrisLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "HRIS, Payroll & Compliance" );
+  // const orgEffLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "Organizational Effectiveness" );
+  // const empEngLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "Employee Engagement" );
+  // const trainingLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "Training & Development" );
+  // const benefitsLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "Benefits & Compensation" );
+  // const recruitingLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "Recruiting & Staffing" );
+  // const hrisLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "HRIS, Payroll & Compliance" );
 
   // Chart data nd configuration  
   const chartData = {
@@ -74,7 +84,7 @@ function ClientOverview() {
     datasets: [
       {
         label: 'Assessment Overview Ratings',
-        data: [orgEffLevelRating, empEngLevelRating, trainingLevelRating, benefitsLevelRating, recruitingLevelRating, hrisLevelRating],
+        data: ratings,
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
         borderColor: 'rgba(255, 99, 132, 1)',
         borderWidth: 2,
@@ -124,10 +134,6 @@ function ClientOverview() {
   const hrisStrengths = findValueInBucket("subfunction_name", "bucket_name", "tag_name", "HRIS, Payroll & Compliance", "💪 Strength - Add to Slide");
   const hrisOpps = findValueInBucket("subfunction_name", "bucket_name", "tag_name", "HRIS, Payroll & Compliance", "✍️ Opportunity - Add to Slide");
   
-
-  console.log("rating:", trainingLevelRating);
-
-  console.log("client side overview", clientOverview);
 
 
 
@@ -215,7 +221,7 @@ function ClientOverview() {
                         <div class="row">
                           <div class="col">
                             <h2>Organizational Effectivness</h2>
-                            <h4>Level Rating: {orgEffLevelRating}</h4>
+                            <h4>Level Rating: {summaryRatings.organizational_effectiveness_rating}</h4>
                             <Radar data ={chartData} options={options} />
                           </div>
                           <div class="col">
@@ -240,7 +246,7 @@ function ClientOverview() {
                         <div class="row">
                           <div class="col">
                             <h2>Employee Engagement</h2>
-                            <h4>Level Rating: {empEngLevelRating}</h4>
+                            <h4>Level Rating: {summaryRatings.employee_engagement_rating}</h4>
                             <Radar data ={chartData} options={options} />
                           </div>
                           <div class="col">
@@ -265,7 +271,7 @@ function ClientOverview() {
                         <div class="row">
                           <div class="col">
                             <h2>Training & Development</h2>
-                            <h4>Level Rating: {trainingLevelRating}</h4>
+                            <h4>Level Rating: {summaryRatings.training_development_rating}</h4>
                             <Radar data ={chartData} options={options} />
                           </div>
                           <div class="col">
@@ -290,7 +296,7 @@ function ClientOverview() {
                         <div class="row">
                           <div class="col">
                             <h2>Benefits & Compensation</h2>
-                            <h4>Level Rating: {benefitsLevelRating}</h4>
+                            <h4>Level Rating: {summaryRatings.benefits_compensation_rating}</h4>
                             <Radar data ={chartData} options={options} />
                           </div>
                           <div class="col">
@@ -315,7 +321,7 @@ function ClientOverview() {
                         <div class="row">
                           <div class="col">
                             <h2>Recruiting & Staffing</h2>
-                            <h4>Level Rating: {recruitingLevelRating}</h4>
+                            <h4>Level Rating: {summaryRatings.recruiting_staffing_rating}</h4>
                             <Radar data ={chartData} options={options} />
                           </div>
                           <div class="col">
@@ -340,7 +346,7 @@ function ClientOverview() {
                         <div class="row">
                           <div class="col">
                             <h2>HRIS, Payroll & Compliance</h2>
-                            <h4>Level Rating: {hrisLevelRating}</h4>
+                            <h4>Level Rating: {summaryRatings.hris_payroll_compliance_rating}</h4>
                             <Radar data ={chartData} options={options} />
                           </div>
                           <div class="col">
