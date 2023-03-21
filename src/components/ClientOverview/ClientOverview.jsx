@@ -135,9 +135,9 @@ function ClientOverview() {
   return (
     <div className="container-fluid">
     <div className="row flex-nowrap">
-        <div className="col-1 py-3 ">
+        {/* <div className="col-1 py-3 ">
           <button data-bs-toggle="collapse" data-bs-target="#sidebar" class="btn btn-primary">Toggle Menu</button>
-        </div>
+        </div> */}
         <div className="col py-3">
           <div class="container-fluid text-center">
             <div class="row">
@@ -364,14 +364,17 @@ function ClientOverview() {
                 </div>
             </div>
             <div class="row justify-content-end">
-              <div class='col-2'>
+              <div class='col-1'>
                 <a class="btn btn-primary" href={clientOverview[0] && `#/assessment-edit/${clientOverview[0].assessment_id}`}>See Assessment</a>
               </div>
-              <div class='col-2'>
-                <a class="btn btn-primary" href={ clientOverview[0] && `#/client-report/${clientOverview[0].assessment_id}`}>Download Report</a>
+              <div class='col-1'>
+                <a class="btn btn-primary" href={clientOverview[0] && `#/client-report/${clientOverview[0].assessment_id}`}>See Report</a>
               </div>
-              <div class='col-2'>
+              <div class='col-1'>
                 <a class="btn btn-primary" href={clientOverview[0] && `#/presentation/${clientOverview[0].assessment_id}`}>See Presentation</a>
+              </div>
+              <div class='col-1'>
+                <a class="btn btn-secondary" href='#/dashboard'>Return to Dashboard</a>
               </div>
             </div>
         </div>  

@@ -27,8 +27,11 @@ function AssessmentEdit() {
   useEffect(() => {
     if (answers) {
       console.log('Answers: ', answers)
+      console.log('Params: ', params)
     }
   }, [answers]);
+
+
 
   // const addNewHeadline = (event) => {
   //   const newHeadline = {
