@@ -4,11 +4,11 @@ import { useParams } from "react-router-dom";
 import Reveal from 'reveal.js/dist/reveal.esm.js';
 
 import './Presentation.css';
-
 import Intro from './Slides/Intro';
 import Agenda from './Slides/Agenda';
 import Objectives from './Slides/Objectives';
-import BucketDefinitions from './Slides/BucketDefinitions';
+import ESMethodologyDef from './Slides/ESMethodologyDef';
+import ESMethodologyStatic from './Slides/ESMethodologyStatic';
 import HighlightsOfFindings from './Slides/HighlightsOfFindings';
 import ExecutiveSummary from "./Slides/ExecutiveSummary";
 import OrganizationalEffectiveness from "./Slides/BucketSlides/OrganizationalEffectiveness";
@@ -43,7 +43,8 @@ const params = useParams();
         <Intro />
         <Agenda />
         <Objectives />
-        <BucketDefinitions />
+        <ESMethodologyDef />
+        <ESMethodologyStatic />
         <ExecutiveSummary />
         <HighlightsOfFindings />
         <OrganizationalEffectiveness />

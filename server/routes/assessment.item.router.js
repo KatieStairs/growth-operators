@@ -163,12 +163,13 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
         "level_rating"=$1, 
         "findings"=$2, 
         "impact"=$3, 
-        "recommendations"=$4
-        WHERE "assessment_id"=$5 AND "subfunction_id"=$6
+        "recommendations"=$4,
+        "phase"=$5
+        WHERE "assessment_id"=$6 AND "subfunction_id"=$7
         RETURNING "id";
     `;
     const sqlValues = [req.body.level_rating, req.body.findings, 
-        req.body.impact, req.body.recommendations,
+        req.body.impact, req.body.recommendations, req.body.phase,
         req.params.id, req.body.subfunction_id 
     ];
     pool.query(sqlText, sqlValues)
@@ -178,12 +179,11 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
         UPDATE "tags_assessment_items"
         SET 
             "tag_id" = $2
-        WHERE "assessment_item_id" = $1;
-        `;
+        WHERE "assessment_item_id" = $1;`;
         const newSqlValues = [assessmentItemID, req.body.tags_id]
         pool.query(newSqlText, newSqlValues)
         .then((result) => {
-            res.sendStatus(200);
+            res.send(req.params.id);
         })
         .catch((error) => {
             console.log('Error in PUT /assessment/:id (tags): ', error)
@@ -205,7 +205,7 @@ router.put('/status/:id', rejectUnauthenticated, (req, res) => {
     const sqlValues = [req.body.status, req.params.id];
     pool.query(sqlQuery, sqlValues)
     .then((response) => {
-      res.sendStatus(201);
+      res.send(req.params.id);
     })
     .catch((error) => {
       console.error('Error in PUT /assessment/status/:id:', error);

@@ -79,19 +79,16 @@ router.get('/overview', (req, res) => {
   `SELECT 
   assessment_items.id, assessment_items.assessment_id, company_name, assessment_items.findings, assessment_items.impact, assessment_items.recommendations,  assessment_items.phase, assessment_items.level_rating, buckets.name AS bucket_name, tags.name AS tag_name, subfunctions.name AS subfunction_name
   FROM "client"
-  JOIN "client_assessments" 
-    ON "client"."id" = "client_assessments"."client_id"
-  JOIN "assessment_items" 
-    ON "client_assessments"."id" = "assessment_items"."assessment_id"
-  JOIN "buckets" 
-    ON "buckets"."id" = "assessment_items"."bucket_id"
-  JOIN "tags_assessment_items" 
+  JOIN "client_assessments" ON "client"."id" = "client_assessments"."client_id"
+  JOIN "assessment_items" ON "client_assessments"."id" = "assessment_items"."assessment_id"
+  JOIN "buckets" ON "buckets"."id" = "assessment_items"."bucket_id"
+   JOIN "tags_assessment_items" 
     ON "tags_assessment_items"."assessment_item_id" = "assessment_items"."id"
   JOIN "tags" 
     ON "tags"."id" = "tags_assessment_items"."tag_id"
-  JOIN "subfunctions" 
+ JOIN "subfunctions" 
     ON "subfunctions"."id" = "assessment_items"."subfunction_id"
-  WHERE "client"."id" = $1;`
+  WHERE "assessment_items"."assessment_id" = $1;`
 
   pool.query(sqlQuery, [clientId])
   .then((response) => {
@@ -105,13 +102,10 @@ router.get('/overview', (req, res) => {
 });
 
 /** ---------- POST NEW CLIENT ---------- **/
-// added rejectUnauthenticated, -adam
 // POST to create new client AND new client assessment AND user_client!
 router.post('/', rejectUnauthenticated, (req, res) => {
   const userId = req.user.id;
   const newCompany = req.body;
-  // console.log('in client router, newCompany:', newCompany);
-  // console.log('in client router, userID:', userId);
   const queryText = `
   INSERT INTO "client" 
   ("company_name", "contact_name", "contact_email")
@@ -175,26 +169,7 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
   });
 });
 
-/** ---------- PUT CLIENT STATUS (ARCHIVE) ---------- **/
-router.put('/:id/archive', rejectUnauthenticated, (req, res) => {
-  const sqlQuery = `
-  UPDATE "client_assessments"
-    SET "status" = $1
-    WHERE "client_id" = $2;`;
-  const sqlValues = ['Archived', req.params.id];
-  pool.query(sqlQuery, sqlValues)
-  .then((response) => {
-    res.sendStatus(201);
-  })
-  .catch((error) => {
-    console.error('Error in PUT /client/:id:', error);
-  });
-});
-
-
-
 /** ---------- DELETE CLIENT ---------- **/
-// added rejectUnauthenticated, -adam
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
   console.log('Req.body: ', req.body)
   console.log('Req.params: ', req.params)
@@ -202,7 +177,7 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
   DELETE FROM "client"
     WHERE "id" = $1
   `;
-  pool.query(sqlQuery, [req.body.id])
+  pool.query(sqlQuery, [req.params.id])
   .then((response) => {
     res.sendStatus(205);
   })

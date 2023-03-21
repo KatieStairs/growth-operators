@@ -2,6 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+/** ---------- GET ASSESSMENT STRENGTH TAGS BY ID ---------- **/
 router.get('/strengths/:id', (req, res) => {
   const queryText = `
   SELECT
@@ -27,6 +28,7 @@ router.get('/strengths/:id', (req, res) => {
     });
 });
 
+/** ---------- GET ASSESSMENT OPPORTUNITIES TAGS BY ID ---------- **/
 router.get('/opportunities/:id', (req, res) => {
   const queryText = `
   SELECT
@@ -53,6 +55,7 @@ router.get('/opportunities/:id', (req, res) => {
     });
 });
 
+/** ---------- GET ASSESSMENT SUMMARY RATINGS BY ID (FOR GRAPH) ---------- **/
 router.get('/summary-ratings/:id', (req, res) => {
   const queryText = `
   SELECT
@@ -75,6 +78,7 @@ router.get('/summary-ratings/:id', (req, res) => {
     });
 });
 
+/** ---------- GET BUCKET 1 ASSESSMENT DATA BY ID ---------- **/
 router.get('/bucket-1/data/:id', (req, res) => {
   const queryText = `
   SELECT
@@ -109,6 +113,7 @@ router.get('/bucket-1/data/:id', (req, res) => {
     });
 });
 
+/** ---------- GET BUCKET 2 ASSESSMENT DATA BY ID ---------- **/
 router.get('/bucket-2/data/:id', (req, res) => {
   const queryText = `
   SELECT
@@ -155,6 +160,7 @@ router.get('/bucket-2/data/:id', (req, res) => {
     });
 });
 
+/** ---------- GET BUCKET 3 ASSESSMENT DATA BY ID ---------- **/
 router.get('/bucket-3/data/:id', (req, res) => {
   const queryText = `
   SELECT
@@ -192,6 +198,7 @@ router.get('/bucket-3/data/:id', (req, res) => {
     });
 });
 
+/** ---------- GET BUCKET 4 ASSESSMENT DATA BY ID ---------- **/
 router.get('/bucket-4/data/:id', (req, res) => {
   const queryText = `
   SELECT
@@ -232,6 +239,7 @@ router.get('/bucket-4/data/:id', (req, res) => {
     });
 });
 
+/** ---------- GET BUCKET 5 ASSESSMENT DATA BY ID ---------- **/
 router.get('/bucket-5/data/:id', (req, res) => {
   const queryText = `
   SELECT
@@ -263,6 +271,7 @@ router.get('/bucket-5/data/:id', (req, res) => {
     });
 });
 
+/** ---------- GET BUCKET 6 ASSESSMENT DATA BY ID ---------- **/
 router.get('/bucket-6/data/:id', (req, res) => {
   const queryText = `
   SELECT
@@ -315,6 +324,7 @@ router.get('/bucket-6/data/:id', (req, res) => {
     });
 });
 
+/** ---------- GET BUCKET 1 ASSESSMENT TAGS BY ID ---------- **/
 router.get('/bucket-1/tags/:id', (req, res) => {
   const queryText = `
   SELECT
@@ -355,6 +365,7 @@ router.get('/bucket-1/tags/:id', (req, res) => {
     });
 });
 
+/** ---------- GET BUCKET 2 ASSESSMENT TAGS BY ID ---------- **/
 router.get('/bucket-2/tags/:id', (req, res) => {
   const queryText = `
   SELECT
@@ -395,6 +406,7 @@ router.get('/bucket-2/tags/:id', (req, res) => {
     });
 });
 
+/** ---------- GET BUCKET 3 ASSESSMENT TAGS BY ID ---------- **/
 router.get('/bucket-3/tags/:id', (req, res) => {
   const queryText = `
     SELECT
@@ -435,6 +447,7 @@ router.get('/bucket-3/tags/:id', (req, res) => {
     });
 });
 
+/** ---------- GET BUCKET 4 ASSESSMENT TAGS BY ID ---------- **/
 router.get('/bucket-4/tags/:id', (req, res) => {
   const queryText = `
   SELECT
@@ -475,6 +488,7 @@ router.get('/bucket-4/tags/:id', (req, res) => {
     });
 });
 
+/** ---------- GET BUCKET 5 ASSESSMENT TAGS BY ID ---------- **/
 router.get('/bucket-5/tags/:id', (req, res) => {
   const queryText = `
   SELECT
@@ -515,6 +529,7 @@ router.get('/bucket-5/tags/:id', (req, res) => {
     });
 });
 
+/** ---------- GET BUCKET 6 ASSESSMENT TAGS BY ID ---------- **/
 router.get('/bucket-6/tags/:id', (req, res) => {
   const queryText = `
   SELECT
@@ -554,26 +569,28 @@ router.get('/bucket-6/tags/:id', (req, res) => {
       res.sendStatus(500);
     });
 
-    router.get('/operator-inputs/:id', (req, res) => {
-      const queryText = `
-      SELECT
-        "client_assessments"."next_steps",
-        "client_assessments"."future_state",
-        "client"."company_name"
-        FROM "client_assessments"
-      JOIN "client"
-        ON "client_assessments"."client_id" = "client"."id"
-      WHERE "client_assessments"."id" = $1;
-        `;
-      pool.query(queryText, [req.params.id])
-        .then((response) => {
-          res.send(response.rows[0]);
-        })
-        .catch((error) => {
-          console.error('Error completing presentation.router /operator-inputs GET', error);
-          res.sendStatus(500);
-        });
-    });
+  // Is this supposed to be nested...?  
+  /** ---------- GET ASSESSMENT FINAL INPUTS BY ID ---------- **/
+  router.get('/operator-inputs/:id', (req, res) => {
+    const queryText = `
+    SELECT
+      "client_assessments"."next_steps",
+      "client_assessments"."future_state",
+      "client"."company_name"
+      FROM "client_assessments"
+    JOIN "client"
+      ON "client_assessments"."client_id" = "client"."id"
+    WHERE "client_assessments"."id" = $1;
+      `;
+    pool.query(queryText, [req.params.id])
+      .then((response) => {
+        res.send(response.rows[0]);
+      })
+      .catch((error) => {
+        console.error('Error completing presentation.router /operator-inputs GET', error);
+        res.sendStatus(500);
+      });
+  });
 });
 
   module.exports = router;
