@@ -17,6 +17,17 @@
 } */
 
 .bucket-tables {
+<<<<<<< HEAD
   display: flex;
   font-size: small;
+=======
+  display: inline;
+  width: 60vw;
+  justify-content: right;
+}
+
+.chart-size {
+  height: 128px;
+  width: 128px;
+>>>>>>> main
 }

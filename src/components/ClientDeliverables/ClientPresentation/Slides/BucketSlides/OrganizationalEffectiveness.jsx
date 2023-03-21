@@ -65,7 +65,7 @@ function OrganizationalEffectiveness () {
         </div>
         </div>
         <div className="row">
-        <div className="col">
+        <div className="col-8">
           <h4>Quick Fixes</h4>
           <table className="table table-hover table-striped">
             <thead>
@@ -95,7 +95,7 @@ function OrganizationalEffectiveness () {
           </table>
           </div>
           <div className="row">
-          <div className="col">
+          <>div className="col">
           <h4>Fire Drills</h4>
           <table className="table table-hover table-striped">
             <thead>
@@ -123,8 +123,8 @@ function OrganizationalEffectiveness () {
               })}
             </tbody>
           </table>
-          </div>
-          </div>
+          
+          </>
         </div>
         </div>
       </section>

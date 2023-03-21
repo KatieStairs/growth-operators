@@ -42,6 +42,7 @@ function EmployeeEngagement () {
   };
 
   const options = {
+    maintainAspectRatio: false,
     scales: {
       r: {
         angleLines: {
@@ -114,8 +115,9 @@ function EmployeeEngagement () {
             })}
           </tbody>
         </table>
-
-      {<Radar data={data} options={options}/>}
+        <div style={{ position: "relative", marginTop: 25, width: "30vw"}}>
+          {<Radar data={data} options={options}  marginLeft={256} width={10} height={10}/>}
+        </div>
     </section>
   )
 };
