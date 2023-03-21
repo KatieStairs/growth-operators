@@ -4,6 +4,7 @@ import Markdown from 'reveal.js/plugin/markdown/markdown.esm.js';
 import Chart from 'chart.js/auto';
 import { Radar } from 'react-chartjs-2';
 import '../Presentation.css';
+import SlideHeader from './SlideHeader';
 
 function ExecutiveSummary () {
   const summaryRatings = useSelector((store) => store.presentation.summaryRatings);
@@ -15,6 +16,7 @@ function ExecutiveSummary () {
     summaryRatings.recruiting_staffing_rating,
     summaryRatings.hris_payroll_compliance_rating
   ];
+  const title = 'Executive Summary';
 
   const data = {
     labels: [
@@ -50,13 +52,14 @@ function ExecutiveSummary () {
   };
 
   return (
-
+    <>
     <section className='bucket-chart'>
+    <SlideHeader title={title} />
       <div style={{ position: "relative", margin: "auto", width: "80vw"}}>
       <Radar data={data} options={options} width={50} height={50}/>
       </div>
     </section> 
-
+    </>
   )
 };
 

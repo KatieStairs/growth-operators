@@ -56,6 +56,7 @@ function* postAssessmentSlideInputsByID (action) {
 }
 
 function* postBucketHeadlineByID (action) {
+    console.log('SAGA Payload: ', action.payload);
     const newHeadline = action.payload;
     try {
         const response = yield axios({
