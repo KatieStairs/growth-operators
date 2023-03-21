@@ -16,9 +16,65 @@ function AssessmentPage ({functionsArray}) {
     recommendationsInput: '', phaseInput: null, tagsInput: []}
   ); 
 
+  const [tempInputOne, setTempInputOne] = useState(
+    {subfunction_id: null, level_rating: 0, findings: '', impact: '', 
+    recommendations: '', phase: null, tag_id: []} 
+  )
+
+  const [tempInputTwo, setTempInputTwo] = useState(
+    {subfunction_id: null, level_rating: null, findings: '', impact: '', 
+    recommendations: '', phase: null, tag_id: []} 
+  )
+
+  const [tempFormArray, setTempFormArray] = useState([]);
+
   useEffect(() => { // Forces page to start at the top 
     window.scrollTo(0, 0) // if removed, when user presses continue, next page loads already scrolled to bottom
   }, [pathname])
+
+  const presentationClick = (subfunction, event) => {
+      setTempInputOne({
+        assessment_id: Number(params.assessment_id),
+        bucket_id: Number(params.bucket_id),
+        function_id: Number(params.function_id),
+        subfunction_id: 1,
+        level_rating: 2,
+        findings: 'While the promise statement is communicated via several channels, including the district website and in key staff meetings at several points during the year, it is not "lived" by the staff.  One possible reason is staff turnover - makes it difficult to have continuity,  Also, vision and values have not been articulated at all.',
+        impact: '',
+        recommendations: 'Identify a mission (or "promise") that resonates; be purposeful about including it in various communications with various audiences. Also, identify 3-4 "values" that the staff should live by and helps guide behaviors and performance expectations at all levels and all roles.',
+        phase: 1,
+        tag_id: null
+      })
+
+      setTempInputTwo({
+        assessment_id: Number(params.assessment_id),
+        bucket_id: Number(params.bucket_id),
+        function_id: Number(params.function_id),
+        subfunction_id: 2,
+        level_rating: 0,
+        findings: 'Out of scope. See comments in 1.1.1 - need to be more purposeful',
+        impact: '',
+        recommendations: '',
+        phase: null,
+        tag_id: null
+      })
+
+      // let newFormObject = {
+      //   subfunctionID: allInputFields.subfunctionID,
+      //   levelRatingInput: allInputFields.levelRatingInput,
+      //   findingsInput: allInputFields.findingsInput,
+      //   impactsInput: allInputFields.impactsInput,
+      //   recommendationsInput: allInputFields.recommendationsInput,
+      //   phaseInput: allInputFields.phaseInput,
+      //   tagsInput: allInputFields.tagsInput,
+      // }; 
+
+      tempFormArray.push(tempInputOne);
+      tempFormArray.push(tempInputTwo);
+      // clearInputFields();
+    
+
+  }
 
   const handleInputChange = (subfunction, event) => { // handles page inputs, allInputFields, formArray
     if (allInputFields.subfunctionID === null) {     // if no info in allInputFields, sets allInputFields where a value exists.
@@ -188,6 +244,22 @@ function AssessmentPage ({functionsArray}) {
     saveAnswersToDatabase();
     updateAssessmentStatus();
   }
+
+  const handleTempContinue = () => {
+    console.log('Temp Input One: ', tempInputOne)
+    console.log('Temp Input Two: ', tempInputTwo)
+    console.log('Temp Form Array: ', tempFormArray)
+
+    dispatch({
+      type: 'SAGA/POST_ASSESSMENT_ANSWERS',
+      payload: tempInputOne
+    })
+
+    dispatch({
+      type: 'SAGA/POST_ASSESSMENT_ANSWERS',
+      payload: tempInputTwo
+    })
+  }
   
   const evalLocation = () => { // evaluates current url params, conditionally returns newRoute
     let newRoute = '';
@@ -238,7 +310,7 @@ function AssessmentPage ({functionsArray}) {
             {subfunctionsArray.map((subfunction) => {
               return (
                 <form key={subfunction.id} className="mb-5 ">
-                  <h4>{subfunction.name}</h4>
+                  <h4 onClick={(subfunction, event) => presentationClick(subfunction, event)}>{subfunction.name}</h4>
                   <div className="col-md-10 mb-3">
                     <h6>Level Rating</h6>
                     <ul>
@@ -255,6 +327,10 @@ function AssessmentPage ({functionsArray}) {
                       min="0" 
                       max="5" 
                       step="1" 
+                      value={ subfunction.id == 1 ? tempInputOne.level_rating
+                      : (subfunction.id == 2) ? tempInputTwo.level_rating
+                      : allInputFields.levelRatingInput
+                      }
                       onChange={(event) => handleInputChange(subfunction, event)}
                     />
                     <div id="level-rating-progress-bar" className="list-inline range-labels" >
@@ -274,6 +350,10 @@ function AssessmentPage ({functionsArray}) {
                       type="text" 
                       className="form-control" 
                       name="findingsInput"
+                      value={ subfunction.id == 1 ? tempInputOne.findings
+                        : (subfunction.id == 2) ? tempInputTwo.findings
+                        : allInputFields.findingsInput
+                        }
                       onChange={(event) => handleInputChange(subfunction, event)}
                     />
                   </div>
@@ -284,6 +364,10 @@ function AssessmentPage ({functionsArray}) {
                       type="text" 
                       className="form-control" 
                       name="impactsInput"
+                      value={ subfunction.id == 1 ? tempInputOne.impact
+                        : (subfunction.id == 2) ? tempInputTwo.impact
+                        : allInputFields.impactsInput
+                        }
                       onChange={(event) => handleInputChange(subfunction, event)} 
                     />
                   </div>
@@ -294,6 +378,10 @@ function AssessmentPage ({functionsArray}) {
                         type="text" 
                         className="form-control" 
                         name="recommendationsInput"
+                        value={ subfunction.id == 1 ? tempInputOne.recommendations
+                          : (subfunction.id == 2) ? tempInputTwo.recommendations
+                          : allInputFields.recommendationsInput
+                          }
                         onChange={(event) => handleInputChange(subfunction, event)}
                       />
                     </div>
@@ -304,6 +392,10 @@ function AssessmentPage ({functionsArray}) {
                         type="number" 
                         className="form-control" 
                         name="phaseInput"
+                        value={ subfunction.id == 1 ? tempInputOne.phase
+                          : (subfunction.id == 2) ? tempInputTwo.phase
+                          : allInputFields.phaseInput
+                          }
                         onChange={(event) => handleInputChange(subfunction, event)}
                       />
                     </div>
@@ -335,6 +427,9 @@ function AssessmentPage ({functionsArray}) {
                     </Link>
                     <Link to={evalLocation}>
                       <button className="btn btn-primary" onClick={() => handleContinue()}>Continue</button>
+                    </Link>
+                    <Link to={`/assessment-review/${params.assessment_id}/${params.bucket_id}`}>
+                      <button className="btn btn-link" type="submit" onClick={() => handleTempContinue()}>→</button>
                     </Link>
                   </div>
                   <div className="d-grid g-2 d-md-flex justify-content-md-end">
