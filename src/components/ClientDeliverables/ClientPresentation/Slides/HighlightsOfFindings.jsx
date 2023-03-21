@@ -33,7 +33,7 @@ function HighlightsOfFindings () {
                     </tr>
                   </thead>
                   <tbody>
-                    {[strengths].map((strength) => {
+                    {strengths.map((strength) => {
                       return (
                     <tr key={strength.subfunction_id}>
                       <td>{strength.bucket_name}</td>
@@ -69,7 +69,7 @@ function HighlightsOfFindings () {
                       </tr>
                     </thead>
                     <tbody>
-                    {[opportunities].map((opportunity) => {
+                    {opportunities.map((opportunity) => {
                       return (
                         <tr key={opportunity.subfunction_id}>
                           <td>{opportunity.bucket_name}</td>
