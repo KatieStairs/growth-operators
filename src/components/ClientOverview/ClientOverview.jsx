@@ -85,8 +85,10 @@ function ClientOverview() {
       {
         label: 'Assessment Overview Ratings',
         data: ratings,
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderColor: 'rgba(255, 99, 132, 1)',
+        // backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        // borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'rgba(101, 93, 198, 0.2)',
+        borderColor: '#001e61',
         borderWidth: 2,
       }
     ]
