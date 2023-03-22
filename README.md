@@ -4,9 +4,11 @@
 
 - [Description](#description)
 - [Built With](#built-with)
-- [Prerequisites](#prerequisite)
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Deployment](#usage)
+- [Known Issues](#known-issues)
     
 
 ## Description
@@ -18,25 +20,25 @@ This app, working title 'Growth Operators', is designed to assist Growth Operato
 - CSS3
 - HTML5
 - Javascript
-- (React)[https://reactjs.org/]
-- (React Redux)[https://redux.js.org/]
-- (Redux Saga)[https://redux-saga.js.org/]
-- (Node.js)[https://nodejs.org/en/]
-- (Reveal.js)[https://revealjs.com/]
-- (PostgresQL)[https://www.postgresql.org/]
-- (Bootstrap)[https://getbootstrap.com/]
-- (Figma)[https://www.figma.com/?fuid=]
+- [React](https://reactjs.org/)
+- [React Redux](https://redux.js.org/)
+- [Redux Saga](https://redux-saga.js.org/)
+- [Node.js](https://nodejs.org/en/)
+- [Reveal.js](https://revealjs.com/)
+- [PostgresQL](https://www.postgresql.org/)
+- [Bootstrap](https://getbootstrap.com/)
+- [Figma](https://www.figma.com/?fuid=)
 
 # Get Started
 
-### Prerequisites
+## Prerequisites
 Before you get started, make sure you have the following software installed on your computer:
 
 - [Node.js](https://nodejs.org/en/)
 - [PostgresQL](https://www.postgresql.org/)
 - [Nodemon](https://nodemon.io/)
 
-### Installation
+## Installation
 
 1. Fork the repository
 2. Copy the SSH key in your new repository
