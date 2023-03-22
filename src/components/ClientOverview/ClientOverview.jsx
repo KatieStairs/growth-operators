@@ -33,13 +33,15 @@ function ClientOverview() {
   // Level ratings for each bucket
   const summaryRatings = useSelector((store) => store.presentation.summaryRatings);
   const ratings = [
-    summaryRatings.organizational_effectiveness_rating,
-    summaryRatings.employee_engagement_rating,
-    summaryRatings.training_development_rating,
-    summaryRatings.benefits_compensation_rating,
-    summaryRatings.recruiting_staffing_rating,
-    summaryRatings.hris_payroll_compliance_rating
+    Number(summaryRatings.organizational_effectiveness_rating).toFixed(1),
+    Number(summaryRatings.employee_engagement_rating).toFixed(1),
+    Number(summaryRatings.training_development_rating).toFixed(1),
+    Number(summaryRatings.benefits_compensation_rating).toFixed(1),
+    Number(summaryRatings.recruiting_staffing_rating).toFixed(1),
+    Number(summaryRatings.hris_payroll_compliance_rating).toFixed(1)
   ];
+
+  console.log(Number(summaryRatings.organizational_effectiveness_rating).toFixed(1))
 
   // dispatch for client overview and chart data
   useEffect(() => {
@@ -188,7 +190,7 @@ function ClientOverview() {
                         <div class="row">
                           <div class="col">
                             <h2>Organizational Effectivness</h2>
-                            <h4>Level Rating: {summaryRatings.organizational_effectiveness_rating}</h4>
+                            <h4>Level Rating: {Number(summaryRatings.organizational_effectiveness_rating).toFixed(1)}</h4>
                             <Radar data ={chartData} options={options} />
                           </div>
                           <div class="col">
@@ -213,7 +215,7 @@ function ClientOverview() {
                         <div class="row">
                           <div class="col">
                             <h2>Employee Engagement</h2>
-                            <h4>Level Rating: {summaryRatings.employee_engagement_rating}</h4>
+                            <h4>Level Rating: {Number(summaryRatings.employee_engagement_rating).toFixed(1)}</h4>
                             <Radar data ={chartData} options={options} />
                           </div>
                           <div class="col">
@@ -238,7 +240,7 @@ function ClientOverview() {
                         <div class="row">
                           <div class="col">
                             <h2>Training & Development</h2>
-                            <h4>Level Rating: {summaryRatings.training_development_rating}</h4>
+                            <h4>Level Rating: {Number(summaryRatings.training_development_rating).toFixed(1)}</h4>
                             <Radar data ={chartData} options={options} />
                           </div>
                           <div class="col">
@@ -263,7 +265,7 @@ function ClientOverview() {
                         <div class="row">
                           <div class="col">
                             <h2>Benefits & Compensation</h2>
-                            <h4>Level Rating: {summaryRatings.benefits_compensation_rating}</h4>
+                            <h4>Level Rating: {Number(summaryRatings.benefits_compensation_rating).toFixed(1)}</h4>
                             <Radar data ={chartData} options={options} />
                           </div>
                           <div class="col">
@@ -288,7 +290,7 @@ function ClientOverview() {
                         <div class="row">
                           <div class="col">
                             <h2>Recruiting & Staffing</h2>
-                            <h4>Level Rating: {summaryRatings.recruiting_staffing_rating}</h4>
+                            <h4>Level Rating: {Number(summaryRatings.recruiting_staffing_rating).toFixed(1)}</h4>
                             <Radar data ={chartData} options={options} />
                           </div>
                           <div class="col">
@@ -313,7 +315,7 @@ function ClientOverview() {
                         <div class="row">
                           <div class="col">
                             <h2>HRIS, Payroll & Compliance</h2>
-                            <h4>Level Rating: {summaryRatings.hris_payroll_compliance_rating}</h4>
+                            <h4>Level Rating: {Number(summaryRatings.hris_payroll_compliance_rating).toFixed(1)}</h4>
                             <Radar data ={chartData} options={options} />
                           </div>
                           <div class="col">
