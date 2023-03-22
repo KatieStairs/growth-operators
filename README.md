@@ -25,6 +25,7 @@ This app, working title 'Growth Operators', is designed to assist Growth Operato
 - [Redux Saga](https://redux-saga.js.org/)
 - [Node.js](https://nodejs.org/en/)
 - [Reveal.js](https://revealjs.com/)
+- [Chart.js](https://www.chartjs.org/)
 - [PostgresQL](https://www.postgresql.org/)
 - [Bootstrap](https://getbootstrap.com/)
 - [Figma](https://www.figma.com/?fuid=)
