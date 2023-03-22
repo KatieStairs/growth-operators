@@ -1,8 +1,7 @@
 import React from 'react';
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {useSelector, useDispatch} from 'react-redux';
-import { useHistory, useParams } from "react-router-dom";
-import Nav from '../Nav/Nav';
+import { useParams } from "react-router-dom";
 // importing Chart.js
 import {
   Chart as ChartJS,
@@ -28,10 +27,10 @@ ChartJS.register(
 
 function ClientOverview() {
   const dispatch = useDispatch();
-  const history = useHistory();
   const params = useParams();
   const clientOverview = useSelector((store) => store.client.clientOverview || []);
 
+  // Level ratings for each bucket
   const summaryRatings = useSelector((store) => store.presentation.summaryRatings);
   const ratings = [
     summaryRatings.organizational_effectiveness_rating,
@@ -42,11 +41,17 @@ function ClientOverview() {
     summaryRatings.hris_payroll_compliance_rating
   ];
 
+  // dispatch for client overview and chart data
   useEffect(() => {
     dispatch({
       type: 'SAGA/GET_CLIENT_OVERVIEW',
       payload: { clientId: params.client_id }
     })
+
+    dispatch({
+      type: 'SAGA/GET_PRESENTATION_DATA',
+      payload: params.client_id
+    });
   }, [dispatch])
 
   // function to get level rating average for each bucket
@@ -70,23 +75,15 @@ function ClientOverview() {
   
   }
 
-  // Level rating average of each bucket
-  // const orgEffLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "Organizational Effectiveness" );
-  // const empEngLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "Employee Engagement" );
-  // const trainingLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "Training & Development" );
-  // const benefitsLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "Benefits & Compensation" );
-  // const recruitingLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "Recruiting & Staffing" );
-  // const hrisLevelRating = getLevelRatingAverage("level_rating", "bucket_name", "HRIS, Payroll & Compliance" );
+  
 
-  // Chart data nd configuration  
+  // Chart data and configuration  
   const chartData = {
     labels: ["Organizational Effectiveness", "Employee Engagement", "Training & Development", "Benefits & Compensation", "Recruiting & Staffing", "HRIS, Payroll & Compliance"],
     datasets: [
       {
         label: 'Assessment Overview Ratings',
         data: ratings,
-        // backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        // borderColor: 'rgba(255, 99, 132, 1)',
         backgroundColor: 'rgba(101, 93, 198, 0.2)',
         borderColor: '#001e61',
         borderWidth: 2,
@@ -106,6 +103,7 @@ function ClientOverview() {
     }
   };
 
+  // function to find strengths and opportunities for each bucket
   function findValueInBucket (search, criteria1, criteria2, value1, value2){
     const findings = [];
 
@@ -143,9 +141,6 @@ function ClientOverview() {
   return (
     <div className="container-fluid">
     <div className="row flex-nowrap">
-        {/* <div className="col-1 py-3 ">
-          <button data-bs-toggle="collapse" data-bs-target="#sidebar" class="btn btn-primary">Toggle Menu</button>
-        </div> */}
         <div className="col py-3">
           <div class="container-fluid text-center">
             <div class="row">
@@ -157,9 +152,6 @@ function ClientOverview() {
               <div class="col-2 background-dark">
                 <ul class="nav nav-tabs align-items-center flex-column">
                   <li><a class="nav-link active" data-bs-toggle="tab" data-bs-target="#overview">Overview</a></li>
-                  {/* {clientOverview.map((bucket) => (
-                      <li key={bucket.id}><a class="nav-link" data-bs-toggle="tab" data-bs-target={`#menu${bucket.id.toString()}`}>{bucket.bucket_name}</a></li>  
-                  ))} */}
                   <li><a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu2">Organizational Effectiveness</a></li>
                   <li><a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu3">Employee Engagement</a></li>
                   <li><a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu4">Training & Development</a></li>
@@ -192,33 +184,6 @@ function ClientOverview() {
                       </div>
                     </div>
                   </div>
-                  {/* {clientOverview.map((bucket) => (
-                     <div id={`menu${bucket.id.toString()}`} class="tab-pane container-fluid text-center">
-                        <div class="row">
-                          <div class="col">
-                            <h2>{bucket.bucket_name}</h2>
-                            <h4>Level Rating: {bucket.level_rating}</h4>
-                            <Radar data ={chartData}/>
-                          </div>
-                          <div class="col">
-                            <h3>Strengths</h3>
-                            <ul class="list-group">
-                              {bucket.tag_name === '💪 Strength - Add to Slide' &&
-                                <li class="list-group-item">{bucket.subfunction_name}</li>
-                              }
-                            </ul>          
-                          </div>
-                          <div class="col">
-                            <h3>Opportunities</h3>
-                            <ul class="list-group">
-                            {bucket.tag_name === '✍️ Opportunity - Add to Slide' &&
-                              <li class="list-group-item">{bucket.subfunction_name}</li>
-                            }
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                  ))} */}
                     <div id="menu2" class="tab-pane container-fluid text-center">
                         <div class="row">
                           <div class="col">
