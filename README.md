@@ -27,6 +27,8 @@ This app, working title 'Growth Operators', is designed to assist Growth Operato
 - (Bootstrap)[https://getbootstrap.com/]
 - (Figma)[https://www.figma.com/?fuid=]
 
+# Get Started
+
 ### Prerequisites
 Before you get started, make sure you have the following software installed on your computer:
 
@@ -72,3 +74,21 @@ If you'd like to create new users (also a hacky way to change password) you must
 5. Comment out the route back in VSCode
 6. Push changes
 7. Redeploy
+
+# Known Issues
+
+**Assessment Form:**
+- Number labels on progress bar, ratings scale do not line up exactly
+- Need some conditional functionality for un-selecting radio button tags
+
+**See Report:**
+- Nonfunctional. Appears to have been hardcoded and never adjusted.
+
+**See Overview:**
+- Bucket tabs lack icons, additional styling needed.
+- No 'bucket' graphs on each tab; only showing Overview graph, which takes in ratings from all buckets.
+
+**See Presentation:**
+- Additional styling needed.
+- Several slide components commented out due to semi-functionality and lack of styling.
+- Agenda items 1 & 2 are swapped.
