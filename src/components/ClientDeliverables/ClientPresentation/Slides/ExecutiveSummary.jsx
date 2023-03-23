@@ -38,7 +38,7 @@ function ExecutiveSummary () {
         borderWidth: 2,
       },
     ],
-  };
+  }; // Contains the data for the chart
 
   const options = {
     maintainAspectRatio: false,
@@ -51,7 +51,7 @@ function ExecutiveSummary () {
         suggestedMax: 5
       }
     }
-  };
+  };  // Contains the config options for the chart
 
   return (
     <>

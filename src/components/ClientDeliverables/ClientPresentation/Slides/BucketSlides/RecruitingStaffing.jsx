@@ -30,7 +30,7 @@ function RecruitingStaffing () {
         borderWidth: 2,
       },
     ],
-  };
+  }; // Contains the data for the chart
 
   const options = {
     maintainAspectRatio: false,
@@ -43,7 +43,7 @@ function RecruitingStaffing () {
         suggestedMax: 5
       }
     }
-  };
+  }; // Contains the options for the chart
 
 
   return (
@@ -79,7 +79,7 @@ function RecruitingStaffing () {
                       </tr>
                     )
                   } else {return}
-                })}
+                })} {/*Creates a table of the quick win tags for this bucket*/}
               </tbody>
             </table>
             </div>
@@ -117,7 +117,7 @@ function RecruitingStaffing () {
                         </tr>
                       )
                     }
-                  })}
+                  })} {/*Creates a table of the fire drill tags for this bucket*/}
                 </tbody>
               </table>
             </div>

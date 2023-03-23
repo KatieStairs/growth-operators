@@ -8,7 +8,7 @@ const strengthTags = (state = [], action) => {
   default:
     return state;
   };
-};
+}; // Stores the assessment items with strength tags
 
 const opportunityTags = (state = [], action) => {
   switch (action.type) {
@@ -17,7 +17,7 @@ const opportunityTags = (state = [], action) => {
   default:
     return state;
   };
-};
+}; // Stores the assessment items with opportunity tags
 
 const summaryRatings = (state = [], action) => {
   switch (action.type) {
@@ -26,7 +26,7 @@ const summaryRatings = (state = [], action) => {
   default:
     return state;
   };
-};
+}; // Stores the average level ratings by bucket for the Executive Summary slide
 
 const bucketData = (state = {
   bucket1: [],
@@ -52,7 +52,7 @@ const bucketData = (state = {
   default:
     return state;
   };
-};
+}; // Stores the average level ratings by function, sorted by bucket 
 
 const bucketTags = (state = {
   bucket1: [],
@@ -78,7 +78,7 @@ const bucketTags = (state = {
   default:
     return state;
   };
-};
+}; // Stores the assessment items with Quick Win/Fire Drill tags, sorted by bucket
 
 const operatorInputs = (state = [], action) => {
   switch (action.type) {
@@ -87,7 +87,7 @@ const operatorInputs = (state = [], action) => {
   default:
     return state;
   };
-};
+}; // Stores the operator inputs for the Next Steps and Future Is Bright slides
 
 export default combineReducers({
   strengthTags,

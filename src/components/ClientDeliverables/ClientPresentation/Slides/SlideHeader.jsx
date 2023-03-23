@@ -1,4 +1,4 @@
-
+// Header for slides with the logo and a title
 
 function SlideHeader ({title}) {
   return (

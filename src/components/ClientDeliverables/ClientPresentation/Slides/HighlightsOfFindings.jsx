@@ -41,7 +41,7 @@ function HighlightsOfFindings () {
                       <td>{strength.findings}</td>
                       <td>{strength.impact}</td>
                     </tr>
-                    )})}
+                    )})} {/*Creates a table of the assessment items with strength tags*/}
                   </tbody>
                 </table>
                 </div>
@@ -77,7 +77,7 @@ function HighlightsOfFindings () {
                           <td>{opportunity.findings}</td>
                           <td>{opportunity.impact}</td>
                         </tr>
-                    )})}
+                    )})} {/*Creates a table of the assessment items with opportunity tags*/}
                     </tbody>
                   </table>
                 </div>

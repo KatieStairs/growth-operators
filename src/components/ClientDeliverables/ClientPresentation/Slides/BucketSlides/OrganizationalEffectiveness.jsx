@@ -32,7 +32,7 @@ function OrganizationalEffectiveness () {
         borderWidth: 2,
       },
     ],
-  };
+  }; // Contains the data for the chart
 
   const options = {
     maintainAspectRatio: false,
@@ -45,7 +45,7 @@ function OrganizationalEffectiveness () {
         suggestedMax: 5
       }
     }
-  };
+  }; // Contains the options for the chart
   
   return (
     <>
@@ -92,7 +92,7 @@ function OrganizationalEffectiveness () {
                           </tr>
                         )
                       } else {return}
-                    })}
+                    })} {/*Creates a table of the quick win tags for this bucket*/}
                   </tbody>
                 </table>
                 </div>
@@ -130,7 +130,7 @@ function OrganizationalEffectiveness () {
                             </tr>
                           )
                         }
-                      })}
+                      })} {/*Creates a table of the fire drill tags for this bucket*/}
                     </tbody>
                   </table>
                 </div>
