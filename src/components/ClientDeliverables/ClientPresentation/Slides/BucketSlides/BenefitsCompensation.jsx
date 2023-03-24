@@ -36,7 +36,7 @@ function BenefitsCompensation () {
         borderWidth: 2,
       },
     ],
-  };
+  }; // Contains the data for the chart
 
   const options = {
     maintainAspectRatio: false,
@@ -49,7 +49,7 @@ function BenefitsCompensation () {
         suggestedMax: 5
       }
     }
-  };
+  }; // Contains the options for the chart
 
 
   return (
@@ -85,7 +85,7 @@ function BenefitsCompensation () {
                       </tr>
                     )
                   } else {return}
-                })}
+                })} {/*Creates a table of the quick win tags for this bucket*/}
               </tbody>
             </table>
             </div>
@@ -123,7 +123,7 @@ function BenefitsCompensation () {
                         </tr>
                       )
                     }
-                  })}
+                  })} {/*Creates a table of the fire drill tags for this bucket*/}
                 </tbody>
               </table>
             </div>

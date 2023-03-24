@@ -34,7 +34,7 @@ function FocusAreas () {
                           <td>{opportunity.recommendations}</td>
                         </tr>
                       )
-                    })}
+                    })} {/*Creates a table of the assessment items with opportunity tags*/}
                   </tbody>
                 </table>
               </div>

@@ -33,7 +33,7 @@ const params = useParams();
     let deck = new Reveal({
       disableLayout: true,
     })
-    deck.initialize();
+    deck.initialize(); // creates the charts to be displayed on the slides
   }, []);
 
 

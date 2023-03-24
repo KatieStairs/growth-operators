@@ -2,12 +2,15 @@
 
 ## Table of Contents
 
-- [Description](#description)
-- [Built With](#built-with)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Deployment](#usage)
+- [Growth Operators](#growth-operators)
+  - [Table of Contents](#table-of-contents)
+  - [Description](#description)
+  - [Built With](#built-with)
+- [Get Started](#get-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Deployment](#deployment)
 - [Known Issues](#known-issues)
     
 
@@ -90,8 +93,10 @@ If you'd like to create new users (also a hacky way to change password) you must
 **See Overview:**
 - Bucket tabs lack icons, additional styling needed.
 - No 'bucket' graphs on each tab; only showing Overview graph, which takes in ratings from all buckets.
+- The Strength/Opportunity and Quick Fix/Fire Drill tags are swapped/incorrectly placed, compared to the assessment and presentation
 
 **See Presentation:**
 - Additional styling needed.
 - Several slide components commented out due to semi-functionality and lack of styling.
 - Agenda items 1 & 2 are swapped.
+- The data for the charts on the 6 bucket slides are not getting the data properly.
